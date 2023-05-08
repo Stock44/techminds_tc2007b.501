@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            Text("test").font(.custom("Comfortaa-Medium", size: 64))
-            MainMenuView()
+            LogIn(correo: "", contraseña: "", login: true)
+
         }.navigationViewStyle(.stack)
             .font(Font.custom("Comfortaa-Medium", size: 18)).onAppear {
         for family: String in UIFont.familyNames
