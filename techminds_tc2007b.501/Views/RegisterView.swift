@@ -20,7 +20,7 @@ struct RegisterView: View {
     var body: some View {
         GeometryReader { geo in
         
-            // Botón de regreso
+            //Botón de regreso.
             Button(action: {
                 // Acción de regreso
             }, label: {
