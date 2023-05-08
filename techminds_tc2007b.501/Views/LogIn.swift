@@ -23,31 +23,34 @@ struct LogIn: View {
                     VStack(alignment: .leading,spacing: geo.size.height/30) {
                         Group{
                             Text("¡Hola!")
-                                .font(.largeTitle)
+                                .font(.custom("Comfortaa", size: 72))
                             
                             Text("Inicia sesión para continuar")
-                                .font(.title2)
+                                .font(.custom("Comfortaa", size: 24))
                         }
+                        
                         Group{
                             Text("Correo electrónico")
+                                .font(.custom("Comfortaa", size: 16))
                             
                             TextField(text: $correo) {
                                     Text("Ingresa tu correo electrónico")
+                                    .font(.custom("Raleway", size: 18))
                                 }
                             .frame(width: geo.size.width/3, height: geo.size.height/18)
-                            .overlay{RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.gray)
-                            }
+                            .offset(x: 20)
+                            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                             
                             Text("Contraseña")
+                                .font(.custom("Comfortaa", size: 16))
                             
                             TextField(text: $contraseña) {
                                     Text("Ingresa tu contraseña")
+                                    .font(.custom("Raleway", size: 18))
                                 }
                             .frame(width: geo.size.width/3, height: geo.size.height/18)
-                            .overlay{RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.gray)
-                            }
+                            .offset(x: 20)
+                            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                                 
                             Button {
                                 if login == true {
@@ -63,6 +66,7 @@ struct LogIn: View {
                                         .cornerRadius(16)
                                     
                                     Text("Iniciar sesión")
+                                        .font(.custom("Comfortaa", size: 18))
                                         .foregroundColor(.white)
                                 }
                             }
@@ -76,6 +80,7 @@ struct LogIn: View {
                                 }
                             } label: {
                                 Text("Olvidé mi contraseña")
+                                    .font(.custom("Comfortaa", size: 18))
                                     .foregroundColor(Color("secondary"))
                             }
                             
@@ -87,6 +92,7 @@ struct LogIn: View {
                                 }
                             } label: {
                                 Text("Crear una cuenta")
+                                    .font(.custom("Comfortaa", size: 18))
                                     .foregroundColor(Color("secondary"))
                             }
                         }
