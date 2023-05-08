@@ -51,26 +51,10 @@ struct LogIn: View {
                             .frame(width: geo.size.width/3, height: geo.size.height/18)
                             .offset(x: 20)
                             .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                                
-                            Button {
-                                if login == true {
-                                    login = false
-                                } else {
-                                    login = true
-                                }
-                            } label: {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color("primary"))
-                                        .frame(width: geo.size.width/3, height: geo.size.height/18)
-                                        .cornerRadius(16)
-                                    
-                                    Text("Iniciar sesión")
-                                        .font(.custom("Comfortaa", size: 18))
-                                        .foregroundColor(.white)
-                                }
-                            }
+                              
+                            //ButtonView({}, buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
                         }
+                        
                         Group{
                             Button {
                                 if login == true {
