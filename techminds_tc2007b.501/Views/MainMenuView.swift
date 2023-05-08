@@ -9,7 +9,18 @@ import SwiftUI
 
 struct MainMenuView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            VStack{
+                Image("menucard")
+                Text("Tarjetas")
+            }.background(Color("accent2 lighter"))
+                .cornerRadius(16)
+                
+            VStack {
+                Text("Colecciones")
+            }.background(Color("secondary lighter"))
+                .cornerRadius(16)
+        }.navigationTitle("Menú principal")
     }
 }
 
