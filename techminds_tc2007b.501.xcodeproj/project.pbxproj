@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< Updated upstream
 		FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD340692A0968EF00977A4B /* MainMenuView.swift */; };
 		FBDD5E2D2A05AE7D00642744 /* techminds_tc2007b_501App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDD5E2C2A05AE7D00642744 /* techminds_tc2007b_501App.swift */; };
 		FBDD5E2F2A05AE7D00642744 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDD5E2E2A05AE7D00642744 /* ContentView.swift */; };
