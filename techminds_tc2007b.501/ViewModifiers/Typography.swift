@@ -13,6 +13,10 @@ enum Typography {
 }
 
 extension View {
+    func styledNavBarTitle(title: Text) -> some View {
+        modifier(StyledNavBarTitle(title: title))
+    }
+    
     func typography(_ style: Typography) -> some View {
         switch (style) {
         case .largeTitle:
@@ -23,3 +27,16 @@ extension View {
     }
 }
 
+struct StyledNavBarTitle: ViewModifier {
+    var title: Text
+    
+    init(title: Text) {
+        self.title = title
+        
+        
+    }
+    
+    func body(content: Content) -> some View {
+        content.navigationBarTitle(title)
+    }
+}

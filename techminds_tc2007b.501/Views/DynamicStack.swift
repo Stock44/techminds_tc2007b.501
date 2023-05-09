@@ -7,10 +7,23 @@
 
 import SwiftUI
 
-struct DyanmicStack<Content>: View where Content: View {
+struct DynamicStack<Content>: View where Content: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     let content: Content
+    let spacing: CGFloat
+    
+    init (spacing: CGFloat = 0, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self.spacing = spacing
+    }
     
     var body: some View {
-        Text("")
+        GeometryReader { proxy in
+            if proxy.size.width < proxy.size.height {
+                VStack(spacing: self.spacing) { content }
+            } else {
+                HStack(spacing: self.spacing) { content }
+            }
+        }
     }
 }
