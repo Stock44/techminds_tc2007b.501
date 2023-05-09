@@ -10,5 +10,7 @@ import SwiftUI
 struct DyanmicStack<Content>: View where Content: View {
     let content: Content
     
-    
+    var body: some View {
+        Text("")
+    }
 }
