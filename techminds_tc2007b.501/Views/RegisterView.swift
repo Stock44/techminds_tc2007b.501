@@ -103,6 +103,13 @@ struct RegisterView: View {
                             .frame(width: 800, height: 40)
                             .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                             .padding(.bottom, 24)
+                        
+                        if !contrasena.isEmpty && contrasena != valcontrasena { //VALIDACION DE CONTRASEÑA
+                            Text("Las contraseñas no coinciden")
+                                .font(.custom("Raleway", size: 14))
+                                .foregroundColor(.red)
+                                .padding(.bottom,8)
+                        }
                     }
                         
                         // Botón de registro
