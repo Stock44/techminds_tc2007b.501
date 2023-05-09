@@ -11,14 +11,20 @@ struct MainMenuView: View {
     var body: some View {
         HStack {
             VStack{
-                Image(systemName:"menucard").resizable().aspectRatio(contentMode: .fit).foregroundColor(Color("accent2 darker")).padding(.all)
+                Image("carousel-horizontal")
+                    .resizable()
                 Text("Tarjetas")
+                    .typography(.largeTitle)
             }.background(Color("accent2 lighter"))
                 .cornerRadius(16)
             VStack {
-                Image(systemName: "rectangle.3.group").resizable().aspectRatio(contentMode: .fit).foregroundColor(Color("secondary darker"))
+                Image("system-group")
+                    .resizable()
                 Text("Colecciones")
-            }.background(Color("secondary lighter"))
+                    .typography(.largeTitle)
+            }
+            .foregroundColor(Color("secondary darker"))
+            .background(Color("secondary lighter"))
                 .cornerRadius(16)
         }.navigationTitle("Menú principal")
     }

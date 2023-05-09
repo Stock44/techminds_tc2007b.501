@@ -10,19 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            LogIn(correo: "", contraseña: "", login: true)
-
+            MainMenuView()
         }.navigationViewStyle(.stack)
-            .font(Font.custom("Comfortaa-Medium", size: 18)).onAppear {
-        for family: String in UIFont.familyNames
-        {
-            print(family)
-            for names: String in UIFont.fontNames(forFamilyName: family)
-            {
-                print("== \(names)")
-            }
-        }
-            }
     }
 }
 

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FB1088B52A09ACE700B914C2 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1088B42A09ACE700B914C2 /* RegisterView.swift */; };
+		FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */; };
+		FB4EEFB32A0AC8A30022EBC5 /* DynamicStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */; };
 		FBB443512A097634000E48F2 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443502A097634000E48F2 /* LogIn.swift */; };
 		FBB443532A09A3DA000E48F2 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443522A09A3DA000E48F2 /* ButtonView.swift */; };
 		FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD340692A0968EF00977A4B /* MainMenuView.swift */; };
@@ -62,6 +64,8 @@
 
 /* Begin PBXFileReference section */
 		FB1088B42A09ACE700B914C2 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicStack.swift; sourceTree = "<group>"; };
 		FBB443502A097634000E48F2 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		FBB443522A09A3DA000E48F2 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		FBD340692A0968EF00977A4B /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
@@ -125,6 +129,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB4EEFAE2A0AC3B20022EBC5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FB4EEFAF2A0AC4130022EBC5 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		FBD3406C2A098B7D00977A4B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +197,8 @@
 		FBDD5E2B2A05AE7D00642744 /* techminds_tc2007b.501 */ = {
 			isa = PBXGroup;
 			children = (
+				FB4EEFAF2A0AC4130022EBC5 /* ViewModifiers */,
+				FB4EEFAE2A0AC3B20022EBC5 /* Models */,
 				FBD3406C2A098B7D00977A4B /* Fonts */,
 				FBDD5E5D2A09687D00642744 /* Views */,
 				FBDD5E2C2A05AE7D00642744 /* techminds_tc2007b_501App.swift */,
@@ -220,6 +241,7 @@
 				FBB443502A097634000E48F2 /* LogIn.swift */,
 				FBB443522A09A3DA000E48F2 /* ButtonView.swift */,
 				FB1088B42A09ACE700B914C2 /* RegisterView.swift */,
+				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -377,6 +399,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB4EEFB32A0AC8A30022EBC5 /* DynamicStack.swift in Sources */,
+				FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */,
 				FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */,
 				FBDD5E2F2A05AE7D00642744 /* ContentView.swift in Sources */,
 				FBB443532A09A3DA000E48F2 /* ButtonView.swift in Sources */,
