@@ -10,7 +10,7 @@ import SwiftUI
 struct LogIn: View {
     @State var correo:String
     @State var contraseña:String
-    @State var login:Bool
+    @State var login:Bool = true
     
     var body: some View {
         GeometryReader { geo in
@@ -52,7 +52,25 @@ struct LogIn: View {
                             .offset(x: 20)
                             .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                               
-                            //ButtonView({}, buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
+                            //En lo que mejorarmos el ButtonView
+                            Button {
+                                login = false
+                            } label: {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color("primary"))
+                                        .frame(width: geo.size.width/3, height: geo.size.height/18)
+                                        .cornerRadius(16)
+                                    
+                                    Text("Iniciar sesión")
+                                        .font(.custom("Conmfortaa", size: 18))
+                                        .foregroundColor(.white)
+                                }
+                            }
+
+                            
+                            //ButtonView({login = false}, buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
+
                         }
                         
                         Group{
