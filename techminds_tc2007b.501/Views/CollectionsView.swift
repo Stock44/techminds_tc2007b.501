@@ -11,132 +11,25 @@ struct CollectionsView: View {
     var body: some View {
             Grid {
                 GridRow {
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("accent1 lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("accent1 darker"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "accent1 lighter", collectionTitle: "Lorem ipsum", titleColor: "accent1 darker")
                     
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("primary lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("primary darker"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "primary lighter", collectionTitle: "Lorem ipsum", titleColor: "primary darker")
                     
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("secondary lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("secondary lighter"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "secondary lighter", collectionTitle: "Lorem ipsum", titleColor: "secondary darker")
                 }
                 GridRow {
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("accent2 lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("accent2 darker"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "accent2 lighter", collectionTitle: "Lorem ipsum", titleColor: "accent2 darker")
                     
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("secondary lighte"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("secondary lighte"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "secondary lighter", collectionTitle: "Lorem ipsum", titleColor: "secondary darker")
                     
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("accent2 lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("accent2 darker"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "accent2 lighter", collectionTitle: "Lorem ipsum", titleColor: "accent2 darker")
                 }
                 GridRow {
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("primary lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("primary darker"))
-                        }
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "primary lighter", collectionTitle: "Lorem ipsum", titleColor: "primary darker")
                     
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("accent1 lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("accent1 darker"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "accent1 lighter", collectionTitle: "Lorem ipsum", titleColor: "accent1 darker")
                     
-                    Button {
-                        ""
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 350, height: 230)
-                                .foregroundColor(Color("accent2 lighter"))
-                            Text("Lorem ipsum")
-                                .font(.custom("Comfortaa", size: 36))
-                                .foregroundColor(Color("accent2 darker"))
-                        }
-                            
-                    }
+                    CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "accent2 lighter", collectionTitle: "Lorem ipsum", titleColor: "accent2 darker")
                 }
             }.navigationTitle("Colecciones")
     }

@@ -69,7 +69,7 @@ struct LogIn: View {
                             }
 
                             
-                            //ButtonView({login = false}, buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
+                            //ButtonView(action: "", buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
 
                         }
                         

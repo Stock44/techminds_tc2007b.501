@@ -23,8 +23,21 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-         CollectionsView()
-        }.navigationViewStyle(.stack)
+         CardsView()
+        }
+        .navigationViewStyle(.stack)
+        .toolbar {
+            Button("< Regresar") {
+                print("Regresar")
+            }
+            Button {
+                print("Configuraciones")
+            } label: {
+                Image(systemName: "pencil.line")
+                    .foregroundColor(Color("primary"))
+            }
+
+        }
     }
 }
 
