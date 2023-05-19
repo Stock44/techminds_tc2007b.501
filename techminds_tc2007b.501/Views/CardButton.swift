@@ -26,13 +26,15 @@ struct CardButton: View {
                 RoundedRectangle(cornerRadius: 16)
                     .frame(width: cardWidth, height: cardHeight)
                     .foregroundColor(Color(cardColor))
-                Image(cardImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: imageWidth, height: imageHeight)
-                Text(cardTitle)
-                    .font(.custom("Comfortaa", size: 36))
-                    .foregroundColor(Color(titleColor))
+                VStack {
+                    Image(cardImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: imageWidth, height: imageHeight)
+                    Text(cardTitle)
+                        .font(.custom("Comfortaa", size: 36))
+                        .foregroundColor(Color(titleColor))
+                }
             }
         }
     }
@@ -40,6 +42,6 @@ struct CardButton: View {
 
 struct CardButton_Previews: PreviewProvider {
     static var previews: some View {
-        CardButton(action: "", cardWidth: 350, cardHeight: 230, cardColor: "primary lighter", cardImage: "logo", imageWidth: 272, imageHeight: 127, cardTitle: "Dolor sit amet", titleColor: "primary darker")
+        CardButton(action: "", cardWidth: 350, cardHeight: 230, cardColor: "primary lighter", cardImage: "perro", imageWidth: 272, imageHeight: 127, cardTitle: "Perro", titleColor: "primary darker")
     }
 }
