@@ -78,7 +78,7 @@
 		FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionButton.swift; sourceTree = "<group>"; };
 		FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
 		FB8DF3512A17D88C00E61AA6 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
-		FBB443502A097634000E48F2 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
+		FBB443502A097634000E48F2 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; tabWidth = 3; };
 		FBB443522A09A3DA000E48F2 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		FBD340692A0968EF00977A4B /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		FBD340722A09901F00977A4B /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
@@ -154,6 +154,16 @@
 				FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		FB72D52C2A180F8F00D9F898 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FBB443522A09A3DA000E48F2 /* ButtonView.swift */,
+				FB38BBF72A17E227007A5C05 /* StudentCards.swift */,
+				FB8DF3512A17D88C00E61AA6 /* CardButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		FBD3406C2A098B7D00977A4B /* Fonts */ = {
@@ -249,17 +259,15 @@
 		FBDD5E5D2A09687D00642744 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FB72D52C2A180F8F00D9F898 /* Components */,
 				FBD340692A0968EF00977A4B /* MainMenuView.swift */,
 				FBB443502A097634000E48F2 /* LogIn.swift */,
-				FBB443522A09A3DA000E48F2 /* ButtonView.swift */,
 				FB1088B42A09ACE700B914C2 /* RegisterView.swift */,
 				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
 				FB62BB962A16C35F00076ECD /* CollectionsView.swift */,
 				FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */,
 				FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */,
 				FB38BBF52A17E1F1007A5C05 /* SelectedCollectionView.swift */,
-				FB38BBF72A17E227007A5C05 /* StudentCards.swift */,
-				FB8DF3512A17D88C00E61AA6 /* CardButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
