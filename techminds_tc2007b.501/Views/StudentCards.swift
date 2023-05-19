@@ -40,6 +40,6 @@ struct StudentCards: View {
 
 struct StudentCards_Previews: PreviewProvider {
     static var previews: some View {
-        StudentCards(action: "", cardWidth: 350, cardHeight: 350, cardColor: "primary lighter", cardImage: "perro", imageWidth: 336, imageHeight: 336, imageTitle: "perro")
+        StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "primary lighter", cardImage: "perro", imageWidth: 336, imageHeight: 336, imageTitle: "perro")
     }
 }

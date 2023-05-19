@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LogIn: View {
+    @State private var isRotating = 0.0
+    
     @State var correo:String
     @State var contraseña:String
     @State var login:Bool = true
@@ -52,24 +54,7 @@ struct LogIn: View {
                             .offset(x: 20)
                             .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                               
-                            //En lo que mejorarmos el ButtonView
-                            Button {
-                                login = false
-                            } label: {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color("primary"))
-                                        .frame(width: geo.size.width/3, height: geo.size.height/18)
-                                        .cornerRadius(16)
-                                    
-                                    Text("Iniciar sesión")
-                                        .font(.custom("Conmfortaa", size: 18))
-                                        .foregroundColor(.white)
-                                }
-                            }
-
-                            
-                            //ButtonView(action: "", buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
+                            ButtonView(action: "", buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
 
                         }
                         
@@ -110,6 +95,13 @@ struct LogIn: View {
                         .resizable()
                         .frame(width: geo.size.width/4,height: geo.size.width/4)
                         .scaledToFill()
+                        .rotationEffect(.degrees(isRotating))
+                        .onAppear {
+                            withAnimation(.linear(duration: 1)
+                                .speed(0.1).repeatForever(autoreverses: false)) {
+                            isRotating = 360.0
+                        }
+                    }
                 }
             }
         }

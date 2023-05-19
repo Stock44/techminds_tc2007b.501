@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ButtonView: View {
-    var action: () -> Void
+    var action: String
     var buttonColor : String
     var buttonText : String
     var buttonWidth : CGFloat
     var buttonHeight : CGFloat
     
     var body: some View {
-        Button (action: action, label: {
+        Button {
+            action
+        } label: {
             ZStack {
                 Rectangle()
                     .fill(Color(buttonColor))
@@ -26,12 +28,12 @@ struct ButtonView: View {
                     .font(.custom("Conmfortaa", size: 18))
                     .foregroundColor(.white)
             }
-        })
+        }
     }
 }
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView(action: {}, buttonColor: "", buttonText: "", buttonWidth: 0, buttonHeight: 0)
+        ButtonView(action: "", buttonColor: "", buttonText: "", buttonWidth: 0, buttonHeight: 0)
     }
 }
