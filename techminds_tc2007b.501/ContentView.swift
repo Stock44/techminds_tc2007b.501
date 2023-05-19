@@ -23,7 +23,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            LogIn(correo: "", contraseña: "")
+            SelectedCollectionView()
         }
         .navigationViewStyle(.stack)
         .toolbar {
