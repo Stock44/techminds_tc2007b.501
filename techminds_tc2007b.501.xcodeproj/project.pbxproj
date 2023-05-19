@@ -13,6 +13,7 @@
 		FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */; };
 		FB4EEFB32A0AC8A30022EBC5 /* DynamicStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */; };
 		FB62BB972A16C35F00076ECD /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62BB962A16C35F00076ECD /* CollectionsView.swift */; };
+		FB72D52E2A18127C00D9F898 /* TextFillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72D52D2A18127C00D9F898 /* TextFillView.swift */; };
 		FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */; };
 		FB8DF3502A17D69A00E61AA6 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */; };
 		FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF3512A17D88C00E61AA6 /* CardButton.swift */; };
@@ -75,6 +76,7 @@
 		FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicStack.swift; sourceTree = "<group>"; };
 		FB62BB962A16C35F00076ECD /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
+		FB72D52D2A18127C00D9F898 /* TextFillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFillView.swift; sourceTree = "<group>"; };
 		FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionButton.swift; sourceTree = "<group>"; };
 		FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
 		FB8DF3512A17D88C00E61AA6 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
@@ -162,6 +164,8 @@
 				FBB443522A09A3DA000E48F2 /* ButtonView.swift */,
 				FB38BBF72A17E227007A5C05 /* StudentCards.swift */,
 				FB8DF3512A17D88C00E61AA6 /* CardButton.swift */,
+				FB72D52D2A18127C00D9F898 /* TextFillView.swift */,
+				FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -266,7 +270,6 @@
 				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
 				FB62BB962A16C35F00076ECD /* CollectionsView.swift */,
 				FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */,
-				FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */,
 				FB38BBF52A17E1F1007A5C05 /* SelectedCollectionView.swift */,
 			);
 			path = Views;
@@ -439,6 +442,7 @@
 				FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */,
 				FBDD5E2D2A05AE7D00642744 /* techminds_tc2007b_501App.swift in Sources */,
 				FBB443512A097634000E48F2 /* LogIn.swift in Sources */,
+				FB72D52E2A18127C00D9F898 /* TextFillView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

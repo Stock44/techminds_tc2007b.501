@@ -15,7 +15,6 @@ struct CollectionButton: View {
     var collectionTitle : String
     var titleColor : String
     
-    
     var body: some View {
         Button {
             action

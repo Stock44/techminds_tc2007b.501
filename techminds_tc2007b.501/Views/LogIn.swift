@@ -10,9 +10,9 @@ import SwiftUI
 struct LogIn: View {
     @State private var isRotating = 0.0
     
-    @State var correo:String
-    @State var contraseña:String
-    @State var login:Bool = true
+    @State var correo : String
+    @State var contraseña : String
+    @State var login : Bool = true
     
     var body: some View {
         GeometryReader { geo in
@@ -32,27 +32,9 @@ struct LogIn: View {
                         }
                         
                         Group{
-                            Text("Correo electrónico")
-                                .font(.custom("Comfortaa", size: 16))
+                            TextFillView(textTitle: "Correo electrónico", variable: $correo, temporalText: "Ingresa tu correo", textFillWidth: geo.size.width/3, textFillHeight: geo.size.height/18)
                             
-                            TextField(text: $correo) {
-                                    Text("Ingresa tu correo electrónico")
-                                    .font(.custom("Raleway", size: 18))
-                                }
-                            .frame(width: geo.size.width/3, height: geo.size.height/18)
-                            .offset(x: 20)
-                            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                            
-                            Text("Contraseña")
-                                .font(.custom("Comfortaa", size: 16))
-                            
-                            TextField(text: $contraseña) {
-                                    Text("Ingresa tu contraseña")
-                                    .font(.custom("Raleway", size: 18))
-                                }
-                            .frame(width: geo.size.width/3, height: geo.size.height/18)
-                            .offset(x: 20)
-                            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                            TextFillView(textTitle: "Contraseña", variable: $contraseña, temporalText: "Ingresa tu contraseña", textFillWidth: geo.size.width/3, textFillHeight: geo.size.height/18)
                               
                             ButtonView(action: "", buttonColor: "primary", buttonText: "Iniciar sesión", buttonWidth: geo.size.width/3, buttonHeight: geo.size.height/18)
 
