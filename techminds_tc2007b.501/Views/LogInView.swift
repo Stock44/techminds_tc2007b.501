@@ -69,7 +69,7 @@ struct LogInView: View {
                         .edgesIgnoringSafeArea(.all)
                     Image("logo")
                         .resizable()
-                        .frame(width: geo.size.width/4,height: geo.size.width/4)
+                        .frame(width: geo.size.width/3,height: geo.size.width/3)
                         .scaledToFill()
                         .rotationEffect(.degrees(isRotating))
                         .onAppear {

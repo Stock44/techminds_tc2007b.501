@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @State private var isRotating = 0.0
+    
     @State private var nombre: String = ""
     @State private var apellido: String = ""
     @State private var email: String = ""
@@ -24,7 +26,7 @@ struct RegisterView: View {
                     Text("Registro de Usuario")
                         .font(.custom("Comfortaa-Light", size: 72))
                         .padding()
-
+                    
                     Group {
                         HStack {
                             LabelledTextBox(label: "Nombres(s) del alumno", placeholder: "Ingresa el nombre(s)", content: $nombre)
@@ -32,9 +34,9 @@ struct RegisterView: View {
                         }
                         LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $email)
                         LabelledTextBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $contrasena)
-                        LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $contrasena)
+                        LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $valcontrasena)
                         FilledButton(labelText: "Registrarse") {
-                        // TODO registration through auth
+                            // TODO registration through auth
                         }
                     }.frame(maxWidth: 512)
                     
@@ -44,21 +46,27 @@ struct RegisterView: View {
                 ZStack{
                     
                     Color("primary lighter")
-                    .edgesIgnoringSafeArea(.all)
+                        .edgesIgnoringSafeArea(.all)
                     
                     // Logo o imagen de la app
                     Image("logo")
                         .resizable()
-                        .frame(width: geo.size.width/4, height: geo.size.height/4)
+                        .frame(width: geo.size.width/4.5, height: geo.size.height/3.2)
                         .scaledToFill()
-                        .animation(.easeInOut, value: 0.4)
-                    
-                  
+                        .rotationEffect(.degrees(isRotating))
+                        .onAppear {
+                            withAnimation(.linear(duration: 1)
+                                .speed(0.1).repeatForever(autoreverses: false)) {
+                                    isRotating = 360.0
+                                }
+                            
+                            
+                        }
+                        .frame(width: geo.size.width/2)
+
                 }
-                .frame(width: geo.size.width/2)
                 
             }
-            
         }
     }
 }
