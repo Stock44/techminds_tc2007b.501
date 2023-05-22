@@ -25,6 +25,7 @@ struct LogInView: View {
     var body: some View {
         GeometryReader { geo in
             HStack {
+                ScrollView {
                 VStack(alignment: .leading, spacing: 32) {
                     Text("¡Hola!")
                         .font(.custom("Comfortaa", size: 72))
@@ -44,27 +45,27 @@ struct LogInView: View {
                     }.frame(maxWidth: 512)
                     
                     Button {
-                            // TODO implement login via firebase auth
+                        // TODO implement login via firebase auth
+                    } label: {
+                        Text("Olvidé mi contraseña")
+                            .font(.custom("Comfortaa", size: 18))
+                            .foregroundColor(Color("secondary"))
+                    }
+                    Button {
+                        // TODO implement login via firebase auth
+                    } label: {
+                        NavigationLink {
+                            RegisterView()
                         } label: {
-                            Text("Olvidé mi contraseña")
+                            Text("Crear una cuenta")
                                 .font(.custom("Comfortaa", size: 18))
                                 .foregroundColor(Color("secondary"))
                         }
-                        Button {
-                            // TODO implement login via firebase auth
-                        } label: {
-                            NavigationLink {
-                                RegisterView()
-                            } label: {
-                                Text("Crear una cuenta")
-                                    .font(.custom("Comfortaa", size: 18))
-                                    .foregroundColor(Color("secondary"))
-                            }
-                        }
+                    }
                 }
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(width: geo.size.width / 2)
-                
+            }
                 ZStack {
                     Color("primary lighter")
                         .edgesIgnoringSafeArea(.all)
