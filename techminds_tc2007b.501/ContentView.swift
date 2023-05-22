@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
+    @State var user: User?
     
     init() {
         let navBarAppearance = UINavigationBar.appearance()
@@ -19,24 +21,25 @@ struct ContentView: View {
         ]
         
         navBarAppearance.layoutMargins = UIEdgeInsets(top: 0, left: 48, bottom: 0, right: 48)
+        
+        Auth.auth().addStateDidChangeListener(self.onAuthStateChange)
+    }
+    
+    func onAuthStateChange(auth: Auth, authUser: User?) {
+        user = authUser
     }
     
     var body: some View {
-        NavigationView {
-            MainMenuView()
-        }
-        .navigationViewStyle(.stack)
-        .toolbar {
-            Button("< Regresar") {
-                print("Regresar")
+        if user == nil{
+            NavigationView {
+                LogInView()
             }
-            Button {
-                print("Configuraciones")
-            } label: {
-                Image(systemName: "pencil.line")
-                    .foregroundColor(Color("primary"))
+            .navigationViewStyle(.stack)
+        } else {
+            NavigationView {
+                MainMenuView()
             }
-
+            .navigationViewStyle(.stack)
         }
     }
 }
