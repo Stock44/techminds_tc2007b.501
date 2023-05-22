@@ -26,7 +26,7 @@ struct RegisterView: View {
                     Text("Registro de Usuario")
                         .font(.custom("Comfortaa-Light", size: 72))
                         .padding()
-
+                    
                     Group {
                         HStack {
                             LabelledTextBox(label: "Nombres(s) del alumno", placeholder: "Ingresa el nombre(s)", content: $nombre)
@@ -34,9 +34,9 @@ struct RegisterView: View {
                         }
                         LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $email)
                         LabelledTextBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $contrasena)
-                        LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $contrasena)
+                        LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $valcontrasena)
                         FilledButton(labelText: "Registrarse") {
-                        // TODO registration through auth
+                            // TODO registration through auth
                         }
                     }.frame(maxWidth: 512)
                     
@@ -44,13 +44,14 @@ struct RegisterView: View {
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(width: geo.size.width / 2)
                 ZStack{
+                    
                     Color("primary lighter")
-                    .edgesIgnoringSafeArea(.all)
+                        .edgesIgnoringSafeArea(.all)
                     
                     // Logo o imagen de la app
                     Image("logo")
                         .resizable()
-                        .frame(width: geo.size.width/4, height: geo.size.width/4)
+                        .frame(width: geo.size.width/4.5, height: geo.size.height/3.2)
                         .scaledToFill()
                         .rotationEffect(.degrees(isRotating))
                         .onAppear {
@@ -58,12 +59,14 @@ struct RegisterView: View {
                                 .speed(0.1).repeatForever(autoreverses: false)) {
                                     isRotating = 360.0
                                 }
+                            
+                            
                         }
+                        .frame(width: geo.size.width/2)
+
                 }
-                .frame(width: geo.size.width/2)
                 
             }
-            
         }
     }
 }
