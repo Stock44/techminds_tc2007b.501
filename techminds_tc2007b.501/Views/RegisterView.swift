@@ -19,131 +19,43 @@ struct RegisterView: View {
     
     var body: some View {
         GeometryReader { geo in
-        
-            //Botón de regreso.
-            Button(action: {
-                // Acción de regreso
-            }, label: {
-                Image(systemName: "arrow.backward")
-            })
-            
-            Text("Registro de Usuario")
-                .font(.custom("Comfortaa-Light", size: 72))
-                .padding()
-            
             HStack {
-                VStack  {
-                    HStack{
-                        VStack (alignment:.leading, spacing: 6) {
-                            // NOMBRE
-                            Text("Nombre(s) del alumno")
-                                .font(.custom("Raleway", size: 18))
-                            TextField("Ingresa el nombre(s) del alumno", text: $nombre)
-                                .padding()
-                                .frame(width: 400, height: 40)
-                                .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))                                .padding(.bottom, 20)
-                        }
-                        VStack (alignment:.leading, spacing: 6) {
-                            //APELLIDO
-                            Text("Apellido(s) del alumno")
-                                .font(.custom("Raleway", size: 18))
-                            TextField("Ingresa el apellido(s) del alumno", text: $apellido)
-                                .padding()
-                                .frame(width: 400, height: 40)
-                                .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                                .padding(.bottom, 20)
-                        }
-                    }
-                    HStack{
-                        VStack(alignment:.leading, spacing: 6){
-                            //CORREO
-                            Text("Correo Electronico")
-                                .font(.custom("Raleway", size: 18))
-                            TextField("Ingresa tu correo electronico", text: $email)
-                                .padding()
-                                .frame(width: 550, height: 40)
-                                .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                                .padding(.bottom, 20)
+                VStack (alignment: .leading, spacing: 32) {
+                    Text("Registro de Usuario")
+                        .font(.custom("Comfortaa-Light", size: 72))
+                        .padding()
 
+                    Group {
+                        HStack {
+                            LabelledTextBox(label: "Nombres(s) del alumno", placeholder: "Ingresa el nombre(s)", content: $nombre)
+                            LabelledTextBox(label: "Apellido(s) del alumno", placeholder: "Ingresa el apellido(s)", content: $apellido)
                         }
-                        VStack (alignment:.leading, spacing: 6){
-                            // NIVEL
-                            Text("Nivel")
-                                .font(.custom("Raleway", size: 18))
-                            Picker("Nivel", selection: $nivel) {
-                                ForEach(nivelesDisponibles, id: \.self) { nivel in
-                                    Text("Nivel \(nivel)")
-                                }
-                            }
-                            .pickerStyle(MenuPickerStyle())
-                            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                            .frame(width: 250, height: 40)
-
+                        LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $email)
+                        LabelledTextBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $contrasena)
+                        LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $contrasena)
+                        FilledButton(labelText: "Registrarse") {
+                        // TODO registration through auth
                         }
-                        
-                        
-                    }
-                    
-                    VStack (alignment:.leading, spacing: 6){
-                        
-                        Text("Contraseña")
-                            .font(.custom("Raleway", size: 18))
-                        SecureField("Ingresa tu contraseña", text: $contrasena)
-                            .padding()
-                            .frame(width: 800, height: 40)
-                            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                            .padding(.bottom, 20)
-                    }
-                    
-                    VStack(alignment:.leading, spacing: 6){
-                        Text("Confirmacion de Contraseña")
-                            .font(.custom("Raleway", size: 18))
-                        SecureField("Ingresa tu contraseña de nuevo", text: $valcontrasena)
-                            .padding()
-                            .frame(width: 800, height: 40)
-                            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                            .padding(.bottom, 24)
-                        
-                        if !contrasena.isEmpty && contrasena != valcontrasena { //VALIDACION DE CONTRASEÑA
-                            Text("Las contraseñas no coinciden")
-                                .font(.custom("Raleway", size: 14))
-                                .foregroundColor(.red)
-                                .padding(.bottom,8)
-                        }
-                    }
-                        
-                        // Botón de registro
-                        Button(action: {
-                            // Acción de registro
-                        }, label: {
-                            Text("Confirmar Datos")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(width: 780, height: 60)
-                                .background(Color("primary"))
-                                .cornerRadius(15.0)
-                        })
+                    }.frame(maxWidth: 512)
                     
                 }
-                .padding()
-               
+                .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
+                .frame(width: geo.size.width / 2)
                 ZStack{
                     
                     Color("primary lighter")
                     .edgesIgnoringSafeArea(.all)
-                    .frame(width: geo.size.width/2, height: geo.size.height/1)
                     
                     // Logo o imagen de la app
                     Image("logo")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: geo.size.width/5, height: geo.size.height/2,alignment: .center)
-                        .background(Color("primary lighter").edgesIgnoringSafeArea(.all))
+                        .frame(width: geo.size.width/4, height: geo.size.height/4)
+                        .scaledToFill()
                         .animation(.easeInOut, value: 0.4)
                     
                   
                 }
+                .frame(width: geo.size.width/2)
                 
             }
             

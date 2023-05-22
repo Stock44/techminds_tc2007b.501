@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DynamicStack<Content>: View where Content: View {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     let content: Content
     let spacing: CGFloat
     

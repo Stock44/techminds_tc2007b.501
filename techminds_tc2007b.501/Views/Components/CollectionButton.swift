@@ -15,7 +15,7 @@ struct CollectionButton: View {
     
     var body: some View {
         NavigationLink {
-            SelectedCollectionView()
+            CollectionDetailView()
         } label: {
             ZStack{
                 RoundedRectangle(cornerRadius: 16)

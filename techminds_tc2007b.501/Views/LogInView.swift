@@ -25,7 +25,7 @@ struct LogInView: View {
     var body: some View {
         GeometryReader { geo in
             HStack {
-                VStack(alignment: .leading, spacing: geo.size.height/30) {
+                VStack(alignment: .leading, spacing: 32) {
                     Text("¡Hola!")
                         .font(.custom("Comfortaa", size: 72))
                     
@@ -65,10 +65,8 @@ struct LogInView: View {
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(width: geo.size.width / 2)
                 ZStack {
-                    Rectangle()
-                        .fill(Color("primary lighter"))
-                        .frame(width: geo.size.width/2)
-                    
+                    Color("primary lighter")
+                        .edgesIgnoringSafeArea(.all)
                     Image("logo")
                         .resizable()
                         .frame(width: geo.size.width/4,height: geo.size.width/4)
@@ -81,6 +79,7 @@ struct LogInView: View {
                                 }
                         }
                 }
+                .frame(width: geo.size.width/2)
             }
         }
     }

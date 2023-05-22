@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectedCollectionView: View {
+struct CollectionDetailView: View {
     var body: some View {
         Grid {
             GridRow {
@@ -37,6 +37,6 @@ struct SelectedCollectionView: View {
 
 struct SelectedCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectedCollectionView()
+        CollectionDetailView()
     }
 }
