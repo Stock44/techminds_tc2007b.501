@@ -26,7 +26,7 @@ struct CardButton: View {
                     Image(cardImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: .infinity, height: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     Text(cardTitle)
                         .font(.custom("Comfortaa", size: 36))
                         .foregroundColor(Color(titleColor))

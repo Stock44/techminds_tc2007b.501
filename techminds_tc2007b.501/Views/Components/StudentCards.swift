@@ -30,7 +30,7 @@ struct StudentCards: View {
                 Image(cardImage)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: .infinity, height: .infinity)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
     }
