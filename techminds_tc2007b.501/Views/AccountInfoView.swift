@@ -6,30 +6,39 @@
 //
 
 import SwiftUI
-import AVFoundation
 
 struct AccountInfoView: View {
-    @State var synthetizer = AVSpeechSynthesizer()
-    @State private var nombre = ""
-    @State private var apellidos = ""
-    @State private var correo = ""
-    @State private var contraseña = ""
+    @State private var nombre = "Erick"
+    @State private var apellidos = "Hernandez"
+    @State private var correo = "A00@tec.mx"
+    @State private var contraseña = "dasfdaf"
+    @State private var nivel = "2"
     
     var body: some View {
-        VStack{
-           /* Button {
-                let utterance = AVSpeechUtterance(string: "Hola")
-                let voice = AVSpeechSynthesisVoice(language: "es-MX")
-                utterance.voice = voice
-                
-                synthetizer.speak(utterance)
-            } label: {
-                ZStack(alignment: .center) {
-                    RoundedRectangle(cornerRadius: 16)
-                        .frame(width: 200, height: 100)
-                        .foregroundColor(Color.black)
+        HStack{
+            VStack (spacing: 30){
+                LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
+                    .disabled(true)
+                LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
+                    .disabled(true)
+                LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
+                    .disabled(true)
+                LabelledTextBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
+                    .disabled(true)
+                LabelledTextBox(label: "Nivel", placeholder: "\(nivel)",content: $nivel)
+                    .disabled(true)
+            }
+            .padding(.leading, 40)
+            VStack{
+                Spacer()
+                HStack(alignment: .bottom){
+                    FilledButton(labelText: "Editar") {
+                    }
+                    .padding(.bottom, 100)
                 }
-            }*/
+            }
+            .padding(.horizontal, 150.0)
+            
         }.navigationTitle("Detalles de cuenta")
     }
 }

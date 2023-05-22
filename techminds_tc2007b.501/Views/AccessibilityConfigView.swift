@@ -9,8 +9,12 @@ import SwiftUI
 
 struct AccessibilityConfigView: View {
     
-    @State private var boton = false
-    @State private var slider = 0.5
+    @State private var botones = false
+    @State private var estcabeza = false
+    @State private var voiceover = false
+    @State private var letratam = 1.0
+    @State private var botontam = 0.6
+    @State private var tarjetatam = 0.6
     @State private var filas = 1
     @State private var columnas = 1
     
@@ -18,24 +22,24 @@ struct AccessibilityConfigView: View {
             HStack{
                 VStack{
                     VStack(spacing: 30){
-                        Toggle("Botones", isOn: $boton)
+                        Toggle("Botones", isOn: $botones)
                             .font(.custom("Comfortaa", size: 36))
-                        Toggle("Estimación Cabeza", isOn: $boton)
+                        Toggle("Estimación Cabeza", isOn: $estcabeza)
                             .font(.custom("Comfortaa", size: 36))
-                        Toggle("VoiceOver", isOn: $boton)
+                        Toggle("VoiceOver", isOn: $voiceover)
                             .font(.custom("Comfortaa", size: 36))
                         Text("Letra")
                             .font(.custom("Comfortaa", size: 32))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Slider(value: $slider)
+                        Slider(value: $letratam,in: 0.5...3)
                         Text("Botones")
                             .font(.custom("Comfortaa", size: 32))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Slider(value: $slider)
+                        Slider(value: $botontam, in: 0.2...1)
                         Text("Tarjetas")
                             .font(.custom("Comfortaa", size: 32))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Slider(value: $slider)
+                        Slider(value: $tarjetatam, in: 0.2...1)
                     }
                     HStack{
                         Text("Filas")
@@ -45,7 +49,6 @@ struct AccessibilityConfigView: View {
                                 Text("\($0)")
                             }
                         }
-                        .frame(width: 161 , height: 67)
                         .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                         Spacer()
                         Text("Columnas")
@@ -55,28 +58,25 @@ struct AccessibilityConfigView: View {
                                 Text("\($0)")
                             }
                         }
-                        .frame(width: 161 , height: 67)
                         .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                     }
                 }
                 .padding(.leading, 40.0)
                 VStack{
                     ZStack{
-                        Rectangle()
-                            .foregroundColor(Color.white)
-                        Rectangle()
+                       Rectangle()
                             .frame(width: 350, height: 609)
                             .cornerRadius(20)
                             .foregroundColor(Color("accent2 lighter"))
                         VStack{
                             Text("Letra")
-                                .font(.custom("Comfortaa", size: 100*slider))
+                                .font(.custom("Comfortaa", size: 36*letratam))
                             Image("logo")
                                 .resizable()
-                                .frame(width: 300 * slider, height: 300 * slider)
+                                .frame(width: 300 * tarjetatam, height: 300 * tarjetatam)
                         }
                     }
-                }
+                }.frame(maxWidth: 512)
             }.navigationTitle("Accesibilidad")
         }
 }
