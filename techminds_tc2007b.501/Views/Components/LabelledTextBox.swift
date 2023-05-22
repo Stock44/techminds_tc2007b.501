@@ -23,6 +23,7 @@ struct LabelledTextBox: View {
             }
             .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
             .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray, lineWidth: 1))
+            
         }
         .frame(maxWidth: .infinity)
     }

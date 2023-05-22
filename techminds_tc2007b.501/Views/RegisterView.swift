@@ -17,11 +17,13 @@ struct RegisterView: View {
     @State private var valcontrasena: String = ""
     
     @State private var nivel: Int = 1
+    
     let nivelesDisponibles = Array(1...4)
     
     var body: some View {
         GeometryReader { geo in
             HStack {
+                ScrollView {
                 VStack (alignment: .leading, spacing: 32) {
                     Text("Registro de Usuario")
                         .font(.custom("Comfortaa-Light", size: 72))
@@ -43,8 +45,8 @@ struct RegisterView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(width: geo.size.width / 2)
+            }
                 ZStack{
-                    
                     Color("primary lighter")
                         .edgesIgnoringSafeArea(.all)
                     
@@ -61,7 +63,6 @@ struct RegisterView: View {
                                 }
                         }
                         .frame(width: geo.size.width/2)
-
                 }
                 
             }

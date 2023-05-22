@@ -64,6 +64,7 @@ struct LogInView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(width: geo.size.width / 2)
+                
                 ZStack {
                     Color("primary lighter")
                         .edgesIgnoringSafeArea(.all)
