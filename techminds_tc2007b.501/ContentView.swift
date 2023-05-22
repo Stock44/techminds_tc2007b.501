@@ -32,7 +32,7 @@ struct ContentView: View {
     var body: some View {
         if user == nil{
             NavigationView {
-                MainMenuView()
+                LogInView()
             }
             .navigationViewStyle(.stack)
         } else {

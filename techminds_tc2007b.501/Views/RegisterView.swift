@@ -44,18 +44,21 @@ struct RegisterView: View {
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(width: geo.size.width / 2)
                 ZStack{
-                    
                     Color("primary lighter")
                     .edgesIgnoringSafeArea(.all)
                     
                     // Logo o imagen de la app
                     Image("logo")
                         .resizable()
-                        .frame(width: geo.size.width/4, height: geo.size.height/4)
+                        .frame(width: geo.size.width/4, height: geo.size.width/4)
                         .scaledToFill()
-                        .animation(.easeInOut, value: 0.4)
-                    
-                  
+                        .rotationEffect(.degrees(isRotating))
+                        .onAppear {
+                            withAnimation(.linear(duration: 1)
+                                .speed(0.1).repeatForever(autoreverses: false)) {
+                                    isRotating = 360.0
+                                }
+                        }
                 }
                 .frame(width: geo.size.width/2)
                 
