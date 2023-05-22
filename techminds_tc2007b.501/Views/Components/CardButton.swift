@@ -9,12 +9,8 @@ import SwiftUI
 
 struct CardButton: View {
     var action : String
-    var cardWidth : CGFloat
-    var cardHeight : CGFloat
     var cardColor : String
     var cardImage : String
-    var imageWidth : CGFloat
-    var imageHeight : CGFloat
     var cardTitle : String
     var titleColor : String
     
@@ -24,13 +20,13 @@ struct CardButton: View {
         } label: {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 16)
-                    .frame(width: cardWidth, height: cardHeight)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundColor(Color(cardColor))
                 VStack {
                     Image(cardImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: imageWidth, height: imageHeight)
+                        .frame(width: .infinity, height: .infinity)
                     Text(cardTitle)
                         .font(.custom("Comfortaa", size: 36))
                         .foregroundColor(Color(titleColor))
@@ -42,6 +38,6 @@ struct CardButton: View {
 
 struct CardButton_Previews: PreviewProvider {
     static var previews: some View {
-        CardButton(action: "", cardWidth: 350, cardHeight: 230, cardColor: "primary lighter", cardImage: "perro", imageWidth: 272, imageHeight: 127, cardTitle: "Perro", titleColor: "primary darker")
+        CardButton(action: "", cardColor: "primary lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "primary darker")
     }
 }

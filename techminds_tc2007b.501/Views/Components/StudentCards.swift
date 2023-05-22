@@ -9,12 +9,8 @@ import SwiftUI
 import AVFoundation
 
 struct StudentCards: View {
-    var cardWidth : CGFloat
-    var cardHeight : CGFloat
     var cardColor : String
     var cardImage : String
-    var imageWidth : CGFloat
-    var imageHeight : CGFloat
     var imageTitle : String
     
     var body: some View {
@@ -29,12 +25,12 @@ struct StudentCards: View {
         } label: {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 16)
-                    .frame(width: cardWidth, height: cardHeight)
+                    .frame(maxWidth: .infinity,maxHeight: .infinity)
                     .foregroundColor(Color(cardColor))
                 Image(cardImage)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: imageWidth, height: imageHeight)
+                    .frame(width: .infinity, height: .infinity)
             }
         }
     }
@@ -42,6 +38,6 @@ struct StudentCards: View {
 
 struct StudentCards_Previews: PreviewProvider {
     static var previews: some View {
-        StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "primary lighter", cardImage: "perro", imageWidth: 336, imageHeight: 336, imageTitle: "perro")
+        StudentCards(cardColor: "primary lighter", cardImage: "perro", imageTitle: "perro")
     }
 }

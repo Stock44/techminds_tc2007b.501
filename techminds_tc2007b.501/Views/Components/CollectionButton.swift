@@ -9,19 +9,17 @@ import SwiftUI
 
 struct CollectionButton: View {
     var action : String
-    var collectionWidth : CGFloat
-    var collectionHeight : CGFloat
     var collectionColor : String
     var collectionTitle : String
     var titleColor : String
     
     var body: some View {
-        Button {
-            action
+        NavigationLink {
+            SelectedCollectionView()
         } label: {
             ZStack{
                 RoundedRectangle(cornerRadius: 16)
-                    .frame(width: collectionWidth, height: collectionHeight)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundColor(Color(collectionColor))
                 Text(collectionTitle)
                     .font(.custom("Comfortaa", size: 36))
@@ -34,6 +32,6 @@ struct CollectionButton: View {
 
 struct CollectionButton_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionButton(action: "", collectionWidth: 350, collectionHeight: 230, collectionColor: "accent1 lighter", collectionTitle: "Lorem ipsum", titleColor: "accent1 darker")
+        CollectionButton(action: "", collectionColor: "accent1 lighter", collectionTitle: "Lorem ipsum", titleColor: "accent1 darker")
     }
 }

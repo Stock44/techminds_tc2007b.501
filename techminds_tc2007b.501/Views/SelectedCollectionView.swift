@@ -11,25 +11,25 @@ struct SelectedCollectionView: View {
     var body: some View {
         Grid {
             GridRow {
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "primary lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "primary lighter", cardImage: "perro", imageTitle: "perro")
                 
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "accent1 lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "accent1 lighter", cardImage: "perro", imageTitle: "perro")
                 
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "accent2 lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "accent2 lighter", cardImage: "perro", imageTitle: "perro")
             }
             GridRow{
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "secondary lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "secondary lighter", cardImage: "perro", imageTitle: "perro")
                 
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "accent2 lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "accent2 lighter", cardImage: "perro", imageTitle: "perro")
                 
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "secondary lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "secondary lighter", cardImage: "perro", imageTitle: "perro")
             }
             GridRow{
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "accent1 lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "accent1 lighter", cardImage: "perro", imageTitle: "perro")
                 
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "primary lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "primary lighter", cardImage: "perro", imageTitle: "perro")
                 
-                StudentCards(cardWidth: 350, cardHeight: 350, cardColor: "primary lighter", cardImage: "perro", imageWidth: 334, imageHeight: 334, imageTitle: "perro")
+                StudentCards(cardColor: "primary lighter", cardImage: "perro", imageTitle: "perro")
             }
         }.navigationTitle("Colección 1")
     }

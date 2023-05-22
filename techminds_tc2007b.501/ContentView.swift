@@ -23,7 +23,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            SelectedCollectionView()
+            MainMenuView()
         }
         .navigationViewStyle(.stack)
         .toolbar {
