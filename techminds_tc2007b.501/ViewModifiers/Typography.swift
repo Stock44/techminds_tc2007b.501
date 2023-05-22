@@ -10,6 +10,8 @@ import SwiftUI
 enum Typography {
     case largeTitle
     case title
+    case body
+    case callout
 }
 
 extension View {
@@ -23,6 +25,10 @@ extension View {
             return self.font(.custom("Comfortaa", size: 48, relativeTo: .largeTitle))
         case .title:
             return self.font(.custom("Comfortaa", size: 32, relativeTo: .title))
+        case .body:
+            return self.font(.custom("Raleway", size: 12, relativeTo: .body))
+        case .callout:
+            return self.font(.custom("Raleway Bold", size: 16, relativeTo: .callout))
         }
     }
 }

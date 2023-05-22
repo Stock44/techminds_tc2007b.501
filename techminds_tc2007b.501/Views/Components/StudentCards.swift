@@ -16,7 +16,7 @@ struct StudentCards: View {
     var body: some View {
         Button {
             let synthetizer =  AVSpeechSynthesizer()
-            synthetizer.stopSpeaking(at: .immediate)
+            //synthetizer.stopSpeaking(at: .immediate)
                 
             let utterance = AVSpeechUtterance(string: imageTitle)
             utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
