@@ -51,7 +51,7 @@ struct RegisterView: View {
                     // Logo o imagen de la app
                     Image("logo")
                         .resizable()
-                        .frame(width: geo.size.width/4.5, height: geo.size.height/3.2)
+                        .frame(width: geo.size.width/4, height: geo.size.width/4)
                         .scaledToFill()
                         .rotationEffect(.degrees(isRotating))
                         .onAppear {
@@ -59,8 +59,6 @@ struct RegisterView: View {
                                 .speed(0.1).repeatForever(autoreverses: false)) {
                                     isRotating = 360.0
                                 }
-                            
-                            
                         }
                         .frame(width: geo.size.width/2)
 
