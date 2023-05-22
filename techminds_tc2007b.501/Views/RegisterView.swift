@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @State private var isRotating = 0.0
+    
     @State private var nombre: String = ""
     @State private var apellido: String = ""
     @State private var email: String = ""
