@@ -13,12 +13,31 @@ struct LogInView: View {
     
     @State var correo : String = ""
     @State var contraseña : String = ""
+    @State var errorMsg: String? = nil
     
     func onLogin() async {
         do {
-            let authResult = try await Auth.auth().createUser(withEmail: correo, password: contraseña)
+            try await Auth.auth().signIn(withEmail: correo, password: contraseña)
+        } catch AuthErrorCode.operationNotAllowed {
+            withAnimation {
+                errorMsg = "El inicio de sesión esta desactivado."
+            }
+        } catch AuthErrorCode.userDisabled {
+            withAnimation {
+                errorMsg = "Este usuario esta desactivado."
+            }
+        } catch AuthErrorCode.wrongPassword {
+            withAnimation {
+                errorMsg = "Contraseña incorrecta."
+            }
+        } catch AuthErrorCode.invalidEmail {
+            withAnimation {
+                errorMsg = "Correo electronico invalido."
+            }
         } catch {
-            print("Login failed")
+            withAnimation {
+                errorMsg = "Ha ocurrido un error desconocido."
+            }
         }
     }
     
@@ -39,9 +58,11 @@ struct LogInView: View {
                         LabelledTextBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $contraseña)
                         
                         FilledButton(labelText: "Iniciar sesión") {
-                            
+                            Task {
+                                await onLogin()
+                                
+                            }
                         }
-                        
                     }.frame(maxWidth: 512)
                     
                     Button {
@@ -82,6 +103,18 @@ struct LogInView: View {
                         }
                 }
                 .frame(width: geo.size.width/2)
+            }.overlay(alignment: .bottomLeading){
+                if let errorMsg = errorMsg {
+                    ErrorPopup(label: errorMsg)
+                        .offset(x: 32, y: -8)
+                        .transition(.move(edge: .leading))
+                        .task {
+                            try? await Task.sleep(for: .seconds(4))
+                            withAnimation {
+                                self.errorMsg = nil
+                            }
+                        }
+                }
             }
         }
     }
