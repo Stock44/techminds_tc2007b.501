@@ -54,49 +54,49 @@ struct RegisterView: View {
     var body: some View {
         GeometryReader { geo in
             HStack {
-                VStack (alignment: .leading, spacing: 32) {
-                    Text("Registro de Usuario")
-                        .font(.custom("Comfortaa-Light", size: 72))
-                        .padding()
-                    
-                    Group {
-                        HStack {
-                            LabelledTextBox(label: "Nombres(s) del alumno", placeholder: "Ingresa el nombre(s)", content: $nombre)
-                            LabelledTextBox(label: "Apellido(s) del alumno", placeholder: "Ingresa el apellido(s)", content: $apellido)
-                        }
-                        LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $email)
-                        LabelledTextBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $password)
-                        LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordValidation)
-                        FilledButton(labelText: "Registrarse") {
-                            Task {
-                                await onRegister()
+                ScrollView {
+                    VStack (alignment: .leading, spacing: 32) {
+                        Text("Registro de Usuario")
+                            .font(.custom("Comfortaa-Light", size: 72))
+                            .padding()
+                        
+                        Group {
+                            HStack {
+                                LabelledTextBox(label: "Nombres(s) del alumno", placeholder: "Ingresa el nombre(s)", content: $nombre)
+                                LabelledTextBox(label: "Apellido(s) del alumno", placeholder: "Ingresa el apellido(s)", content: $apellido)
                             }
-                        }
-                    }.frame(maxWidth: 512)
-                    
+                            LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $email)
+                            LabelledTextBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $password)
+                            LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordValidation)
+                            FilledButton(labelText: "Registrarse") {
+                                Task {
+                                    await onRegister()
+                                }
+                            }
+                        }.frame(maxWidth: 512)
+                        
+                    }
+                        .offset(y: geo.size.height/30)
+                        .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
+                        .frame(width: geo.size.width / 2)
                 }
-                .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
-                .frame(width: geo.size.width / 2)
                 ZStack{
-                    
                     Color("primary lighter")
                         .edgesIgnoringSafeArea(.all)
-                    
                     // Logo o imagen de la app
                     Image("logo")
                         .resizable()
-                        .frame(width: geo.size.width/4, height: geo.size.height/4)
+                        .frame(width: geo.size.width/4, height: geo.size.width/4)
                         .scaledToFill()
-                        .rotationEffect(.degrees(isRotating))
+                        /*.rotationEffect(.degrees(isRotating))
                         .onAppear {
                             withAnimation(.linear(duration: 1)
                                 .speed(0.1).repeatForever(autoreverses: false)) {
                                     isRotating = 360.0
                                 }
-                        }
-                        .frame(width: geo.size.width/2)
+                        }*/
                 }
-                
+                .frame(width: geo.size.width/2)
             }
             .overlay(alignment: .bottomLeading){
                 if let errorMsg = errorMsg {
