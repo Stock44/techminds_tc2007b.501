@@ -31,7 +31,7 @@
 		FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */; };
 		FB8DF3502A17D69A00E61AA6 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */; };
 		FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF3512A17D88C00E61AA6 /* CardButton.swift */; };
-		FBA029792A213A85005E1FD1 /* Tarjeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA029782A213A85005E1FD1 /* Tarjeta.swift */; };
+		FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA029782A213A85005E1FD1 /* Togglecard.swift */; };
 		FBA0604E2A18339700BA3D67 /* AccessibilityConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */; };
 		FBA060502A1833DA00BA3D67 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */; };
 		FBB443512A097634000E48F2 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443502A097634000E48F2 /* LogInView.swift */; };
@@ -102,7 +102,7 @@
 		FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionButton.swift; sourceTree = "<group>"; };
 		FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
 		FB8DF3512A17D88C00E61AA6 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
-		FBA029782A213A85005E1FD1 /* Tarjeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarjeta.swift; sourceTree = "<group>"; };
+		FBA029782A213A85005E1FD1 /* Togglecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Togglecard.swift; sourceTree = "<group>"; };
 		FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityConfigView.swift; sourceTree = "<group>"; };
 		FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
 		FBB443502A097634000E48F2 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; tabWidth = 3; };
@@ -298,7 +298,7 @@
 				FBB443502A097634000E48F2 /* LogInView.swift */,
 				FB1088B42A09ACE700B914C2 /* RegisterView.swift */,
 				FB075F8E2A1C1F3200DC0218 /* CollectionInstructor.swift */,
-				FBA029782A213A85005E1FD1 /* Tarjeta.swift */,
+				FBA029782A213A85005E1FD1 /* Togglecard.swift */,
 				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
 				FB62BB962A16C35F00076ECD /* CollectionsView.swift */,
 				FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */,
@@ -481,7 +481,7 @@
 				FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */,
 				FB4EEFB32A0AC8A30022EBC5 /* DynamicStack.swift in Sources */,
 				FB38BBF62A17E1F1007A5C05 /* CollectionDetailView.swift in Sources */,
-				FBA029792A213A85005E1FD1 /* Tarjeta.swift in Sources */,
+				FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */,
 				FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */,
 				FB075F8F2A1C1F3200DC0218 /* CollectionInstructor.swift in Sources */,
 				FB62BB972A16C35F00076ECD /* CollectionsView.swift in Sources */,
