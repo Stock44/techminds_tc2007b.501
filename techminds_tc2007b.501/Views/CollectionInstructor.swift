@@ -9,11 +9,11 @@ import SwiftUI
 import FirebaseAuth
 
 struct CollectionInstructor: View {
+    
     @State private var bgColor = Color.blue
     
     @State var name : String = ""
     @State var contraseña : String = ""
-    
     
     var body: some View {
         GeometryReader { geo in
