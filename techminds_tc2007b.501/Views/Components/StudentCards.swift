@@ -13,15 +13,17 @@ struct StudentCards: View {
     var cardImage : String
     var imageTitle : String
     
+    let synthetizer = AVSpeechSynthesizer()
+    func text2Speech() {
+        synthetizer.stopSpeaking(at: .immediate)
+        let utterance = AVSpeechUtterance(string: imageTitle)
+        utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
+        synthetizer.speak(utterance)
+    }
+    
     var body: some View {
         Button {
-            let synthetizer =  AVSpeechSynthesizer()
-            //synthetizer.stopSpeaking(at: .immediate)
-                
-            let utterance = AVSpeechUtterance(string: imageTitle)
-            utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
-            
-            synthetizer.speak(utterance)
+            text2Speech()
         } label: {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 16)

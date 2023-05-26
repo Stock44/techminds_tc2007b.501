@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct Card {
-    let nombre: String
-    let numTarjetas: Int
-    var habilitado: Bool
-    var enFoco: Bool
+    let name: String
+    let numCards: Int
+    var tOn: Bool
+    var onLight: Bool
 }
 
 struct CardView: View {
     @State private var cards: [Card] = [
-        Card(nombre: "Tarjeta 1", numTarjetas: 5, habilitado: false, enFoco: false),
-        Card(nombre: "Tarjeta 2", numTarjetas: 3, habilitado: false, enFoco: false),
-        Card(nombre: "Tarjeta 3", numTarjetas: 2, habilitado: false, enFoco: false)
+        Card(name: "Tarjeta 1", numCards: 5, tOn: false, onLight: false),
+        Card(name: "Tarjeta 2", numCards: 3, tOn: false, onLight: false),
+        Card(name: "Tarjeta 3", numCards: 2, tOn: false, onLight: false)
     ]
 
     var body: some View {
@@ -37,17 +37,17 @@ struct CardView: View {
 
             ForEach(cards.indices, id: \.self) { index in
                 HStack {
-                    Text(cards[index].nombre)
+                    Text(cards[index].name)
                     Spacer()
-                    Text("\(cards[index].numTarjetas)")
+                    Text("\(cards[index].numCards)")
                     Spacer()
-                    Toggle("", isOn: $cards[index].habilitado)
-                        .onChange(of: cards[index].habilitado) { newValue in cards[index] .enFoco = newValue
+                    Toggle("", isOn: $cards[index].tOn)
+                        .onChange(of: cards[index].tOn) { newValue in cards[index] .onLight = newValue
                             
                         }
                     Spacer()
                     Circle()
-                        .fill(cards[index].enFoco ? Color.green : Color.gray)
+                        .fill(cards[index].onLight ? Color.green : Color.gray)
                         .frame(width: 20, height: 20)
                 }
                 .padding(.horizontal)

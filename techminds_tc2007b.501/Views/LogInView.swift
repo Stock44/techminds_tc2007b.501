@@ -41,69 +41,75 @@ struct LogInView: View {
         }
     }
     
+    func rotarImagen() {
+        withAnimation(.linear(duration: 1)
+            .speed(0.1)
+            .repeatForever(autoreverses: false)) {
+                isRotating = 360.0
+            }
+    }
+    
     var body: some View {
         GeometryReader { geo in
             HStack {
                 ScrollView {
-                VStack(alignment: .leading, spacing: 32) {
-                    Text("¡Hola!")
-                        .font(.custom("Comfortaa", size: 72))
-                    
-                    Text("Inicia sesión para continuar")
-                        .font(.custom("Comfortaa", size: 24))
-                    
-                    Group {
-                        LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo", content: $correo)
+                    VStack(alignment: .leading, spacing: 32) {
+                        Text("¡Hola!")
+                            .font(.custom("Comfortaa", size: 72))
                         
-                        LabelledTextBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $contraseña)
-                        
-                        FilledButton(labelText: "Iniciar sesión") {
-                            Task {
-                                await onLogin()
-                                
+                        Text("Inicia sesión para continuar")
+                            .font(.custom("Comfortaa", size: 24))
+                        Group {
+                            LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo", content: $correo)
+                            
+                            LabelledTextBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $contraseña)
+                            
+                            FilledButton(labelText: "Iniciar sesión") {
+                                Task {
+                                    await onLogin()
+                                    
+                                }
                             }
-                        }
-                    }.frame(maxWidth: 512)
-                    
-                    Button {
-                        // TODO implement login via firebase auth
-                    } label: {
-                        Text("Olvidé mi contraseña")
-                            .font(.custom("Comfortaa", size: 18))
-                            .foregroundColor(Color("secondary"))
-                    }
-                    Button {
-                        // TODO implement login via firebase auth
-                    } label: {
-                        NavigationLink {
-                            RegisterView()
+                        }.frame(maxWidth: 512)
+                        
+                        Button {
+                            // TODO implement login via firebase auth
                         } label: {
-                            Text("Crear una cuenta")
+                            Text("Olvidé mi contraseña")
                                 .font(.custom("Comfortaa", size: 18))
                                 .foregroundColor(Color("secondary"))
                         }
+                        Button {
+                            // TODO implement login via firebase auth
+                        } label: {
+                            NavigationLink {
+                                RegisterView()
+                            } label: {
+                                Text("Crear una cuenta")
+                                    .font(.custom("Comfortaa", size: 18))
+                                    .foregroundColor(Color("secondary"))
+                            }
+                        }
                     }
+                    .offset(y: geo.size.height/6)
+                    .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
+                    .frame(width: geo.size.width / 2)
                 }
-                .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
-                .frame(width: geo.size.width / 2)
-            }
                 ZStack {
                     Color("primary lighter")
                         .edgesIgnoringSafeArea(.all)
                     Image("logo")
                         .resizable()
-                        .frame(width: geo.size.width/4,height: geo.size.width/4)
+                        .frame(width: geo.size.width/4, height: geo.size.width/4)
                         .scaledToFill()
                         .rotationEffect(.degrees(isRotating))
                         .onAppear {
-                            withAnimation(.linear(duration: 1)
-                                .speed(0.1).repeatForever(autoreverses: false)) {
-                                    isRotating = 360.0
-                                }
+                            rotarImagen()
                         }
                 }
                 .frame(width: geo.size.width/2)
-            }.overlay(alignment: .bottomLeading){
+            }
+            .overlay(alignment: .bottomLeading){
                 if let errorMsg = errorMsg {
                     ErrorPopup(label: errorMsg)
                         .offset(x: 32, y: -8)

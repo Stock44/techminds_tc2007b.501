@@ -15,7 +15,7 @@ struct LabelledTextBox: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
-                .font(.custom("Comfortaa", size: 16))
+                .font(.custom("Comfortaa-regular", size: 16))
             
             TextField(text: content) {
                 Text(placeholder)
