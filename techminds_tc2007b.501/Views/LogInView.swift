@@ -63,7 +63,6 @@ struct LogInView: View {
                             LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo", content: $correo)
                             
                             LabelledTextBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $contraseña)
-                            
                             FilledButton(labelText: "Iniciar sesión") {
                                 Task {
                                     await onLogin()
