@@ -4,21 +4,18 @@
 //
 //  Created by Alumno on 22/05/23.
 //
-
 import SwiftUI
 
 struct CollectionInstructor: View {
     
     @State private var bgColor = Color.indigo
-    
     @State var name : String = ""
-    @State var contraseña : String = ""
     
     //CARD
     @State private var cards: [Card] = [
-        Card(name: "Tarjeta 1", numCards: 5, tOn: false, onLight: false),
-        Card(name: "Tarjeta 2", numCards: 3, tOn: false, onLight: false),
-        Card(name: "Tarjeta 3", numCards: 2, tOn: false, onLight: false)
+        Card(name: "Coleccion 1", numCards: 5, tOn: false, onLight: false),
+        Card(name: "Coleccion 2", numCards: 3, tOn: false, onLight: false),
+        Card(name: "Coleccion 3", numCards: 2, tOn: false, onLight: false)
     ]
     
     var body: some View {
@@ -27,38 +24,44 @@ struct CollectionInstructor: View {
                     VStack(alignment: .leading, spacing: 32) {
                         Text("Colecciones")
                             .font(.custom("Comfortaa", size: 72))
+                            .frame(maxWidth: .infinity, alignment:.topLeading)
                         
                         //Right Side
                         Group{
                             HStack {
                                 Text("Nombre")
-                                Spacer()
-                                Spacer()
+                                    .font(.custom("Raleway-bold", size: 18))                            .frame(maxWidth: .infinity, alignment: .leading)
                                 Text("# de tarjetas")
-                                Spacer()
-                                Spacer()
+                                    .font(.custom("Raleway-bold", size: 18))
+                                    .frame(maxWidth: .infinity, alignment: .center)
                                 Text("Habilitar")
+                                    .font(.custom("Raleway-bold", size: 18))
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                Text("")
+                                    .font(.custom("Raleway-bold", size: 18))
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
                                 
                             }
-                            .padding(.horizontal)
-                            .font(.headline)
+                       //     .padding(.horizontal)
+                          //  .font(.custom("Raleway-bold", size: 18))
                             
                             ForEach(cards.indices, id: \.self) { index in
                                 HStack {
                                     Text(cards[index].name)
-                                    Spacer()
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     Text("\(cards[index].numCards)")
-                                    Spacer()
+                                        .frame(maxWidth: .infinity, alignment: .center)
                                     Toggle("", isOn: $cards[index].tOn)
                                         .onChange(of: cards[index].tOn) { newValue in cards[index] .onLight = newValue
                                         }
-                                    Spacer()
+                                        .frame(maxWidth: .infinity, alignment: .center)
                                     Circle()
                                         .fill(cards[index].onLight ? Color.green : Color.gray)
                                         .frame(width: 20, height: 20)
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
-                                .padding(.horizontal)
-                                .font(.body)
+                            //    .padding(.horizontal)
+                                .font(.custom("Comfortaa", size: 18))                                .padding(.bottom ,10)
                             }
                         }
                     }
@@ -67,7 +70,7 @@ struct CollectionInstructor: View {
                     
                     //Left Side
                     ZStack {
-                        Color("primary lighter")
+                        Color("white")
                             .edgesIgnoringSafeArea(.all)
                         
                         VStack(alignment: .leading, spacing: 8){
@@ -105,7 +108,6 @@ struct CollectionInstructor: View {
             }
         }
     }
-
 struct CollectionInstructor_Previews: PreviewProvider {
     static var previews: some View {
         CollectionInstructor()
