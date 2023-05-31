@@ -8,38 +8,50 @@
 import SwiftUI
 
 struct AccountInfoView: View {
-    @State private var nombre = "Erick"
-    @State private var apellidos = "Hernandez"
-    @State private var correo = "A00@tec.mx"
-    @State private var contraseña = "dasfdaf"
-    @State private var nivel = "2"
+    @State var nombre = "Erick"
+    @State var apellidos = "Erick"
+    @State var correo = "A00@tec.mx"
+    @State var contraseña = "hola"
+    @State private var popup = false
+    @State private var buttontext = "Editar"
+    
     
     var body: some View {
-        HStack{
-            VStack (spacing: 30){
-                LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
-                    .disabled(true)
-                LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
-                    .disabled(true)
-                LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
-                    .disabled(true)
-                LabelledTextBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
-                    .disabled(true)
-                LabelledTextBox(label: "Nivel", placeholder: "\(nivel)",content: $nivel)
-                    .disabled(true)
+        ZStack {
+            if popup {
+                VerifyPopUp()
             }
-            .padding(.leading, 40)
-            VStack{
-                Spacer()
-                HStack(alignment: .bottom){
-                    FilledButton(labelText: "Editar") {
-                    }
-                    .padding(.bottom, 100)
+            HStack{
+                VStack (spacing: 30){
+                    LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
+                        .disabled(true)
+                        .opacity(0.6)
+                    LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
+                        .disabled(true)
+                        .opacity(0.6)
+                    LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
+                        .disabled(true)
+                        .opacity(0.6)
+                    LabelledTextBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
+                        .disabled(true)
+                        .opacity(0.6)
                 }
-            }
-            .padding(.horizontal, 150.0)
-            
-        }.navigationTitle("Detalles de cuenta")
+                .padding(.leading, 40)
+                VStack{
+                    Spacer()
+                    HStack(alignment: .bottom){
+                        FilledButton(labelText: buttontext){
+                            if buttontext == "Editar"{
+                                popup = true
+                            }
+                        }
+                        .padding(.bottom, 100)
+                    }
+                }
+                .padding(.horizontal, 150.0)
+                
+            }.navigationTitle("Detalles de cuenta")
+        }
     }
 }
 
