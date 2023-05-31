@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @State var user: User?
+    @State var authUser: FirebaseAuth.User?
     
     init() {
         let navBarAppearance = UINavigationBar.appearance()
@@ -25,22 +25,19 @@ struct ContentView: View {
         Auth.auth().addStateDidChangeListener(self.onAuthStateChange)
     }
     
-    func onAuthStateChange(auth: Auth, authUser: User?) {
-        user = authUser
+    func onAuthStateChange(auth: Auth, authUser: FirebaseAuth.User?) {
+        self.authUser = authUser
     }
     
     var body: some View {
-        if user == nil{
-            NavigationView {
-                CardConfig()
-            }
-            .navigationViewStyle(.stack)
-        } else {
-            NavigationView {
+        NavigationView {
+            if self.authUser != nil {
                 MainMenuView()
+            } else {
+                LogInView()
             }
-            .navigationViewStyle(.stack)
         }
+        .navigationViewStyle(.stack)
     }
 }
 

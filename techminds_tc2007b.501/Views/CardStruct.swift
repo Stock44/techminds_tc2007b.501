@@ -11,6 +11,4 @@ struct CardStruct : Hashable{
     var id : String!
     var name : String
     var image : String
-    var collections : [CollectionStruct]
-    var owner : UserStruct
 }

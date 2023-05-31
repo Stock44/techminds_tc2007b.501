@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct MainMenuView: View {
     var body: some View {
@@ -26,7 +27,7 @@ struct MainMenuView: View {
                 .padding(.all, 24)
                 .foregroundColor(Color("accent2 darker"))
                 .background(Color("accent2 lighter"))
-                    .cornerRadius(16)
+                .cornerRadius(16)
             }
             
             NavigationLink {
@@ -45,15 +46,24 @@ struct MainMenuView: View {
                 .padding(.all, 24)
                 .foregroundColor(Color("secondary darker"))
                 .background(Color("secondary lighter"))
-                    .cornerRadius(16)
+                .cornerRadius(16)
             }
         }
         .navigationBarTitle(Text("Menú principal"))
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Image("settings")
-                    .resizable()
-                    .frame(width: 32, height: 32)
+                Button {
+                    do {
+                        try Auth.auth().signOut()
+                    } catch {
+                        print("could not sign out")
+                    }
+                } label: {
+                    Image("settings")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                    
+                }
             }
         }
         .padding(EdgeInsets(top: 32, leading: 48, bottom: 32, trailing: 48))

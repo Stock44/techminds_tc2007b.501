@@ -7,11 +7,7 @@
 
 import Foundation
 
-struct UserStruct : Hashable {
-    var id : String!
-    var email : String
-    var firstName : String
-    var lastName : String
+struct User : Hashable {
     var useButtons : Bool
     var usePoseEstimation : Bool
     var useVoiceOver : Bool
