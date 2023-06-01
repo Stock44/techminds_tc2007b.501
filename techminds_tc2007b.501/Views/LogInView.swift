@@ -35,6 +35,7 @@ struct LogInView: View {
                         
                         Text("Inicia sesión para continuar")
                             .font(.custom("Comfortaa", size: 24))
+                        
                         if let authError = viewModel.authError {
                             Text(authError.localizedDescription)
                                 .typography(.callout)

@@ -19,14 +19,13 @@ struct AccountEditView: View {
                 LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
                 LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
                 LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
-                LabelledTextBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
+                LabelledPasswordBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
             }
             .padding(.leading, 40)
             VStack{
                 Spacer()
                 HStack(alignment: .bottom){
                     FilledButton(labelText: "Guardar"){
-                        
                     }
                      .padding(.bottom, 100)
                 }
