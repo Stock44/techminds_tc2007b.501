@@ -47,7 +47,8 @@ struct LogInView: View {
                         Group {
                             LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo", content: $email)
                             
-                            LabelledTextBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $password)
+                            LabelledPasswordBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $password)
+                            
                             FilledButton(labelText: "Iniciar sesión") {
                                 viewModel.login(email: email, password: password)
                             }
@@ -77,6 +78,7 @@ struct LogInView: View {
                     .frame(width: geo.size.width / 2)
                 }
                 .animation(.easeIn(duration: 0.3))
+                
                 ZStack {
                     Color("primary lighter")
                         .edgesIgnoringSafeArea(.all)

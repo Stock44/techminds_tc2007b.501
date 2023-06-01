@@ -66,8 +66,8 @@ struct RegisterView: View {
                                 LabelledTextBox(label: "Apellido(s) del alumno", placeholder: "Ingresa el apellido(s)", content: $apellido)
                             }
                             LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $email)
-                            LabelledTextBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $password)
-                            LabelledTextBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordValidation)
+                            LabelledPasswordBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $password)
+                            LabelledPasswordBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordValidation)
                             FilledButton(labelText: "Registrarse") {
                                 Task {
                                     await onRegister()

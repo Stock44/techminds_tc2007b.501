@@ -42,6 +42,7 @@
 		FBA060502A1833DA00BA3D67 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */; };
 		FBB443512A097634000E48F2 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443502A097634000E48F2 /* LogInView.swift */; };
 		FBB443532A09A3DA000E48F2 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443522A09A3DA000E48F2 /* FilledButton.swift */; };
+		FBC325032A2907E30032D1F9 /* LabelledPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC325022A2907E30032D1F9 /* LabelledPasswordBox.swift */; };
 		FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD340692A0968EF00977A4B /* MainMenuView.swift */; };
 		FBD340772A09902000977A4B /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD340722A09901F00977A4B /* Comfortaa-Regular.ttf */; };
 		FBD340782A09902000977A4B /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD340732A09902000977A4B /* Comfortaa-SemiBold.ttf */; };
@@ -121,6 +122,7 @@
 		FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
 		FBB443502A097634000E48F2 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; tabWidth = 3; };
 		FBB443522A09A3DA000E48F2 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
+		FBC325022A2907E30032D1F9 /* LabelledPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledPasswordBox.swift; sourceTree = "<group>"; };
 		FBD340692A0968EF00977A4B /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		FBD340722A09901F00977A4B /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
 		FBD340732A09902000977A4B /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				FB38BBF72A17E227007A5C05 /* StudentCards.swift */,
 				FB8DF3512A17D88C00E61AA6 /* CardButton.swift */,
 				FB72D52D2A18127C00D9F898 /* LabelledTextBox.swift */,
+				FBC325022A2907E30032D1F9 /* LabelledPasswordBox.swift */,
 				FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */,
 				FB5FBB602A27DB9800BE0095 /* VerifyPopUp.swift */,
 			);
@@ -530,6 +533,7 @@
 				FB78156D2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */,
 				FBFFA8DE2A27F138004B1C69 /* Collection.swift in Sources */,
 				FB964C5C2A250E9000FBBB84 /* PorfileCards.swift in Sources */,
+				FBC325032A2907E30032D1F9 /* LabelledPasswordBox.swift in Sources */,
 				FBDD5E2D2A05AE7D00642744 /* techminds_tc2007b_501App.swift in Sources */,
 				FB7815692A1BFEFC00B312E5 /* InitialView.swift in Sources */,
 				FBB443512A097634000E48F2 /* LogInView.swift in Sources */,
