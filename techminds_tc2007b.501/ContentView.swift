@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @State var authUser: FirebaseAuth.User?
+    @StateObject var viewModel = ViewModel()
     
     init() {
         let navBarAppearance = UINavigationBar.appearance()
@@ -22,16 +22,11 @@ struct ContentView: View {
         
         navBarAppearance.layoutMargins = UIEdgeInsets(top: 0, left: 48, bottom: 0, right: 48)
         
-        Auth.auth().addStateDidChangeListener(self.onAuthStateChange)
-    }
-    
-    func onAuthStateChange(auth: Auth, authUser: FirebaseAuth.User?) {
-        self.authUser = authUser
     }
     
     var body: some View {
         NavigationView {
-            if self.authUser != nil {
+            if self.viewModel.user != nil {
                 MainMenuView()
             } else {
                 LogInView()
