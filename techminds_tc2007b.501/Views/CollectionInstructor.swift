@@ -12,10 +12,10 @@ struct CollectionInstructor: View {
     @State var name : String = ""
     
     //CARD
-    @State private var cards: [Card] = [
-        Card(name: "Coleccion 1", numCards: 5, tOn: false, onLight: false),
-        Card(name: "Coleccion 2", numCards: 3, tOn: false, onLight: false),
-        Card(name: "Coleccion 3", numCards: 2, tOn: false, onLight: false)
+    @State private var cards: [ExampleCard] = [
+        ExampleCard(name: "Coleccion 1", numCards: 5, tOn: false, onLight: false),
+        ExampleCard(name: "Coleccion 2", numCards: 3, tOn: false, onLight: false),
+        ExampleCard(name: "Coleccion 3", numCards: 2, tOn: false, onLight: false)
     ]
     
     var body: some View {

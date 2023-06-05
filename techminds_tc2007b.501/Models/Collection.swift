@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct Collection {
-    var nombre: String
-    var color: Color
+struct Collection : Codable {
+    var name: String
+    var color: CodableColor
+    var cards: [Card]
 }

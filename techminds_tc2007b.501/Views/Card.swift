@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CardStruct : Hashable{
+struct Card : Codable, Hashable {
     var id : String!
     var name : String
-    var image : String
+    var imageURL : String
 }

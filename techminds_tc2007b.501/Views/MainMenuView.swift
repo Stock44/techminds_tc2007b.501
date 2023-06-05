@@ -12,7 +12,7 @@ struct MainMenuView: View {
     var body: some View {
         DynamicStack (spacing: 24) {
             NavigationLink {
-                CardsView()
+                StudentCardsView()
             } label: {
                 VStack{
                     Image("carousel-horizontal")
@@ -31,7 +31,7 @@ struct MainMenuView: View {
             }
             
             NavigationLink {
-                CollectionsView()
+                StudentCollectionsView()
             } label: {
                 VStack {
                     Image("system-group")
@@ -59,9 +59,7 @@ struct MainMenuView: View {
                         print("could not sign out")
                     }
                 } label: {
-                    Image("settings")
-                        .resizable()
-                        .frame(width: 32, height: 32)
+                    Image(systemName: "gear")
                     
                 }
             }

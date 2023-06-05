@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Card {
+struct ExampleCard {
     let name: String
     let numCards: Int
     var tOn: Bool
@@ -15,10 +15,10 @@ struct Card {
 }
 
 struct CardView: View {
-    @State private var cards: [Card] = [
-        Card(name: "Tarjeta 1", numCards: 5, tOn: false, onLight: false),
-        Card(name: "Tarjeta 2", numCards: 3, tOn: false, onLight: false),
-        Card(name: "Tarjeta 3", numCards: 2, tOn: false, onLight: false)
+    @State private var cards: [ExampleCard] = [
+        ExampleCard(name: "Tarjeta 1", numCards: 5, tOn: false, onLight: false),
+        ExampleCard(name: "Tarjeta 2", numCards: 3, tOn: false, onLight: false),
+        ExampleCard(name: "Tarjeta 3", numCards: 2, tOn: false, onLight: false)
     ]
 
     var body: some View {

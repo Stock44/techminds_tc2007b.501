@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardsView: View {
+struct StudentCardsView: View {
     var body: some View {
         Grid {
             GridRow {
@@ -31,12 +31,23 @@ struct CardsView: View {
                 
                 CardButton(action: "", cardColor: "primary lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "primary darker")
             }
-        }.navigationTitle("Tarjetas")
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button {
+                } label: {
+                    Image(systemName: "pencil")
+                        .resizable()
+                    
+                }
+            }
+        }
+        .navigationTitle("Tarjetas")
     }
 }
 
 struct CardsView_Previews: PreviewProvider {
     static var previews: some View {
-        CardsView()
+        StudentCardsView()
     }
 }

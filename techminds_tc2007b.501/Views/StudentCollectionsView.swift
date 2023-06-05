@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CollectionsView: View {
+struct StudentCollectionsView: View {
     var body: some View {
         Grid (horizontalSpacing: 24, verticalSpacing: 24) {
             GridRow {
@@ -39,9 +39,6 @@ struct CollectionsView: View {
                     
                 } label: {
                     Image("pencil")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                    
                 }
             }
         }
@@ -51,6 +48,6 @@ struct CollectionsView: View {
 
 struct CollectionsView_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionsView()
+        StudentCollectionsView()
     }
 }

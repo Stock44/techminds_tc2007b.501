@@ -15,12 +15,12 @@
 		FB38BBF82A17E227007A5C05 /* StudentCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38BBF72A17E227007A5C05 /* StudentCards.swift */; };
 		FB3FF52B2A21420900D291C4 /* CardsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF52A2A21420900D291C4 /* CardsConfig.swift */; };
 		FB3FF52F2A215F5200D291C4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF52E2A215F5200D291C4 /* User.swift */; };
-		FB3FF5352A21672E00D291C4 /* CardStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF5342A21672E00D291C4 /* CardStruct.swift */; };
+		FB3FF5352A21672E00D291C4 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF5342A21672E00D291C4 /* Card.swift */; };
 		FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */; };
 		FB4EEFB32A0AC8A30022EBC5 /* DynamicStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */; };
 		FB5FBB612A27DB9800BE0095 /* VerifyPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FBB602A27DB9800BE0095 /* VerifyPopUp.swift */; };
 		FB5FBB632A27DC1100BE0095 /* AccountEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FBB622A27DC1100BE0095 /* AccountEditView.swift */; };
-		FB62BB972A16C35F00076ECD /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62BB962A16C35F00076ECD /* CollectionsView.swift */; };
+		FB62BB972A16C35F00076ECD /* StudentCollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */; };
 		FB72D52E2A18127C00D9F898 /* LabelledTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72D52D2A18127C00D9F898 /* LabelledTextBox.swift */; };
 		FB78155E2A1BFA1A00B312E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB78155D2A1BFA1A00B312E5 /* GoogleService-Info.plist */; };
 		FB78155F2A1BFA1A00B312E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB78155D2A1BFA1A00B312E5 /* GoogleService-Info.plist */; };
@@ -34,8 +34,9 @@
 		FB78156D2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */; };
 		FB78156E2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */; };
 		FB78156F2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */; };
+		FB80052E2A2E7D2700258FC0 /* StudentCollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB80052D2A2E7D2700258FC0 /* StudentCollectionsViewModel.swift */; };
 		FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */; };
-		FB8DF3502A17D69A00E61AA6 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */; };
+		FB8DF3502A17D69A00E61AA6 /* StudentCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */; };
 		FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF3512A17D88C00E61AA6 /* CardButton.swift */; };
 		FB964C5C2A250E9000FBBB84 /* PorfileCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */; };
 		FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA029782A213A85005E1FD1 /* Togglecard.swift */; };
@@ -68,6 +69,7 @@
 		FBD340AF2A09958F00977A4B /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD3409D2A09958F00977A4B /* Raleway-Medium.ttf */; };
 		FBD340B02A09958F00977A4B /* Raleway-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD3409E2A09958F00977A4B /* Raleway-BoldItalic.ttf */; };
 		FBD340B12A09958F00977A4B /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD3409F2A09958F00977A4B /* Raleway-Light.ttf */; };
+		FBDA98032A2E714900E528D1 /* CodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDA98022A2E714900E528D1 /* CodableColor.swift */; };
 		FBDD5E2D2A05AE7D00642744 /* techminds_tc2007b_501App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDD5E2C2A05AE7D00642744 /* techminds_tc2007b_501App.swift */; };
 		FBDD5E2F2A05AE7D00642744 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDD5E2E2A05AE7D00642744 /* ContentView.swift */; };
 		FBDD5E312A05AE8500642744 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBDD5E302A05AE8500642744 /* Assets.xcassets */; };
@@ -105,18 +107,19 @@
 		FB38BBF72A17E227007A5C05 /* StudentCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCards.swift; sourceTree = "<group>"; };
 		FB3FF52A2A21420900D291C4 /* CardsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsConfig.swift; sourceTree = "<group>"; };
 		FB3FF52E2A215F5200D291C4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = techminds_tc2007b.501/Views/User.swift; sourceTree = SOURCE_ROOT; };
-		FB3FF5342A21672E00D291C4 /* CardStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardStruct.swift; path = techminds_tc2007b.501/Views/CardStruct.swift; sourceTree = SOURCE_ROOT; };
+		FB3FF5342A21672E00D291C4 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Card.swift; path = techminds_tc2007b.501/Views/Card.swift; sourceTree = SOURCE_ROOT; };
 		FB4EEFB02A0AC43B0022EBC5 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicStack.swift; sourceTree = "<group>"; };
 		FB5FBB602A27DB9800BE0095 /* VerifyPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPopUp.swift; sourceTree = "<group>"; };
 		FB5FBB622A27DC1100BE0095 /* AccountEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEditView.swift; sourceTree = "<group>"; };
-		FB62BB962A16C35F00076ECD /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
+		FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCollectionsView.swift; sourceTree = "<group>"; };
 		FB72D52D2A18127C00D9F898 /* LabelledTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledTextBox.swift; sourceTree = "<group>"; };
 		FB78155D2A1BFA1A00B312E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB7815682A1BFEFC00B312E5 /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
 		FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopup.swift; sourceTree = "<group>"; };
+		FB80052D2A2E7D2700258FC0 /* StudentCollectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCollectionsViewModel.swift; sourceTree = "<group>"; };
 		FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionButton.swift; sourceTree = "<group>"; };
-		FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
+		FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCardsView.swift; sourceTree = "<group>"; };
 		FB8DF3512A17D88C00E61AA6 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorfileCards.swift; sourceTree = "<group>"; };
 		FBA029782A213A85005E1FD1 /* Togglecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Togglecard.swift; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 		FBD3409D2A09958F00977A4B /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
 		FBD3409E2A09958F00977A4B /* Raleway-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FBD3409F2A09958F00977A4B /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
+		FBDA98022A2E714900E528D1 /* CodableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableColor.swift; sourceTree = "<group>"; };
 		FBDD5E292A05AE7D00642744 /* techminds_tc2007b.501.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = techminds_tc2007b.501.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBDD5E2C2A05AE7D00642744 /* techminds_tc2007b_501App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = techminds_tc2007b_501App.swift; sourceTree = "<group>"; };
 		FBDD5E2E2A05AE7D00642744 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -194,8 +198,9 @@
 		FB4EEFAE2A0AC3B20022EBC5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FBDA98022A2E714900E528D1 /* CodableColor.swift */,
 				FB3FF52E2A215F5200D291C4 /* User.swift */,
-				FB3FF5342A21672E00D291C4 /* CardStruct.swift */,
+				FB3FF5342A21672E00D291C4 /* Card.swift */,
 				FBFFA8DD2A27F138004B1C69 /* Collection.swift */,
 			);
 			path = Models;
@@ -327,8 +332,8 @@
 				FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */,
 				FBA029782A213A85005E1FD1 /* Togglecard.swift */,
 				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
-				FB62BB962A16C35F00076ECD /* CollectionsView.swift */,
-				FB8DF34F2A17D69A00E61AA6 /* CardsView.swift */,
+				FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */,
+				FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */,
 				FB38BBF52A17E1F1007A5C05 /* CollectionDetailView.swift */,
 				B682D3022A2147D1002AFFC3 /* CardConfig.swift */,
 				FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */,
@@ -345,6 +350,7 @@
 			children = (
 				FBFFA8E12A27F477004B1C69 /* LoginViewModel.swift */,
 				FB266A1E2A294FB00055F839 /* ContentViewModel.swift */,
+				FB80052D2A2E7D2700258FC0 /* StudentCollectionsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -513,18 +519,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB8DF3502A17D69A00E61AA6 /* CardsView.swift in Sources */,
+				FB8DF3502A17D69A00E61AA6 /* StudentCardsView.swift in Sources */,
 				FBA0604E2A18339700BA3D67 /* AccessibilityConfigView.swift in Sources */,
+				FBDA98032A2E714900E528D1 /* CodableColor.swift in Sources */,
 				FBA060502A1833DA00BA3D67 /* AccountInfoView.swift in Sources */,
 				FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */,
-				FB3FF5352A21672E00D291C4 /* CardStruct.swift in Sources */,
+				FB3FF5352A21672E00D291C4 /* Card.swift in Sources */,
 				FB4EEFB32A0AC8A30022EBC5 /* DynamicStack.swift in Sources */,
 				FB38BBF62A17E1F1007A5C05 /* CollectionDetailView.swift in Sources */,
 				FB5FBB612A27DB9800BE0095 /* VerifyPopUp.swift in Sources */,
 				FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */,
 				FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */,
 				FB075F8F2A1C1F3200DC0218 /* CollectionInstructor.swift in Sources */,
-				FB62BB972A16C35F00076ECD /* CollectionsView.swift in Sources */,
+				FB80052E2A2E7D2700258FC0 /* StudentCollectionsViewModel.swift in Sources */,
+				FB62BB972A16C35F00076ECD /* StudentCollectionsView.swift in Sources */,
 				FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */,
 				FBDD5E2F2A05AE7D00642744 /* ContentView.swift in Sources */,
 				FBB443532A09A3DA000E48F2 /* FilledButton.swift in Sources */,
