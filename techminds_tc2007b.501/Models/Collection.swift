@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct Collection : Codable {
+    @DocumentID var id: String?
     var name: String
     var color: CodableColor
-    var cards: [Card]
+    var cards: [DocumentReference] = []
 }

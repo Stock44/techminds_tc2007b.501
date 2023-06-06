@@ -8,14 +8,14 @@
 import SwiftUI
 import FirebaseAuth
 
-struct LogInView: View {
+struct SignInView: View {
     @State private var isRotating = 0.0
     
     @State var email : String = ""
     @State var password : String = ""
     @State var errorText: String?
     
-    @StateObject private var viewModel = ViewModel()
+    @StateObject private var userRepository = UserRepository()
     
     func rotarImagen() {
         withAnimation(.linear(duration: 1)
@@ -36,7 +36,7 @@ struct LogInView: View {
                         Text("Inicia sesión para continuar")
                             .font(.custom("Comfortaa", size: 24))
                         
-                        if let authError = viewModel.authError {
+                        if let authError = userRepository.error {
                             Text(authError.localizedDescription)
                                 .typography(.callout)
                                 .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
@@ -45,13 +45,14 @@ struct LogInView: View {
                                 .background(Color("primary"))
                                 .cornerRadius(16)
                         }
+                        
                         Group {
                             LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo", content: $email)
                             
                             LabelledPasswordBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $password)
                             
                             FilledButton(labelText: "Iniciar sesión") {
-                                viewModel.login(email: email, password: password)
+                                userRepository.signIn(email: email, password: password)
                             }
                         }.frame(maxWidth: 512)
                         
@@ -102,6 +103,6 @@ struct LogInView: View {
 
 struct LogIn_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView()
+        SignInView()
     }
 }

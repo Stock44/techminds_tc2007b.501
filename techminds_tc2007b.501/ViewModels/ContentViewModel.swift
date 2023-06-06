@@ -10,12 +10,6 @@ import FirebaseAuth
 
 extension ContentView{
     @MainActor class ViewModel : ObservableObject{
-        @Published private(set) var user: FirebaseAuth.User?
-        
-        init() {
-            Auth.auth().addStateDidChangeListener { auth, authUser in
-                self.user = authUser
-            }
-        }
+        @Published private(set) var userRepository = UserRepository()
     }
 }

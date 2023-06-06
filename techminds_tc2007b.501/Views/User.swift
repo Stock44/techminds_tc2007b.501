@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct User : Hashable {
-    var useButtons : Bool
-    var usePoseEstimation : Bool
-    var useVoiceOver : Bool
-    var fontSize : Float
-    var buttonSize : Float
-    var cardSize : Float //puede ser un escalable
-    var rows : Int
-    var columns : Int
+struct User : Hashable, Codable {
+    @DocumentID var id: String?
+    var name: String
+    var surname: String
+    var useButtons : Bool = false
+    var usePoseEstimation : Bool = false
+    var useVoiceOver : Bool = false
+    var rows : Int = 3
+    var columns : Int = 3
 }

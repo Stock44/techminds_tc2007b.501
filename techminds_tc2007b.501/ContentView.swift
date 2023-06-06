@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @StateObject var viewModel = ViewModel()
+    @StateObject var userRepository = UserRepository()
     
     init() {
         let navBarAppearance = UINavigationBar.appearance()
@@ -26,10 +26,10 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            if self.viewModel.user != nil {
+            if self.userRepository.user != nil {
                 MainMenuView()
             } else {
-                LogInView()
+                SignInView()
             }
         }
         .navigationViewStyle(.stack)

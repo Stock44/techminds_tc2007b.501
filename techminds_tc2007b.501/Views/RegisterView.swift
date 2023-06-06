@@ -104,7 +104,7 @@ struct RegisterView: View {
                         .offset(x: 32, y: -8)
                         .transition(.move(edge: .leading))
                         .task {
-                            try? await Task.sleep(for: .seconds(4))
+                            try? await Task.sleep(nanoseconds: 8000000000)
                             withAnimation {
                                 self.errorMsg = nil
                             }
