@@ -41,6 +41,7 @@
 		FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */; };
 		FB8DF3502A17D69A00E61AA6 /* StudentCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */; };
 		FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF3512A17D88C00E61AA6 /* CardButton.swift */; };
+		FB9408952A31250600E1BA66 /* Verificacion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9408942A31250600E1BA66 /* Verificacion.swift */; };
 		FB964C5C2A250E9000FBBB84 /* PorfileCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */; };
 		FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA029782A213A85005E1FD1 /* Togglecard.swift */; };
 		FBA0604E2A18339700BA3D67 /* AccessibilityConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */; };
@@ -130,6 +131,7 @@
 		FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionButton.swift; sourceTree = "<group>"; };
 		FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCardsView.swift; sourceTree = "<group>"; };
 		FB8DF3512A17D88C00E61AA6 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
+		FB9408942A31250600E1BA66 /* Verificacion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verificacion.swift; sourceTree = "<group>"; };
 		FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorfileCards.swift; sourceTree = "<group>"; };
 		FBA029782A213A85005E1FD1 /* Togglecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Togglecard.swift; sourceTree = "<group>"; };
 		FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityConfigView.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				FB72D52C2A180F8F00D9F898 /* Components */,
 				FBD340692A0968EF00977A4B /* MainMenuView.swift */,
 				FB3FF52A2A21420900D291C4 /* CardsConfig.swift */,
+				FB9408942A31250600E1BA66 /* Verificacion.swift */,
 				FBB443502A097634000E48F2 /* SignInView.swift */,
 				FB1088B42A09ACE700B914C2 /* RegisterView.swift */,
 				FB075F8E2A1C1F3200DC0218 /* CollectionInstructor.swift */,
@@ -570,6 +573,7 @@
 				FBB443532A09A3DA000E48F2 /* FilledButton.swift in Sources */,
 				FBC7C3742A311A9700EAD844 /* ConfigMenu.swift in Sources */,
 				FB38BBF82A17E227007A5C05 /* StudentCards.swift in Sources */,
+				FB9408952A31250600E1BA66 /* Verificacion.swift in Sources */,
 				FB3FF52F2A215F5200D291C4 /* User.swift in Sources */,
 				FB1088B52A09ACE700B914C2 /* RegisterView.swift in Sources */,
 				FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */,
