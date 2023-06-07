@@ -2,7 +2,7 @@
 //  InitialView.swift
 //  techminds_tc2007b.501
 //
-//  Created by Alumno on 22/05/23.
+//  Created by Alumno on 22/05/23..
 //
 
 import SwiftUI
