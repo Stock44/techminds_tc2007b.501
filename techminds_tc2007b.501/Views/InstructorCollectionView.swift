@@ -6,18 +6,11 @@
 //
 import SwiftUI
 
-struct CollectionInstructor: View {
+struct InstructorCollectionView: View {
     
     @State var isEditing = false
     @State var editingCollection: Collection? = nil
-    @StateObject private var collectionsRepository = CollectionsRepository()
-    
-    init() {
-        do { try collectionsRepository.getCollections()
-        } catch {
-            print("unable to get collections: \(error)")
-        }
-    }
+    @StateObject private var viewModel = CollectionListViewModel()
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -37,8 +30,8 @@ struct CollectionInstructor: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 
             }
-            ForEach(collectionsRepository.collections, id: \.id) { collection in
-                    Text(collection.name)
+            ForEach(viewModel.collectionViewModels, id: \.id) { collection in
+                Text(collection.collection.name)
             }
         }
         .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
@@ -58,14 +51,8 @@ struct CollectionInstructor: View {
                 CollectionEditView {name, color, enabled in}  deleteAction: {}
             } else {
                 CollectionEditView { name, color, enabled in
-                    Task {
-                        do {
-                            try await collectionsRepository.createCollection(name: name, color: color, enabled: enabled)
-                        } catch {
-                            print("error while creating collection: \(error)")
-                        }
-                        isEditing = false
-                    }
+                    viewModel.create(name: name, color: color, enabled: enabled)
+                    isEditing = false
                 }
             }
         }
@@ -77,7 +64,7 @@ struct CollectionInstructor: View {
 }
 struct CollectionInstructor_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionInstructor()
+        InstructorCollectionView()
     }
 }
 

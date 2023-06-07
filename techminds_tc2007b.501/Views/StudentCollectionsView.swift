@@ -9,23 +9,16 @@ import SwiftUI
 
 struct StudentCollectionsView: View {
     @StateObject var userRepository = UserRepository()
-    @StateObject var collectionsRepository = CollectionsRepository()
-    
-    init() {
-        do {
-            try collectionsRepository.getCollections()
-        } catch {
-            print("unable to get collections: \(error)")
-        }
-    }
+    @StateObject var viewModel = CollectionListViewModel()
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: (0..<(userRepository.user?.rows ?? 4)).map { _ in
                 return GridItem(.flexible())
             }) {
-                ForEach(collectionsRepository.collections, id: \.id) { value in
-                    CollectionButton(action: "", collectionColor: "primary lighter", collectionTitle: value.name, titleColor: "primary darker")
+                ForEach(viewModel.collectionViewModels) { collectionViewModel in
+                    Text("test")
+                    //CollectionButton(action: "", collectionColor: "primary lighter", collectionTitle: value.name, titleColor: "primary darker")
                 }
             }
         }
@@ -33,7 +26,7 @@ struct StudentCollectionsView: View {
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing){
                 NavigationLink {
-                    CollectionInstructor()
+                    InstructorCollectionView()
                 } label: {
                     Image(systemName: "pencil")
                 }

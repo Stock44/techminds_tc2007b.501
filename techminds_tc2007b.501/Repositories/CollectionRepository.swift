@@ -1,17 +1,16 @@
 //
-//  CollectionsRepository.swift
+//  CollectionRepository.swift
 //  techminds_tc2007b.501
 //
-//  Created by Alumno on 06/06/23.
+//  Created by Alumno on 07/06/23.
 //
 
 import Foundation
 import SwiftUI
-import FirebaseFirestore
 import FirebaseAuth
-import Combine
+import FirebaseFirestore
 
-class CollectionsRepository : ObservableObject {
+class CollectionRepository : ObservableObject {
     private let usersPath = "users"
     private let collectionsPath = "collections"
     private let store = Firestore.firestore()
@@ -52,27 +51,14 @@ class CollectionsRepository : ObservableObject {
         
         let snapshot = try await collectionRef.getDocument()
         
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            do {
-                guard !snapshot.exists else {
-                    continuation.resume(throwing: RepositoryError.alreadyExists)
-                    return
-                }
-                
-                let newCollection = Collection(name: name, color: CodableColor(cgColor: color.cgColor ?? CGColor(gray: 1.0, alpha: 1.0)), enabled: enabled)
-                try collectionRef.setData(from: newCollection) { error in
-                    guard error == nil else {
-                        continuation.resume(throwing: error!)
-                        return
-                    }
-                    continuation.resume()
-                }
-            } catch {
-                continuation.resume(throwing: error)
-            }
+        guard !snapshot.exists else {
+            throw RepositoryError.alreadyExists
         }
+        
+        let newCollection = Collection(name: name, color: CodableColor(cgColor: color.cgColor ?? CGColor(gray: 1.0, alpha: 1.0)), enabled: enabled)
+        try collectionRef.setData(from: newCollection)
     }
-            
+    
     
     func updateCollection(collection: Collection) async throws{
         guard let collectionId = collection.id else {
