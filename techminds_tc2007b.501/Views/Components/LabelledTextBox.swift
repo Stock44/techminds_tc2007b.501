@@ -15,11 +15,11 @@ struct LabelledTextBox: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
-                .font(.custom("Comfortaa-regular", size: 16))
+                .typography(.callout)
             
             TextField(text: content) {
                 Text(placeholder)
-                    .font(.custom("Raleway", size: 18))
+                    .typography(.body)
             }
             .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
             .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray, lineWidth: 1))

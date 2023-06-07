@@ -11,6 +11,14 @@ struct StudentCollectionsView: View {
     @StateObject var userRepository = UserRepository()
     @StateObject var collectionsRepository = CollectionsRepository()
     
+    init() {
+        do {
+            try collectionsRepository.getCollections()
+        } catch {
+            print("unable to get collections: \(error)")
+        }
+    }
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: (0..<(userRepository.user?.rows ?? 4)).map { _ in
@@ -24,10 +32,10 @@ struct StudentCollectionsView: View {
         .navigationTitle("Colecciones")
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing){
-                Button {
-                    
+                NavigationLink {
+                    CollectionInstructor()
                 } label: {
-                    Image("pencil")
+                    Image(systemName: "pencil")
                 }
             }
         }

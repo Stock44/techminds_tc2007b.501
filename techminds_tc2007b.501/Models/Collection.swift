@@ -13,5 +13,6 @@ struct Collection : Codable {
     @DocumentID var id: String?
     var name: String
     var color: CodableColor
+    var enabled: Bool
     var cards: [DocumentReference] = []
 }
