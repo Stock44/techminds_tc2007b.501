@@ -59,7 +59,7 @@ class CardsRepository : ObservableObject {
         
         FileManager.default.createFile(atPath: imageURL.path(), contents: image.jpegData(compressionQuality: 1.0))
         
-        let cloudFileRef = storage.reference().child(user.uid).child(imageFileName)
+        let cloudFileRef = storage.reference().child("images").child(user.uid).child(imageFileName)
         
         let fileTask = cloudFileRef.putFile(from: imageURL)
         
@@ -114,7 +114,7 @@ class CardsRepository : ObservableObject {
         
         FileManager.default.createFile(atPath: imageURL.path(), contents: image.jpegData(compressionQuality: 0.8))
         
-        let cloudFileRef = storage.reference().child(user.uid).child(imageFileName)
+        let cloudFileRef = storage.reference().child("images").child(user.uid).child(imageFileName)
         
         let fileTask = cloudFileRef.putFile(from: imageURL)
         
@@ -169,6 +169,13 @@ class CardsRepository : ObservableObject {
         
         let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(cardId)
         try await cardRef.delete()
+        
+        let cardDocumentName = UUID().uuidString
+        let imageFileName = "\(cardDocumentName).jpeg"
+        let imageURL = appURL.appending(path: imageFileName)
+        
+        try FileManager.default.removeItem(atPath: imageURL.path())
+        let cardImgRef = storage.reference().child("images").child(user.uid).child(imageFileName)
     }
     
     func onCardsChange(snapshot: QuerySnapshot?, error: Error?) {
@@ -200,7 +207,7 @@ class CardsRepository : ObservableObject {
                 
                 if !FileManager.default.fileExists(atPath: imageURL.path()) {
                     Task {
-                        let cloudFileRef = storage.reference().child(user.uid).child(imageFileName)
+                        let cloudFileRef = storage.reference().child("images").child(user.uid).child(imageFileName)
                         
                         do {
                             let _ = try await cloudFileRef.writeAsync(toFile: imageURL)
