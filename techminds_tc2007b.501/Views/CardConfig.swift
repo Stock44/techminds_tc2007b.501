@@ -17,7 +17,6 @@ struct CardConfig: View {
     @State var confirmar = true
     
     var body: some View {
-        GeometryReader { geo in
             HStack {
                 VStack(alignment: .leading, spacing: 32) {
                     HStack{
@@ -58,7 +57,7 @@ struct CardConfig: View {
                     }
                 }
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
-                .frame(width: geo.size.width/2)
+                .frame(maxWidth: .infinity)
                     VStack(alignment: .leading, spacing: 8){
                         Image("Imagen")
                         LabelledTextBox(label: "Nombre", placeholder: "Nombre de Imagen", content: $name)
@@ -66,15 +65,9 @@ struct CardConfig: View {
                         FilledButton(labelText: "Confirmar") {
                             confirmar = false
                         }
-                        
-                        
-                        
                     }
-                    .frame(maxWidth: 512)
-                    //.frame(width: geo.size.width/2)
-                
+                    .frame(maxWidth: .infinity)
             }.navigationTitle("Todas las tarjetas")
-        }
     }
         
 }
