@@ -106,4 +106,5 @@ enum RepositoryError: Error {
     case snapshotRetrievalFailure
     case notAuthenticated
     case alreadyExists
+    case invalidModel
 }

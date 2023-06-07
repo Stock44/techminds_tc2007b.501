@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct Card : Codable, Hashable {
-    var id : String!
+    @DocumentID var id : String?
     var name : String
     var imageURL : String
 }

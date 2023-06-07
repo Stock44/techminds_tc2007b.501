@@ -1,23 +1,21 @@
 //
-//  CollectionsRepository.swift
+//  CardsRepository.swift
 //  techminds_tc2007b.501
 //
 //  Created by Alumno on 06/06/23.
 //
 
 import Foundation
-import SwiftUI
-import FirebaseFirestore
 import FirebaseAuth
-import Combine
+import FirebaseFirestore
 
-class CollectionsRepository : ObservableObject {
+class CardsRepository : ObservableObject {
     private let usersPath = "users"
-    private let collectionsPath = "collections"
+    private let cardsPath = "cards"
     private let store = Firestore.firestore()
     private let auth = Auth.auth()
     
-    @Published private(set) var collections: [Collection] = []
+    @Published private(set) var cards: [Card] = []
     @Published private(set) var error: Error? = nil
     
     private var snapshotListenerHandle: ListenerRegistration? = nil
@@ -37,32 +35,32 @@ class CollectionsRepository : ObservableObject {
             return
         }
         
-        let collectionsRef = store.collection(usersPath)
+        let cardsRef = store.collection(usersPath)
             .document(user.uid)
-            .collection(collectionsPath)
+            .collection(cardsPath)
             .order(by: "name")
         
-        self.snapshotListenerHandle = collectionsRef.addSnapshotListener(self.onCollectionsChange)
+        self.snapshotListenerHandle = cardsRef.addSnapshotListener(self.onCardsChange)
     }
     
-    func createCollection(name: String, color: Color) {
+    func createCard(name: String, imageUrl: String) {
         guard let user = auth.currentUser else {
             self.error = RepositoryError.notAuthenticated
             return
         }
         
-        let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(UUID().uuidString)
+        let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(UUID().uuidString)
         
         Task {
             do {
-                let snapshot = try await collectionRef.getDocument()
+                let snapshot = try await cardRef.getDocument()
                 if snapshot.exists {
                     error = RepositoryError.alreadyExists
                     return
                 }
                 
-                let newCollection = Collection(name: name, color: CodableColor(cgColor: color.cgColor ?? CGColor(gray: 1.0, alpha: 1.0)))
-                try collectionRef.setData(from: newCollection) { error in
+                let newCard = Card(name: name, imageURL: imageUrl)
+                try cardRef.setData(from: newCard) { error in
                     guard error == nil else {
                         return
                     }
@@ -74,8 +72,8 @@ class CollectionsRepository : ObservableObject {
         
     }
     
-    func updateCollection(collection: Collection) {
-        guard let collectionId = collection.id else {
+    func updateCard(card: Card) {
+        guard let cardId = card.id else {
             self.error = RepositoryError.invalidModel
             return
         }
@@ -85,16 +83,16 @@ class CollectionsRepository : ObservableObject {
             return
         }
         
-        let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(collectionId)
+        let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(cardId)
         do {
-            try collectionRef.setData(from: collection)
+            try cardRef.setData(from: card)
         } catch {
             self.error = error
         }
     }
     
-    func deleteCollection(collection: Collection) {
-        guard let collectionId = collection.id else {
+    func deleteCard(card: Card) {
+        guard let cardId = card.id else {
             self.error = RepositoryError.invalidModel
             return
         }
@@ -104,24 +102,24 @@ class CollectionsRepository : ObservableObject {
             return
         }
         
-        let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(collectionId)
+        let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(cardId)
         Task {
             do {
-                try await collectionRef.delete()
+                try await cardRef.delete()
             } catch {
                 self.error = error
             }
         }
     }
     
-    func onCollectionsChange(snapshot: QuerySnapshot?, error: Error?) {
+    func onCardsChange(snapshot: QuerySnapshot?, error: Error?) {
         guard let snapshot = snapshot else {
             self.error = error
             return
         }
         do {
-            self.collections = try snapshot.documents.map { snapshot in
-                return try snapshot.data(as: Collection.self)
+            self.cards = try snapshot.documents.map { snapshot in
+                return try snapshot.data(as: Card.self)
             }
         } catch {
             self.error = error
