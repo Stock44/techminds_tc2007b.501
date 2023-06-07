@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CardConfig: View {
     @State private var bgColor = Color.blue
@@ -16,21 +17,25 @@ struct CardConfig: View {
     @State var toggle = true
     @State var confirmar = true
     
+    @State private var selectedItem : PhotosPickerItem?
+    @State private var selectedPhotoData: Data?
+    
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 32){
             HStack{
-            Text("      Todas Las Tarjetas   ")
-                .font(.custom("Raleway", size: 60))
-            
+                Text("      Todas Las Tarjetas   ")
+                    .font(.custom("Raleway", size: 60))
+                
                 Button {
-                        
+                    
                 } label: {
                     Image("system-group")
                         .foregroundColor(                Color("primary"))
                         .padding(EdgeInsets(top: 0, leading: 400, bottom: 0, trailing: 0))
                 }
-               
-
+                
+                
                 Button  {
                 }label: {
                     
@@ -92,10 +97,40 @@ struct CardConfig: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(maxWidth: .infinity)
+                
+                //IMAGEN- IMAGE PICKER (funciona)
                 VStack(alignment: .leading, spacing: 8){
-                    Image("Imagen")
+                    ZStack{
+                        if let selectedPhotoData,
+                           let image = UIImage(data: selectedPhotoData) {
+                            
+                            Image(uiImage: image)
+                                .resizable()
+                                .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
+                                .frame(maxWidth: 650, maxHeight: 350)
+                        }
+                        
+                        
+                        
+                        PhotosPicker(selection: $selectedItem,matching: .any (of:
+                        [.images, .not(.livePhotos)])) {
+                            Image("Imagen")
+                        }
+                            .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
+                        
+                            .onChange(of: selectedItem) { newItem in
+                            Task {
+                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                    selectedPhotoData = data
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
                     LabelledTextBox(label: "Nombre", placeholder: "Nombre de Imagen", content: $name)
                         .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+                    
                     FilledButton(labelText: "Confirmar") {
                         confirmar = false
                     }
@@ -107,7 +142,7 @@ struct CardConfig: View {
     }
 }
 
-    
+
 
 
 struct CardConfig_Previews: PreviewProvider {
@@ -115,3 +150,4 @@ struct CardConfig_Previews: PreviewProvider {
         CardConfig()
     }
 }
+
