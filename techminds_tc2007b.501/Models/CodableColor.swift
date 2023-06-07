@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CodableColor : Codable {
-    let cgColor: CGColor
+    var cgColor: CGColor
     
     enum CodingKeys: String, CodingKey {
         case colorSpace

@@ -18,23 +18,16 @@ class CollectionsRepository : ObservableObject {
     private let auth = Auth.auth()
     
     @Published private(set) var collections: [Collection] = []
-    @Published private(set) var error: Error? = nil
     
     private var snapshotListenerHandle: ListenerRegistration? = nil
-    private var authStateChangeListenerHandle: AuthStateDidChangeListenerHandle? = nil
     
-    init() {
-        authStateChangeListenerHandle = auth.addStateDidChangeListener(self.onAuthStateChange)
-    }
-    
-    func onAuthStateChange(auth: Auth, authUser: FirebaseAuth.User?) {
-        if let listener = snapshotListenerHandle {
+    func getCollections() throws {
+        if let listener = self.snapshotListenerHandle {
             listener.remove()
         }
         
         guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
-            return
+            throw RepositoryError.notAuthenticated
         }
         
         let collectionsRef = store.collection(usersPath)
@@ -45,78 +38,71 @@ class CollectionsRepository : ObservableObject {
         self.snapshotListenerHandle = collectionsRef.addSnapshotListener(self.onCollectionsChange)
     }
     
-    func createCollection(name: String, color: Color) {
+    func createCollection(name: String, color: Color, enabled: Bool) async throws {
         guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
-            return
+            throw RepositoryError.notAuthenticated
         }
         
-        let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(UUID().uuidString)
+        let collectionRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .document(UUID().uuidString)
         
-        Task {
+        
+        let snapshot = try await collectionRef.getDocument()
+        
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             do {
-                let snapshot = try await collectionRef.getDocument()
-                if snapshot.exists {
-                    error = RepositoryError.alreadyExists
+                guard !snapshot.exists else {
+                    continuation.resume(throwing: RepositoryError.alreadyExists)
                     return
                 }
                 
-                let newCollection = Collection(name: name, color: CodableColor(cgColor: color.cgColor ?? CGColor(gray: 1.0, alpha: 1.0)))
+                let newCollection = Collection(name: name, color: CodableColor(cgColor: color.cgColor ?? CGColor(gray: 1.0, alpha: 1.0)), enabled: enabled)
                 try collectionRef.setData(from: newCollection) { error in
                     guard error == nil else {
+                        continuation.resume(throwing: error!)
                         return
                     }
+                    continuation.resume()
                 }
             } catch {
-                self.error = error
+                continuation.resume(throwing: error)
             }
         }
-        
     }
+            
     
-    func updateCollection(collection: Collection) {
+    func updateCollection(collection: Collection) async throws{
         guard let collectionId = collection.id else {
-            self.error = RepositoryError.invalidModel
-            return
+            throw RepositoryError.invalidModel
         }
         
         guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
-            return
+            throw RepositoryError.notAuthenticated
         }
         
         let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(collectionId)
-        do {
-            try collectionRef.setData(from: collection)
-        } catch {
-            self.error = error
-        }
+        try collectionRef.setData(from: collection)
     }
     
-    func deleteCollection(collection: Collection) {
+    func deleteCollection(collection: Collection) async throws{
         guard let collectionId = collection.id else {
-            self.error = RepositoryError.invalidModel
-            return
+            throw RepositoryError.invalidModel
         }
         
         guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
-            return
+            throw RepositoryError.notAuthenticated
         }
         
         let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(collectionId)
-        Task {
-            do {
-                try await collectionRef.delete()
-            } catch {
-                self.error = error
-            }
-        }
+        try await collectionRef.delete()
     }
     
     func onCollectionsChange(snapshot: QuerySnapshot?, error: Error?) {
         guard let snapshot = snapshot else {
-            self.error = error
+            print("error getting collections: \(error!)")
             return
         }
         do {
@@ -124,7 +110,7 @@ class CollectionsRepository : ObservableObject {
                 return try snapshot.data(as: Collection.self)
             }
         } catch {
-            self.error = error
+            print("error mapping collections: \(error)")
         }
     }
 }
