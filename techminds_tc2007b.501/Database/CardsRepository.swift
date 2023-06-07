@@ -8,15 +8,17 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class CardsRepository : ObservableObject {
+    let appURL = URL(string: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])!.appending(path: "cardImages")
     private let usersPath = "users"
     private let cardsPath = "cards"
     private let store = Firestore.firestore()
     private let auth = Auth.auth()
+    private let storage = Storage.storage()
     
     @Published private(set) var cards: [Card] = []
-    @Published private(set) var error: Error? = nil
     
     private var snapshotListenerHandle: ListenerRegistration? = nil
     private var authStateChangeListenerHandle: AuthStateDidChangeListenerHandle? = nil
@@ -31,7 +33,6 @@ class CardsRepository : ObservableObject {
         }
         
         guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
             return
         }
         
@@ -43,86 +44,180 @@ class CardsRepository : ObservableObject {
         self.snapshotListenerHandle = cardsRef.addSnapshotListener(self.onCardsChange)
     }
     
-    func createCard(name: String, imageUrl: String) {
+    func createCard(name: String, image: UIImage) async throws {
         guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
-            return
+            throw RepositoryError.notAuthenticated
         }
         
-        let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(UUID().uuidString)
+        let cardDocumentName = UUID().uuidString
+        let imageFileName = "\(cardDocumentName).jpeg"
+        let imageURL = appURL.appending(path: imageFileName)
         
-        Task {
-            do {
-                let snapshot = try await cardRef.getDocument()
-                if snapshot.exists {
-                    error = RepositoryError.alreadyExists
+        guard !FileManager.default.fileExists(atPath: imageURL.path()) else {
+            throw RepositoryError.alreadyExists
+        }
+        
+        FileManager.default.createFile(atPath: imageURL.path(), contents: image.jpegData(compressionQuality: 1.0))
+        
+        let cloudFileRef = storage.reference().child(user.uid).child(imageFileName)
+        
+        let fileTask = cloudFileRef.putFile(from: imageURL)
+        
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            fileTask.observe(.success) { snapshot in
+                continuation.resume()
+            }
+            fileTask.observe(.failure) { snapshot in
+                guard let error = snapshot.error else {
                     return
                 }
                 
-                let newCard = Card(name: name, imageURL: imageUrl)
+                continuation.resume(throwing: error)
+            }
+        }
+        
+        let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(cardDocumentName)
+        
+        let snapshot = try await cardRef.getDocument()
+        guard !snapshot.exists else {
+            throw RepositoryError.alreadyExists
+        }
+        
+        let newCard = Card(name: name, imageURL: imageURL)
+        
+        try await withCheckedThrowingContinuation{ (continuation: CheckedContinuation<Void, Error>) in
+            do {
                 try cardRef.setData(from: newCard) { error in
-                    guard error == nil else {
+                    guard let error = error else {
+                        continuation.resume()
                         return
                     }
+                    continuation.resume(throwing: error)
                 }
             } catch {
-                self.error = error
+                continuation.resume(throwing: error)
             }
         }
-        
     }
     
-    func updateCard(card: Card) {
+    func updateCardImage(card: Card, image: UIImage) async throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.notAuthenticated
+        }
+        
         guard let cardId = card.id else {
-            self.error = RepositoryError.invalidModel
-            return
+            throw RepositoryError.invalidModel
+        }
+        
+        let imageFileName = "\(cardId).jpeg"
+        let imageURL = appURL.appending(path: imageFileName)
+        
+        FileManager.default.createFile(atPath: imageURL.path(), contents: image.jpegData(compressionQuality: 0.8))
+        
+        let cloudFileRef = storage.reference().child(user.uid).child(imageFileName)
+        
+        let fileTask = cloudFileRef.putFile(from: imageURL)
+        
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            fileTask.observe(.success) { snapshot in
+                continuation.resume()
+            }
+            fileTask.observe(.failure) { snapshot in
+                guard let error = snapshot.error else {
+                    return
+                }
+                
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+    
+    func updateCard(card: Card) async throws {
+        guard let cardId = card.id else {
+            throw RepositoryError.invalidModel
         }
         
         guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
-            return
+            throw RepositoryError.notAuthenticated
         }
         
         let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(cardId)
-        do {
-            try cardRef.setData(from: card)
-        } catch {
-            self.error = error
-        }
-    }
-    
-    func deleteCard(card: Card) {
-        guard let cardId = card.id else {
-            self.error = RepositoryError.invalidModel
-            return
-        }
-        
-        guard let user = auth.currentUser else {
-            self.error = RepositoryError.notAuthenticated
-            return
-        }
-        
-        let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(cardId)
-        Task {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             do {
-                try await cardRef.delete()
+                try cardRef.setData(from: card) { error in
+                    guard let error = error else {
+                        continuation.resume()
+                        return
+                    }
+                    continuation.resume(throwing: error)
+                }
             } catch {
-                self.error = error
+                continuation.resume(throwing: error)
             }
+            
         }
+    }
+    
+    func deleteCard(card: Card) async throws{
+        guard let cardId = card.id else {
+            throw RepositoryError.invalidModel
+        }
+        
+        guard let user = auth.currentUser else {
+            throw  RepositoryError.notAuthenticated
+        }
+        
+        let cardRef = store.collection(usersPath).document(user.uid).collection(cardsPath).document(cardId)
+        try await cardRef.delete()
     }
     
     func onCardsChange(snapshot: QuerySnapshot?, error: Error?) {
         guard let snapshot = snapshot else {
-            self.error = error
+            print("error with cards change listener: \(error!)")
+            
+            if let user = auth.currentUser {
+                let cardsRef = store.collection(usersPath)
+                    .document(user.uid)
+                    .collection(cardsPath)
+                    .order(by: "name")
+                
+                self.snapshotListenerHandle = cardsRef.addSnapshotListener(self.onCardsChange)
+            }
             return
         }
+        
+        guard let user = auth.currentUser else {
+            print("no user on cards update")
+            return
+        }
+        
         do {
-            self.cards = try snapshot.documents.map { snapshot in
-                return try snapshot.data(as: Card.self)
+            self.cards = try snapshot.documents.enumerated().map { idx, snapshot in
+                let card = try snapshot.data(as: Card.self)
+                
+                let imageFileName = "\(card.id!).jpeg"
+                let imageURL = appURL.appending(path: imageFileName)
+                
+                if !FileManager.default.fileExists(atPath: imageURL.path()) {
+                    Task {
+                        let cloudFileRef = storage.reference().child(user.uid).child(imageFileName)
+                        
+                        do {
+                            let _ = try await cloudFileRef.writeAsync(toFile: imageURL)
+                            self.cards[idx].imageURL = imageURL
+                        } catch {
+                            print("error while downloading image for card: \(error)")
+                        }
+                        
+                    }
+                } else {
+                    self.cards[idx].imageURL = imageURL
+                }
+                
+                return card
             }
         } catch {
-            self.error = error
+            print("error while mapping card documents to Card structs")
         }
     }
 }

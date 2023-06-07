@@ -11,5 +11,9 @@ import FirebaseFirestoreSwift
 struct Card : Codable, Hashable {
     @DocumentID var id : String?
     var name : String
-    var imageURL : String
+    var imageURL : URL?
+    
+    private enum CodingKeys: String, CodingKey {
+        case name
+    }
 }
