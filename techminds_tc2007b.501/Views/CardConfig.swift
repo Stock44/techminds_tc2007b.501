@@ -17,6 +17,40 @@ struct CardConfig: View {
     @State var confirmar = true
     
     var body: some View {
+        VStack(alignment: .leading, spacing: 32){
+            HStack{
+            Text("      Todas Las Tarjetas   ")
+                .font(.custom("Raleway", size: 60))
+            
+                Button {
+                        
+                } label: {
+                    Image("system-group")
+                        .foregroundColor(                Color("primary"))
+                        .padding(EdgeInsets(top: 0, leading: 400, bottom: 0, trailing: 0))
+                }
+               
+
+                Button  {
+                }label: {
+                    
+                    Image(systemName: "plus")
+                        .foregroundColor(                Color("primary"))
+                        .symbolVariant(.circle)
+                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                        .font(.system(size: 30))
+                }
+                
+                Button {
+                }label: {
+                    Image(systemName: "trash")
+                        .foregroundColor(                Color("primary"))
+                        .symbolVariant(.circle)
+                        .font(.system(size: 30))
+                }
+                
+            }
+            
             HStack {
                 VStack(alignment: .leading, spacing: 32) {
                     HStack{
@@ -24,7 +58,7 @@ struct CardConfig: View {
                             .font(.system(size: 36))
                             .foregroundColor(Color("primary"))
                         LabelledTextBox(label: "", placeholder: "Buscar", content: $name)
-                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+                            .padding(EdgeInsets(top: 0, leading: 30, bottom: 16, trailing: 10))
                     }
                     HStack{
                         Text("Configuraciones")
@@ -58,19 +92,21 @@ struct CardConfig: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(maxWidth: .infinity)
-                    VStack(alignment: .leading, spacing: 8){
-                        Image("Imagen")
-                        LabelledTextBox(label: "Nombre", placeholder: "Nombre de Imagen", content: $name)
-                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
-                        FilledButton(labelText: "Confirmar") {
-                            confirmar = false
-                        }
+                VStack(alignment: .leading, spacing: 8){
+                    Image("Imagen")
+                    LabelledTextBox(label: "Nombre", placeholder: "Nombre de Imagen", content: $name)
+                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+                    FilledButton(labelText: "Confirmar") {
+                        confirmar = false
                     }
-                    .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity)
             }.navigationTitle("Todas las tarjetas")
-    }
+        }
         
+    }
 }
+
     
 
 
