@@ -24,7 +24,7 @@ struct ProfileCards: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 16) {
                     ForEach(0..<cardCount, id: \.self) { index in
-                        ProfileCardView(name: "Andy Garza")
+                        ProfileCardView(name: "Erick Hernandez")
                     }
                 }
                 .padding(.horizontal, 16)

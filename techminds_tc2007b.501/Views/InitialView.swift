@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct InitialView: View {
+    
+    @State private var isRotating = 0.0
+
+    
     var body: some View {
-        Text("hello")
+        GeometryReader { geo in
+            ZStack{
+                Color("primary lighter")
+                    .edgesIgnoringSafeArea(.all)
+                // Logo o imagen de la app
+                Image("logo")
+                    .resizable()
+                    .frame(width: geo.size.width/4, height: geo.size.width/4)
+
+            }
+        }
+
     }
 }
 
