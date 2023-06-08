@@ -37,7 +37,11 @@ class CollectionRepository : ObservableObject {
         self.snapshotListenerHandle = collectionsRef.addSnapshotListener(self.onCollectionsChange)
     }
     
-    func createCollection(name: String, color: Color, enabled: Bool) async throws {
+    func createCollection(collection: Collection) async throws {
+        guard collection.id == nil else {
+            throw RepositoryError.invalidModel
+        }
+        
         guard let user = auth.currentUser else {
             throw RepositoryError.notAuthenticated
         }
@@ -55,8 +59,7 @@ class CollectionRepository : ObservableObject {
             throw RepositoryError.alreadyExists
         }
         
-        let newCollection = Collection(name: name, color: CodableColor(cgColor: color.cgColor ?? CGColor(gray: 1.0, alpha: 1.0)), enabled: enabled)
-        try collectionRef.setData(from: newCollection)
+        try collectionRef.setData(from: collection)
     }
     
     

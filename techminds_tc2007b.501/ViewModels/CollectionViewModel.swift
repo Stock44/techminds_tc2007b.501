@@ -15,9 +15,9 @@ class CollectionViewModel: ObservableObject, Identifiable {
     @Published var collection: Collection
     @Published var error: Error?
     
-    var id = ""
+    var id: String? = nil
     
-    init(collection: Collection) {
+    init(collection: Collection = Collection()) {
         self.collection = collection
         
         $collection
@@ -26,7 +26,17 @@ class CollectionViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
     }
     
-    func update(collection: Collection) {
+    func create() {
+        Task {
+            do {
+                try await collectionRepository.createCollection(collection: collection)
+            } catch {
+                self.error = error
+            }
+        }
+    }
+    
+    func update() {
         Task {
             do {
                 try await collectionRepository.updateCollection(collection: collection)

@@ -15,7 +15,7 @@ struct LabelledTextBox: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
-                .typography(.callout)
+                .typography(.subheadline)
             
             TextField(text: content) {
                 Text(placeholder)

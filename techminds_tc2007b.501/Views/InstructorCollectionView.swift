@@ -9,13 +9,14 @@ import SwiftUI
 struct InstructorCollectionView: View {
     
     @State var isEditing = false
-    @State var editingCollection: Collection? = nil
+    @State var editViewModel: CollectionViewModel? = nil
     @StateObject private var viewModel = CollectionListViewModel()
     
     var body: some View {
-        VStack(alignment: .leading) {
-            //Right Side
-            HStack {
+        
+        List {
+            HStack(alignment: .center, spacing: 32) {
+                Spacer(minLength: 32)
                 Text("Nombre")
                     .font(.custom("Raleway-bold", size: 18))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -30,36 +31,56 @@ struct InstructorCollectionView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 
             }
+            
             ForEach(viewModel.collectionViewModels, id: \.id) { collection in
-                Text(collection.collection.name)
+                HStack(alignment: .center, spacing: 32) {
+                    Circle()
+                        .fill(Color(cgColor: collection.collection.color.cgColor))
+                        .frame(maxHeight: 32)
+                    
+                    Text(collection.collection.name)
+                    
+                    Text("test")
+                    
+                    Toggle("Enabled", isOn: Binding(get: {
+                        collection.collection.enabled
+                    }, set: { value in
+                        collection.collection.enabled = value
+                        collection.update()
+                    }))
+                    
+                    Button {
+                        editViewModel = collection
+                        isEditing = true
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                }
             }
         }
-        .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
-        .frame(maxWidth: .infinity)
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
         .navigationTitle("Editar colecciones")
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing) {
                 Button {
                     isEditing = true
-                    editingCollection = nil
+                    editViewModel = nil
                 } label: {
                     Image(systemName: "plus")
                 }
             }
         }.sheet(isPresented: $isEditing) {
-            if let collection = editingCollection {
-                CollectionEditView {name, color, enabled in}  deleteAction: {}
+            if let editViewModel = editViewModel {
+                CollectionEditView(viewModel: editViewModel)
             } else {
-                CollectionEditView { name, color, enabled in
-                    viewModel.create(name: name, color: color, enabled: enabled)
-                    isEditing = false
-                }
+                CollectionCreationView()
             }
         }
         
         //Left Side
         //Color("white")
-         //   .edgesIgnoringSafeArea(.all)
+        //   .edgesIgnoringSafeArea(.all)
     }
 }
 struct CollectionInstructor_Previews: PreviewProvider {

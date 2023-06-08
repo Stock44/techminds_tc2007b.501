@@ -37,14 +37,4 @@ class CollectionListViewModel : ObservableObject {
             self.error = error
         }
     }
-    
-    func create(name: String, color: Color, enabled: Bool) {
-        Task {
-            do {
-                try await collectionRepository.createCollection(name: name, color: color, enabled: enabled)
-            } catch {
-                self.error = error
-            }
-        }
-    }
 }

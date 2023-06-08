@@ -8,50 +8,47 @@
 import SwiftUI
 
 struct CollectionEditView: View {
-    @State var name: String = ""
-    @State var color: Color = .blue
-    @State var enabled: Bool = false
-    
-    
-    var submitAction: (String, Color, Bool) -> Void
-    
-    var deleteAction: (() -> Void)? = nil
+    @StateObject var viewModel: CollectionViewModel
     
     @State private var showDelete: Bool = false
     
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 32){
-            CollectionDisplayView(name: name, color: color)
+            CollectionDisplayView(viewModel: viewModel)
             Text("Editando colección")
                 .typography(.title)
-            LabelledTextBox(label: "Nombre", placeholder: "Ingresa el nombre de la Coleccion", content: $name)
+            LabelledTextBox(label: "Nombre", placeholder: "Ingresa el nombre de la Coleccion", content: $viewModel.collection.name)
             
-            ColorPicker(selection: $color, supportsOpacity: false, label: {
+            ColorPicker(selection: Binding {
+                viewModel.collection.color.cgColor
+            } set: { value, _ in
+                viewModel.collection.color = CodableColor(cgColor: value)
+            }, supportsOpacity: false, label: {
                 Text("Color")
                     .typography(.callout)
-                .frame(height: 56)
-                .cornerRadius(16)
+                    .frame(height: 56)
+                    .cornerRadius(16)
             })
             
-            Toggle("Habilitada", isOn: $enabled)
+            Toggle("Habilitada", isOn: $viewModel.collection.enabled)
             
             HStack {
-                if deleteAction != nil {
-                    Button (role: .destructive) {
-                        showDelete = true
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                    .padding(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
-                    .confirmationDialog("¿Seguro que quieres borrar esta colección?", isPresented: $showDelete) {
-                        Button("Borrar colección", role: .destructive) {
-                            deleteAction!()
-                        }
+                Button (role: .destructive) {
+                    showDelete = true
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .padding(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
+                .confirmationDialog("¿Seguro que quieres borrar esta colección?", isPresented: $showDelete) {
+                    Button("Borrar colección", role: .destructive) {
                     }
                 }
                 
-                FilledButton(labelText: "Confirmar") {
-                    submitAction(name, color, enabled)
+                FilledButton(labelText: "Guardar cambios") {
+                    viewModel.update()
+                    dismiss()
                 }
             }
         }
@@ -62,6 +59,6 @@ struct CollectionEditView: View {
 
 struct CollectionDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionEditView {_,_,_ in } deleteAction: {}
+        CollectionEditView(viewModel: CollectionViewModel())
     }
 }

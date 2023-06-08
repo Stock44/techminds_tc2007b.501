@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct CollectionDisplayView: View {
-    var name: String
-    var color: Color
+    @StateObject var viewModel: CollectionViewModel
     
     var body: some View {
-        Text(name)
-            .typography(.largeTitle)
-            .foregroundColor(color)
+        Text(viewModel.collection.name)
+            .typography(.title)
+            .foregroundColor(Color(cgColor: viewModel.collection.color.cgColor))
             .colorInvert()
             .contrast(3.5)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(color)
+            .background(Color(cgColor: viewModel.collection.color.cgColor))
             .cornerRadius(16)
     }
 }
 
 struct CollectionDisplay_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionDisplayView(name: "Collection", color: .red)
+        Text("Test")
     }
 }

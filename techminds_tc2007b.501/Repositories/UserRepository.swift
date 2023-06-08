@@ -17,7 +17,6 @@ class UserRepository: ObservableObject {
     
     @Published private(set) var authUser: FirebaseAuth.User? = nil
     @Published private(set) var user: User? = nil
-    @Published private(set) var error: Error? = nil
     
     private var authStateListenerHandle: AuthStateDidChangeListenerHandle? = nil
     private var snapshotListenerHandle: ListenerRegistration? = nil
@@ -33,6 +32,7 @@ class UserRepository: ObservableObject {
             if let listener = snapshotListenerHandle {
                 listener.remove()
             }
+            user = nil
             return
         }
         
@@ -46,34 +46,20 @@ class UserRepository: ObservableObject {
         snapshotListenerHandle = userRef.addSnapshotListener(self.onDocumentSnapshotChange)
     }
     
-    func signIn(email: String, password: String) {
-        Task {
-            do {
-                try await self.auth.signIn(withEmail: email, password: password)
-            } catch {
-                self.error = error
-            }
-        }
-        
+    func signIn(email: String, password: String) async throws{
+        try await self.auth.signIn(withEmail: email, password: password)
     }
     
-    func register(name: String, surname: String, email: String, password: String) {
-        Task {
-            do {
-                let result = try await self.auth.createUser(withEmail: email, password: password)
-                
-                let userRef = store.collection(self.path).document(result.user.uid)
-                
-                let newUser = User(name: name, surname: surname)
-                try userRef.setData(from: newUser)
-            } catch {
-                self.error = error
-            }
-        }
+    func register(name: String, surname: String, email: String, password: String) async throws{
+        let result = try await self.auth.createUser(withEmail: email, password: password)
         
+        let userRef = store.collection(self.path).document(result.user.uid)
+        
+        let newUser = User(name: name, surname: surname)
+        try userRef.setData(from: newUser)
     }
     
-    func signOut() throws{
+    func signOut() throws {
         try self.auth.signOut()
         self.user = nil
         self.authUser = nil
@@ -81,7 +67,12 @@ class UserRepository: ObservableObject {
     
     private func onDocumentSnapshotChange(snapshot: DocumentSnapshot?, snapshotError: Error?) {
         guard let snapshot = snapshot else {
-            self.error = error
+            print("error acquiring user document: \(snapshotError!)")
+            
+            if let authUser = auth.currentUser {
+                let userRef = store.collection(self.path).document(authUser.uid)
+                snapshotListenerHandle = userRef.addSnapshotListener(self.onDocumentSnapshotChange)
+            }
             return
         }
         // in theory, all users have their respective document created at startup, but
@@ -94,7 +85,7 @@ class UserRepository: ObservableObject {
                 try snapshot.reference.setData(from: newUser)
             }
         } catch {
-            self.error = error
+            print("error unpacking snapshot data into User object")
         }
         
     }

@@ -8,20 +8,34 @@
 import SwiftUI
 
 struct StudentCollectionsView: View {
-    @StateObject var userRepository = UserRepository()
     @StateObject var viewModel = CollectionListViewModel()
+    @StateObject var userViewModel = UserViewModel()
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: (0..<(userRepository.user?.rows ?? 4)).map { _ in
-                return GridItem(.flexible())
-            }) {
-                ForEach(viewModel.collectionViewModels) { collectionViewModel in
-                    Text("test")
-                    //CollectionButton(action: "", collectionColor: "primary lighter", collectionTitle: value.name, titleColor: "primary darker")
+        let columns = userViewModel.user?.columns ?? 3
+        let rows = userViewModel.user?.rows ?? 3
+        TabView {
+            ForEach(Array(stride(from: 0, to: viewModel.collectionViewModels.count, by: columns * rows)), id: \.self) { offset in
+                Grid (horizontalSpacing: 16, verticalSpacing: 16){
+                    ForEach(0..<rows, id: \.self) { row in
+                        let start = min(offset + row * columns, viewModel.collectionViewModels.count)
+                        let end = min(offset + (row + 1) * columns, viewModel.collectionViewModels.count)
+                        let missing = columns - (end - start)
+                        GridRow {
+                            ForEach(viewModel.collectionViewModels[start..<end]) { collection in
+                                CollectionDisplayView(viewModel: collection)
+                            }
+                            ForEach(0..<missing, id: \.self) { _ in
+                                Color.clear
+                            }
+                        }
+                        
+                    }
                 }
+                .padding(EdgeInsets(top: 32, leading: 32, bottom: 32, trailing: 32))
             }
         }
+        .tabViewStyle(.page)
         .navigationTitle("Colecciones")
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing){
@@ -32,7 +46,6 @@ struct StudentCollectionsView: View {
                 }
             }
         }
-        .padding(EdgeInsets(top: 32, leading: 48, bottom: 32, trailing: 48))
     }
 }
 

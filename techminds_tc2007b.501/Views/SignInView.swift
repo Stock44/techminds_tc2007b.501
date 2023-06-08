@@ -15,7 +15,7 @@ struct SignInView: View {
     @State var password : String = ""
     @State var errorText: String?
     
-    @StateObject private var userRepository = UserRepository()
+    @StateObject private var viewModel = UserViewModel()
     
     func rotarImagen() {
         withAnimation(.linear(duration: 1)
@@ -36,7 +36,7 @@ struct SignInView: View {
                         Text("Inicia sesión para continuar")
                             .font(.custom("Comfortaa", size: 24))
                         
-                        if let authError = userRepository.error {
+                        if let authError = viewModel.error {
                             Text(authError.localizedDescription)
                                 .typography(.callout)
                                 .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
@@ -52,7 +52,7 @@ struct SignInView: View {
                             LabelledPasswordBox(label: "Contraseña", placeholder: "Ingresa tu contraseña", content: $password)
                             
                             FilledButton(labelText: "Iniciar sesión") {
-                                userRepository.signIn(email: email, password: password)
+                                viewModel.signIn(email: email, password: password)
                             }
                         }.frame(maxWidth: 512)
                         
