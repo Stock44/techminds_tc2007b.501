@@ -2,7 +2,6 @@
 //  CardConfig.swift
 //  techminds_tc2007b.501
 //
-//  Created by Elena Ballinas on 26/05/23.
 //
 
 import SwiftUI
@@ -98,20 +97,9 @@ struct CardConfig: View {
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(maxWidth: .infinity)
                 
-                //IMAGEN- IMAGE PICKER (funciona)
+                //IMAGEN - IMAGE PICKER (funciona) modificar tamaño 
                 VStack(alignment: .leading, spacing: 8){
                     ZStack{
-                        if let selectedPhotoData,
-                           let image = UIImage(data: selectedPhotoData) {
-                            
-                            Image(uiImage: image)
-                                .resizable()
-                                .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
-                                .frame(maxWidth: 650, maxHeight: 350)
-                        }
-                        
-                        
-                        
                         PhotosPicker(selection: $selectedItem,matching: .any (of:
                         [.images, .not(.livePhotos)])) {
                             Image("Imagen")
@@ -122,10 +110,21 @@ struct CardConfig: View {
                             Task {
                                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
                                     selectedPhotoData = data
-                                    
                                 }
                             }
                         }
+                        
+                        if let selectedPhotoData,
+                           let image = UIImage(data: selectedPhotoData) {
+                            
+                            Image(uiImage: image)
+                                .resizable()
+                                .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
+                                .frame(maxWidth: 670, maxHeight: 360)
+                        }
+                        
+                 
+                        
                     }
                     
                     LabelledTextBox(label: "Nombre", placeholder: "Nombre de Imagen", content: $name)
