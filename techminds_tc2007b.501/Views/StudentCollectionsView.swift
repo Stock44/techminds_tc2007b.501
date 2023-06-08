@@ -32,7 +32,7 @@ struct StudentCollectionsView: View {
                         
                     }
                 }
-                .padding(EdgeInsets(top: 32, leading: 32, bottom: 32, trailing: 32))
+                .padding(EdgeInsets(top: 32, leading: 48, bottom: 32, trailing: 48))
             }
         }
         .tabViewStyle(.page)

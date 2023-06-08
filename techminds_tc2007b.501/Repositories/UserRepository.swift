@@ -93,8 +93,9 @@ class UserRepository: ObservableObject {
 }
 
 enum RepositoryError: Error {
-    case snapshotRetrievalFailure
+    case retrievalFailure
     case notAuthenticated
     case alreadyExists
+    case doesNotExist
     case invalidModel
 }

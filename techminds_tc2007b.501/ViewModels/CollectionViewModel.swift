@@ -15,7 +15,7 @@ class CollectionViewModel: ObservableObject, Identifiable {
     @Published var collection: Collection
     @Published var error: Error?
     
-    var id: String? = nil
+    var id: String?
     
     init(collection: Collection = Collection()) {
         self.collection = collection

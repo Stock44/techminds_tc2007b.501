@@ -39,7 +39,7 @@ class CollectionRepository : ObservableObject {
     
     func createCollection(collection: Collection) async throws {
         guard collection.id == nil else {
-            throw RepositoryError.invalidModel
+            throw RepositoryError.alreadyExists
         }
         
         guard let user = auth.currentUser else {

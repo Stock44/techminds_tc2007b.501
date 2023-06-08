@@ -27,6 +27,9 @@
 		FB69AE7F2A314E6F001315A6 /* CollectionCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB69AE7E2A314E6F001315A6 /* CollectionCreationView.swift */; };
 		FB72D52E2A18127C00D9F898 /* LabelledTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72D52D2A18127C00D9F898 /* LabelledTextBox.swift */; };
 		FB7496C42A310C3100D6EF24 /* CollectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7496C32A310C3100D6EF24 /* CollectionEditView.swift */; };
+		FB75C6E22A32382C00171E6F /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75C6E12A32382C00171E6F /* CardViewModel.swift */; };
+		FB75C6E42A32394F00171E6F /* CardImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75C6E32A32394F00171E6F /* CardImageRepository.swift */; };
+		FB75C6E62A32562300171E6F /* CardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75C6E52A32562300171E6F /* CardListViewModel.swift */; };
 		FB76D0602A311CA800BE28A6 /* CollectionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB76D05F2A311CA800BE28A6 /* CollectionDisplayView.swift */; };
 		FB76D0622A3133CF00BE28A6 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB76D0612A3133CF00BE28A6 /* CollectionViewModel.swift */; };
 		FB76D0642A31381500BE28A6 /* CollectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB76D0632A31381500BE28A6 /* CollectionRepository.swift */; };
@@ -54,7 +57,7 @@
 		FBB443512A097634000E48F2 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443502A097634000E48F2 /* SignInView.swift */; };
 		FBB443532A09A3DA000E48F2 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443522A09A3DA000E48F2 /* FilledButton.swift */; };
 		FBBDF4C02A2FF10C00C4DAD8 /* CollectionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDF4BF2A2FF10C00C4DAD8 /* CollectionListViewModel.swift */; };
-		FBBDF4C22A3045FD00C4DAD8 /* CardsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDF4C12A3045FC00C4DAD8 /* CardsRepository.swift */; };
+		FBBDF4C22A3045FD00C4DAD8 /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDF4C12A3045FC00C4DAD8 /* CardRepository.swift */; };
 		FBC325032A2907E30032D1F9 /* LabelledPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC325022A2907E30032D1F9 /* LabelledPasswordBox.swift */; };
 		FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD340692A0968EF00977A4B /* MainMenuView.swift */; };
 		FBD340772A09902000977A4B /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD340722A09901F00977A4B /* Comfortaa-Regular.ttf */; };
@@ -130,6 +133,9 @@
 		FB69AE7E2A314E6F001315A6 /* CollectionCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCreationView.swift; sourceTree = "<group>"; };
 		FB72D52D2A18127C00D9F898 /* LabelledTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledTextBox.swift; sourceTree = "<group>"; };
 		FB7496C32A310C3100D6EF24 /* CollectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEditView.swift; sourceTree = "<group>"; };
+		FB75C6E12A32382C00171E6F /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		FB75C6E32A32394F00171E6F /* CardImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageRepository.swift; sourceTree = "<group>"; };
+		FB75C6E52A32562300171E6F /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
 		FB76D05F2A311CA800BE28A6 /* CollectionDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDisplayView.swift; sourceTree = "<group>"; };
 		FB76D0612A3133CF00BE28A6 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		FB76D0632A31381500BE28A6 /* CollectionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRepository.swift; sourceTree = "<group>"; };
@@ -148,7 +154,7 @@
 		FBB443502A097634000E48F2 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; tabWidth = 3; };
 		FBB443522A09A3DA000E48F2 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
 		FBBDF4BF2A2FF10C00C4DAD8 /* CollectionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListViewModel.swift; sourceTree = "<group>"; };
-		FBBDF4C12A3045FC00C4DAD8 /* CardsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsRepository.swift; sourceTree = "<group>"; };
+		FBBDF4C12A3045FC00C4DAD8 /* CardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
 		FBC325022A2907E30032D1F9 /* LabelledPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledPasswordBox.swift; sourceTree = "<group>"; };
 		FBD340692A0968EF00977A4B /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		FBD340722A09901F00977A4B /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
@@ -221,8 +227,9 @@
 			isa = PBXGroup;
 			children = (
 				FB266A212A2EA2CC0055F839 /* UserRepository.swift */,
-				FBBDF4C12A3045FC00C4DAD8 /* CardsRepository.swift */,
+				FBBDF4C12A3045FC00C4DAD8 /* CardRepository.swift */,
 				FB76D0632A31381500BE28A6 /* CollectionRepository.swift */,
+				FB75C6E32A32394F00171E6F /* CardImageRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -392,6 +399,8 @@
 				FB266A1E2A294FB00055F839 /* ContentViewModel.swift */,
 				FB80052D2A2E7D2700258FC0 /* StudentCollectionsViewModel.swift */,
 				FB15BFCB2A31945C00ABD58B /* UserViewModel.swift */,
+				FB75C6E12A32382C00171E6F /* CardViewModel.swift */,
+				FB75C6E52A32562300171E6F /* CardListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -564,6 +573,7 @@
 				FBA0604E2A18339700BA3D67 /* AccessibilityConfigView.swift in Sources */,
 				FBDA98032A2E714900E528D1 /* CodableColor.swift in Sources */,
 				FBA060502A1833DA00BA3D67 /* AccountInfoView.swift in Sources */,
+				FB75C6E62A32562300171E6F /* CardListViewModel.swift in Sources */,
 				FB76D0622A3133CF00BE28A6 /* CollectionViewModel.swift in Sources */,
 				FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */,
 				FB3FF5352A21672E00D291C4 /* Card.swift in Sources */,
@@ -575,7 +585,7 @@
 				FBBDF4C02A2FF10C00C4DAD8 /* CollectionListViewModel.swift in Sources */,
 				FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */,
 				FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */,
-				FBBDF4C22A3045FD00C4DAD8 /* CardsRepository.swift in Sources */,
+				FBBDF4C22A3045FD00C4DAD8 /* CardRepository.swift in Sources */,
 				FB075F8F2A1C1F3200DC0218 /* InstructorCollectionView.swift in Sources */,
 				FB80052E2A2E7D2700258FC0 /* StudentCollectionsViewModel.swift in Sources */,
 				FB237E262A313B3B006BD790 /* ImagePicker.swift in Sources */,
@@ -586,6 +596,7 @@
 				FBB443532A09A3DA000E48F2 /* FilledButton.swift in Sources */,
 				FB38BBF82A17E227007A5C05 /* StudentCards.swift in Sources */,
 				FB9408952A31250600E1BA66 /* Verificacion.swift in Sources */,
+				FB75C6E42A32394F00171E6F /* CardImageRepository.swift in Sources */,
 				FB3FF52F2A215F5200D291C4 /* User.swift in Sources */,
 				FB1088B52A09ACE700B914C2 /* RegisterView.swift in Sources */,
 				FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */,
@@ -596,6 +607,7 @@
 				FB964C5C2A250E9000FBBB84 /* PorfileCards.swift in Sources */,
 				FBC325032A2907E30032D1F9 /* LabelledPasswordBox.swift in Sources */,
 				FB266A1F2A294FB00055F839 /* ContentViewModel.swift in Sources */,
+				FB75C6E22A32382C00171E6F /* CardViewModel.swift in Sources */,
 				FBDD5E2D2A05AE7D00642744 /* techminds_tc2007b_501App.swift in Sources */,
 				FB76D0642A31381500BE28A6 /* CollectionRepository.swift in Sources */,
 				FB7815692A1BFEFC00B312E5 /* InitialView.swift in Sources */,

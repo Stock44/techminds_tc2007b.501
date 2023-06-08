@@ -12,19 +12,15 @@ import FirebaseAuth
 import Combine
 
 class CollectionListViewModel : ObservableObject {
-    private let usersPath = "users"
-    private let collectionsPath = "collections"
-    private let store = Firestore.firestore()
-    private let auth = Auth.auth()
-    
-    private var collectionRepository = CollectionRepository()
+    private let collectionRepository = CollectionRepository()
     private var cancellables: Set<AnyCancellable> = []
     
     @Published var collectionViewModels: [CollectionViewModel] = []
-    @Published var error: Error? = nil
+    @Published var error: Error?
     
     init() {
-        collectionRepository.$collections
+        collectionRepository
+            .$collections
             .map { collections in
                 collections.map(CollectionViewModel.init)
             }
