@@ -1,8 +1,8 @@
 //
-//  Verificacion.swift
+//  Filter.swift
 //  techminds_tc2007b.501
 //
-//  Created by Alumno on 07/06/23...
+//  Created by Alumno on 09/06/23.
 //
 
 import SwiftUI
