@@ -11,8 +11,16 @@ import FirebaseFirestoreSwift
 
 struct Collection : Codable {
     @DocumentID var id: String?
-    var name: String
-    var color: CodableColor
-    var enabled: Bool
-    var cards: [DocumentReference] = []
+    var name: String = ""
+    var color = CodableColor(cgColor: CGColor(gray: 0.7, alpha: 1.0))
+    var enabled: Bool = true
+    var cards: [Card] = []
+    var cardRefs: [DocumentReference] = []
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case color
+        case enabled
+        case cardRefs = "cards"
+    }
 }

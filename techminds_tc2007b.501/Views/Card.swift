@@ -7,13 +7,16 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import UIKit
 
 struct Card : Codable, Hashable {
     @DocumentID var id : String?
-    var name : String
-    var imageURL : URL?
+    var name : String = ""
+    @ExplicitNull var imageID : UUID?
+    var image: UIImage?
     
-    private enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case name
+        case imageID
     }
 }
