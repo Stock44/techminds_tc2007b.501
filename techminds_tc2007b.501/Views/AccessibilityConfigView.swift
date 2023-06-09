@@ -9,19 +9,19 @@ import SwiftUI
 
 struct AccessibilityConfigView: View {
     
-    @State private var botones = false
-    @State private var estcabeza = false
-    @State private var voiceover = false
-    @State private var letratam = 1.0
-    @State private var botontam = 0.6
-    @State private var tarjetatam = 0.6
-    @State private var filas = 1
-    @State private var columnas = 1
+    @State private var botones : Bool = false
+    @State private var estcabeza : Bool = false
+    @State private var voiceover : Bool = false
+    @State private var letratam : Double = 1.0
+    @State private var botontam : Double = 0.6
+    @State private var tarjetatam : Double = 0.6
+    @State private var filas : Int = 1
+    @State private var columnas : Int = 1
     
     var body: some View {
-            HStack{
+            DynamicStack{
                 VStack{
-                    VStack(spacing: 30){
+                    VStack(spacing: 32){
                         Toggle("Botones", isOn: $botones)
                             .font(.custom("Comfortaa", size: 36))
                         Toggle("Estimación Cabeza", isOn: $estcabeza)
@@ -41,7 +41,8 @@ struct AccessibilityConfigView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Slider(value: $tarjetatam, in: 0.2...1)
                     }
-                    HStack{
+                    
+                    HStack {
                         Text("Filas")
                             .font(.custom("Comfortaa", size: 24))
                         Picker("Filas",selection: $filas){
@@ -61,24 +62,24 @@ struct AccessibilityConfigView: View {
                         .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                     }
                 }
-                .padding(.leading, 40.0)
-                VStack{
-                    ZStack{
-                       Rectangle()
-                            .frame(width: 350, height: 609)
-                            .cornerRadius(20)
-                            .foregroundColor(Color("accent2 lighter"))
-                        VStack{
-                            Text("Letra")
-                                .font(.custom("Comfortaa", size: 36*letratam))
-                            Image("logo")
-                                .resizable()
-                                .frame(width: 300 * tarjetatam, height: 300 * tarjetatam)
-                        }
+                .padding()
+                ZStack{
+                    RoundedRectangle(cornerRadius: 16)
+                        .frame(maxWidth: 350, maxHeight: 609)
+                        .foregroundColor(Color("accent2 lighter"))
+                    VStack{
+                        Text("Letra")
+                            .font(.custom("Comfortaa", size: 36*letratam))
+                        Image("logo")
+                            .resizable()
+                            .frame(width: 300 * tarjetatam, height: 300 * tarjetatam)
                     }
-                }.frame(maxWidth: 512)
-            }.navigationTitle("Accesibilidad")
+                }
         }
+            .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+        .frame(maxWidth: .infinity)
+        .navigationTitle("Accesibilidad")
+    }
 }
 
 

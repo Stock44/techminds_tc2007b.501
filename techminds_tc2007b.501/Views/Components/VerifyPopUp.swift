@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct VerifyPopUp: View {
-    @State var contraseña = ""
-    @State var contraseña2 = "hola"
-    @State var error = false
+    @State var contraseña : String = ""
+    @State var contraseña2 : String = "hola"
+    @State var error : Bool  = false
     
     var body: some View {
-        VStack(spacing: 50){
+        VStack(spacing: 32){
             Text("Ingresa tu contraseña para realizar cambios a esta cuenta")
                 .font(.custom("Comfortaa",size: 24))
-            SecureField("Contraseña",text: $contraseña)
+            
+            SecureField("Contraseña", text: $contraseña)
                 .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
                 .border(Color.black, width: 0.1)
                 .background(Color("accent1 lighter"))
                 .padding(.horizontal, 70.0)
+            
                 FilledButton(labelText: "Aceptar"){
                     if contraseña == contraseña2 {
                         print("Hola")
@@ -37,8 +39,8 @@ struct VerifyPopUp: View {
                 }
             .frame(maxWidth: 200)
         }
-        .frame( width: 767, height: 432)
-        .background(Color("primary lighter"))
+        .frame(maxWidth: .infinity, maxHeight: 432)
+        .background(Color("primary"))
     }
 }
 

@@ -18,40 +18,34 @@ struct AccountInfoView: View {
     
     var body: some View {
         ZStack {
-            if popup {
-                VerifyPopUp()
-            }
-            HStack{
-                VStack (spacing: 30){
-                    LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
+            VStack (spacing: 32){
+                LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
                         .disabled(true)
                         .opacity(0.6)
-                    LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
+                LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
                         .disabled(true)
                         .opacity(0.6)
-                    LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
+                LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
                         .disabled(true)
                         .opacity(0.6)
-                    LabelledTextBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
+                LabelledTextBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
                         .disabled(true)
                         .opacity(0.6)
-                }
-                .padding(.leading, 40)
-                VStack{
-                    Spacer()
-                    HStack(alignment: .bottom){
-                        FilledButton(labelText: buttontext){
-                            if buttontext == "Editar"{
-                                popup = true
-                            }
-                        }
-                        .padding(.bottom, 100)
+                    
+                FilledButton(labelText: buttontext){
+                    if buttontext == "Editar"{
+                        popup = true
                     }
                 }
-                .padding(.horizontal, 150.0)
-                
-            }.navigationTitle("Detalles de cuenta")
+                .popover(isPresented: $popup, content: {
+                    VerifyPopUp()
+                })
+                .padding(.bottom, 100)
+            }
+            .padding(.leading, 40)
+            .navigationTitle("Información de la cuenta")
         }
+        .frame(maxWidth: .infinity)
     }
 }
 

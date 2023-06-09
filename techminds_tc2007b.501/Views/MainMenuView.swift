@@ -52,12 +52,8 @@ struct MainMenuView: View {
         .navigationBarTitle(Text("Menú principal"))
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
-                    do {
-                        try Auth.auth().signOut()
-                    } catch {
-                        print("could not sign out")
-                    }
+                NavigationLink {
+                    Filter()
                 } label: {
                     Image(systemName: "gear")
                     
