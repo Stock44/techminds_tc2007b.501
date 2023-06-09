@@ -17,33 +17,26 @@ struct ConfigMenu: View {
 
     var body: some View {
         HStack(alignment: .top) {
-            VStack(alignment: .leading) {
-                Button {
-                    selection = .accesibility
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(.gray, style: .init(lineWidth: 5))
-                            .frame(maxWidth: .infinity, maxHeight: 50)
-                        Text("Accesibilidad")
+            List{
+                Section(header: Text("Configuración")){
+                    Button {
+                        selection = .accesibility
+                    } label: {
+                    Text("Accesibilidad")
                             .font(.custom("Comfortaa", size: 18))
                             .foregroundColor(.black)
                     }
-                }
 
-                Button {
-                    selection = .accountInfo
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(.gray, style: .init(lineWidth: 5))
-                            .frame(maxWidth: .infinity, maxHeight: 50)
+                    Button {
+                        selection = .accountInfo
+                    } label: {
                         Text("Detalles de la cuenta")
                             .font(.custom("Comfortaa", size: 18))
                             .foregroundColor(.black)
                     }
                 }
-            }
+        }
+            .listStyle(.inset)
             .frame(maxWidth: 250, maxHeight: .infinity)
 
             switch selection {

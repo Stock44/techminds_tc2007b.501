@@ -16,7 +16,6 @@
 		FB266A222A2EA2CC0055F839 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB266A212A2EA2CC0055F839 /* UserRepository.swift */; };
 		FB38BBF62A17E1F1007A5C05 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38BBF52A17E1F1007A5C05 /* CollectionView.swift */; };
 		FB38BBF82A17E227007A5C05 /* StudentCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38BBF72A17E227007A5C05 /* StudentCards.swift */; };
-		FB39F59A2A33B7740088B241 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB39F5992A33B7740088B241 /* Filter.swift */; };
 		FB39F59E2A33B9C40088B241 /* ConfigMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */; };
 		FB3FF52B2A21420900D291C4 /* CardsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF52A2A21420900D291C4 /* CardsConfig.swift */; };
 		FB3FF52F2A215F5200D291C4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF52E2A215F5200D291C4 /* User.swift */; };
@@ -124,7 +123,6 @@
 		FB266A212A2EA2CC0055F839 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FB38BBF52A17E1F1007A5C05 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		FB38BBF72A17E227007A5C05 /* StudentCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCards.swift; sourceTree = "<group>"; };
-		FB39F5992A33B7740088B241 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConfigMenu.swift; path = ../../ConfigMenu.swift; sourceTree = "<group>"; };
 		FB3FF52A2A21420900D291C4 /* CardsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsConfig.swift; sourceTree = "<group>"; };
 		FB3FF52E2A215F5200D291C4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = techminds_tc2007b.501/Views/User.swift; sourceTree = SOURCE_ROOT; };
@@ -267,7 +265,6 @@
 		FB72D52C2A180F8F00D9F898 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				FB39F5992A33B7740088B241 /* Filter.swift */,
 				FBB443522A09A3DA000E48F2 /* FilledButton.swift */,
 				FB38BBF72A17E227007A5C05 /* StudentCards.swift */,
 				FB8DF3512A17D88C00E61AA6 /* CardButton.swift */,
@@ -584,7 +581,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB8DF3502A17D69A00E61AA6 /* StudentCardsView.swift in Sources */,
-				FB39F59A2A33B7740088B241 /* Filter.swift in Sources */,
 				FBA0604E2A18339700BA3D67 /* AccessibilityConfigView.swift in Sources */,
 				FBDA98032A2E714900E528D1 /* CodableColor.swift in Sources */,
 				FBA060502A1833DA00BA3D67 /* AccountInfoView.swift in Sources */,
