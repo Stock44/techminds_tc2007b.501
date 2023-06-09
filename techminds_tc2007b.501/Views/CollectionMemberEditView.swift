@@ -41,7 +41,7 @@ struct CollectionMemberEditView: ViewModelView {
                 viewModel.addCards(cards: newCards)
             }
             
-            let removedCards = viewModel.cards.substracting(filteredCards)
+            let removedCards = viewModel.cards.subtracting(filteredCards)
             if removedCards.count > 0 {
                 //viewModel.removeCards(cards: removedCards)
             }
