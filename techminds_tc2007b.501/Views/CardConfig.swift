@@ -23,15 +23,18 @@ struct CardConfig: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 32){
             HStack{
-                Text("Todas Las Tarjetas   ")
-                    .font(.custom("Raleway", size: 60))
+                Text("Todas Las Tarjeta")
+                    .font(.custom("Raleway-Medium", size: 60))
+                    .padding(EdgeInsets(top: 0, leading:90, bottom: 0, trailing: 0))
+
+                    
                 
                 Button {
                     
                 } label: {
                     Image("system-group")
                         .foregroundColor(                Color("primary"))
-                        .padding(EdgeInsets(top: 0, leading: 400, bottom: 0, trailing: 0))
+                        .padding(EdgeInsets(top: 0, leading: 500, bottom: 0, trailing: 0))
                 }
                 
                 
