@@ -9,8 +9,12 @@ import SwiftUI
 
 struct VerifyPopUp: View {
     @State var contraseña : String = ""
-    @State var contraseña2 : String = "hola"
+    @Binding var contraseña2 : String
     @State var error : Bool  = false
+    @Binding var popup : Bool
+    @Binding var buttontext : String
+    @Binding var opacityEdit : Double
+    @Binding var textedit : Bool
     
     var body: some View {
         VStack(spacing: 32){
@@ -25,7 +29,10 @@ struct VerifyPopUp: View {
             
                 FilledButton(labelText: "Aceptar"){
                     if contraseña == contraseña2 {
-                        print("Hola")
+                        popup = false
+                        buttontext = "Guardar"
+                        opacityEdit = 1
+                        textedit = false
                     }
                     else{
                         error = true
@@ -48,6 +55,6 @@ struct VerifyPopUp: View {
 
 struct VerifyPopUp_Previews: PreviewProvider {
     static var previews: some View {
-        VerifyPopUp()
+        VerifyPopUp(contraseña2: .constant("hola"), popup: .constant(true), buttontext: .constant("Editar"), opacityEdit: .constant(0.6), textedit: .constant(true))
     }
 }

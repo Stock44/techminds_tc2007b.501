@@ -65,6 +65,23 @@ class UserRepository: ObservableObject {
         self.authUser = nil
     }
     
+    func updateUser(name: String, surname: String, email: String, password: String) async throws{
+        guard let authUser = authUser else {
+            throw RepositoryError.notAuthenticated
+        }
+        
+        guard let user = user else {
+            throw RepositoryError.notAuthenticated
+        }
+        
+        //try await user.updateEmail(to: email)
+        //try await user.updatePassword(to: email)
+        
+       let userRef = store.collection(self.path).document(authUser.uid)
+        let newInfo = User(name: name, surname: surname)
+       // try userRef.setData(from: newInfo)
+    }
+    
     private func onDocumentSnapshotChange(snapshot: DocumentSnapshot?, snapshotError: Error?) {
         guard let snapshot = snapshot else {
             print("error acquiring user document: \(snapshotError!)")

@@ -15,35 +15,48 @@ struct AccountInfoView: View {
     @State var popup = false
     @State var buttontext = "Editar"
     @State var opacityEdit = 0.6
+    @State var textedit = true
+    @State var exito = false
+    let ViewModel = UserViewModel()
     
     
     var body: some View {
         ZStack {
             VStack (spacing: 32){
                 LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
-                        .disabled(true)
-                        .opacity(0.6)
+                        .disabled(textedit)
+                        .opacity(opacityEdit)
                 LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
-                        .disabled(true)
-                        .opacity(0.6)
+                        .disabled(textedit)
+                        .opacity(opacityEdit)
                 LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
-                        .disabled(true)
-                        .opacity(0.6)
+                        .disabled(textedit)
+                        .opacity(opacityEdit)
                 LabelledPasswordBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
-                        .disabled(true)
-                        .opacity(0.6)
+                        .disabled(textedit)
+                        .opacity(opacityEdit)
                     
                 FilledButton(labelText: buttontext){
                     if buttontext == "Editar"{
                         popup = true
                     }
                     else{
-                        
+                        //Guarda información
+                        buttontext = "Editar"
+                        opacityEdit = 0.6
+                        textedit = true
+                        exito = true
                     }
                 }
                 .popover(isPresented: $popup, content: {
-                    VerifyPopUp()
+                    VerifyPopUp(contraseña2: $contraseña, popup: $popup, buttontext: $buttontext, opacityEdit: $opacityEdit, textedit: $textedit)
                 })
+                .alert(isPresented: $exito){
+                    Alert(
+                        title: Text("Operación exitosa"),
+                        message: Text( "Datos guardados correctamente")
+                    )
+                }
                 .padding(.bottom, 100)
             }
             .padding(.leading, 40)
