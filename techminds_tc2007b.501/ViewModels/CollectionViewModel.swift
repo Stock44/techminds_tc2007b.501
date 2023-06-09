@@ -59,6 +59,19 @@ class CollectionViewModel: ObservableObject, Identifiable, Hashable {
         }
     }
     
+    func removeCards (cards: Set<CardViewModel>) {
+        Task {
+            do {
+                let cards = Set(cards.map{$0.card})
+                try await collectionRepository.removeCardsFromCollection(collection: collection, cards: cards)
+                self.error = nil
+            } catch {
+                print("failed removing cards: \(error)")
+                self.error = error
+            }
+        }
+    }
+    
     func getCards() {
         do {
             print("getting cards")

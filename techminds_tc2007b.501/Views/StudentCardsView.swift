@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct StudentCardsView: View {
+struct StudentCardsView : View {
     @StateObject private var viewModel = CardListViewModel()
     
     var body: some View {
-        UserGrid<CardViewModel, CardView>(viewModels: $viewModel.cardViewModels)
+        UserGrid<CardViewModel, CardView>(viewModels: [CardViewModel](viewModel.cardViewModels))
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
@@ -24,6 +24,9 @@ struct StudentCardsView: View {
             }
         }
         .navigationTitle("Tarjetas")
+        .onAppear {
+            viewModel.getAllCards()
+        }
     }
 }
 

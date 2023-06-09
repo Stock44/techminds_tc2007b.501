@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import FirebaseFirestore
 
-struct CollectionMemberEditView: ViewModelView {
+struct CollectionMemberEditView: View {
     typealias ViewModel = CollectionViewModel
     
     @ObservedObject var viewModel: ViewModel
@@ -23,13 +23,13 @@ struct CollectionMemberEditView: ViewModelView {
     }
     
     var body: some View {
-        List(cardViewModel.cardViewModels, selection: $selection) {
+        List([CardViewModel](cardViewModel.cardViewModels), selection: $selection) {
             Text($0.card.name)
         }
         .environment(\.editMode, Binding.constant(EditMode.active))
-        .onChange(of: selection) { newSelection in
+        .onDisappear {
             let filteredCards = Set(cardViewModel.cardViewModels.filter {
-                newSelection.contains($0.id)
+                selection.contains($0.id)
             })
             
             if filteredCards == viewModel.cards {
@@ -43,9 +43,11 @@ struct CollectionMemberEditView: ViewModelView {
             
             let removedCards = viewModel.cards.subtracting(filteredCards)
             if removedCards.count > 0 {
-                //viewModel.removeCards(cards: removedCards)
+                viewModel.removeCards(cards: removedCards)
             }
         }.onAppear {
+            cardViewModel.getAllCards()
+            
             selection = Set(self.viewModel.cards.map {
                 $0.id
             })

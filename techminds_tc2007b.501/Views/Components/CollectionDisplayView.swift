@@ -16,14 +16,19 @@ struct CollectionDisplayView: ViewModelView {
     }
     
     var body: some View {
-        Text(viewModel.collection.name)
-            .typography(.title)
-            .foregroundColor(Color(cgColor: viewModel.collection.color.cgColor))
-            .colorInvert()
-            .contrast(3.5)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(cgColor: viewModel.collection.color.cgColor))
-            .cornerRadius(16)
+        NavigationLink {
+            StudentCollectionCardsView(viewModel: viewModel)
+        } label: {
+            Text(viewModel.collection.name)
+                .typography(.title)
+                .foregroundColor(Color(cgColor: viewModel.collection.color.cgColor))
+                .colorInvert()
+                .contrast(3.5)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(cgColor: viewModel.collection.color.cgColor))
+                .cornerRadius(16)
+            
+        }
     }
 }
 

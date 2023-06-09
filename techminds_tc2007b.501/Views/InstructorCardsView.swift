@@ -30,7 +30,7 @@ struct InstructorCardsView: View {
                 
             }
             
-            ForEach(viewModel.cardViewModels) { card in
+            ForEach([CardViewModel](viewModel.cardViewModels)) { card in
                 HStack(alignment: .center, spacing: 32) {
                     Text(card.card.name)
                     
@@ -45,6 +45,9 @@ struct InstructorCardsView: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .navigationTitle("Editar tarjetas")
+        .onAppear {
+            viewModel.getAllCards()
+        }
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing) {
                 Button {

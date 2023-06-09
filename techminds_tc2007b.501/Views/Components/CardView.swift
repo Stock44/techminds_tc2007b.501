@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct CardView: ViewModelView {
     typealias ViewModel = CardViewModel
     @ObservedObject var viewModel: ViewModel
+    private let synthesizer = AVSpeechSynthesizer()
     
     init(viewModel: ViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
@@ -17,6 +19,9 @@ struct CardView: ViewModelView {
     
     var body: some View {
         Button {
+            let utterance = AVSpeechUtterance(string: viewModel.card.name)
+            utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
+            synthesizer.speak(utterance)
         } label: {
             VStack(spacing: 32) {
                 if let image = viewModel.cardImage {
@@ -41,7 +46,7 @@ struct CardView: ViewModelView {
                     .typography(.title)
                     .foregroundColor(Color("primary lighter"))
             }
-            .padding(EdgeInsets(top: 24, leading: 32, bottom: 24, trailing: 32))
+            .padding(EdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 16))
             .background(Color("primary"))
             .cornerRadius(16)
         }

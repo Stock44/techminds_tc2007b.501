@@ -14,7 +14,7 @@ protocol ViewModelView: View {
 }
 
 struct UserGrid<T: Identifiable, V: ViewModelView>: View where V.ViewModel == T{
-    @Binding var viewModels: [T]
+    var viewModels: [T]
     @StateObject var userViewModel = UserViewModel()
     
     var body: some View {
