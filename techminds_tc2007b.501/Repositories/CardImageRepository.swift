@@ -11,12 +11,17 @@ import FirebaseStorage
 import UIKit
 
 class CardImageRepository: ObservableObject {
-    let cardImagesURL = URL(string: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])!.appending(path: "cardImages")
     let cardImagesPath =  "cardImages"
     private let auth = Auth.auth()
     private let storage = Storage.storage()
     
     @Published var images: [UUID: UIImage] = [:]
+    
+    func getCardImagesURL() throws -> URL {
+        let imagesURL = try FileManager.default.url(for: .picturesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appending(path: "cardImages")
+        try FileManager.default.createDirectory(atPath: imagesURL.path(), withIntermediateDirectories: true)
+        return imagesURL
+    }
     
     func addImage(image: UIImage) async throws -> UUID {
         guard let user = auth.currentUser else {
@@ -25,13 +30,20 @@ class CardImageRepository: ObservableObject {
         
         let imageID = UUID()
         let imageFileName = "\(imageID.uuidString).jpeg"
-        let imageURL = cardImagesURL.appending(path: imageFileName)
+        let imageURL = try getCardImagesURL().appending(path: imageFileName)
         
         guard !FileManager.default.fileExists(atPath: imageURL.path()) else {
             throw RepositoryError.alreadyExists
         }
-       
-        FileManager.default.createFile(atPath: imageURL.path(), contents: image.jpegData(compressionQuality: 1.0))
+        
+        let data = image.jpegData(compressionQuality: 1.0)
+        guard let data = data else {
+            throw RepositoryError.creationError
+        }
+        
+        guard FileManager.default.createFile(atPath: imageURL.path(), contents: data) else {
+            throw RepositoryError.creationError
+        }
         
         let cloudFileRef = storage
             .reference()
@@ -39,18 +51,14 @@ class CardImageRepository: ObservableObject {
             .child(cardImagesPath)
             .child(imageFileName)
         
-        let fileTask = cloudFileRef.putFile(from: imageURL)
-        
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            fileTask.observe(.success) { snapshot in
-                continuation.resume()
-            }
-            
-            fileTask.observe(.failure) { snapshot in
-                guard let error = snapshot.error else {
+            _ = cloudFileRef.putData(data) { metadata, error in
+                guard metadata != nil else {
+                    continuation.resume(throwing: error!)
                     return
                 }
-                continuation.resume(throwing: error)
+                
+                continuation.resume()
             }
         }
         
@@ -63,9 +71,17 @@ class CardImageRepository: ObservableObject {
         }
         
         let imageFileName = "\(imageID.uuidString).jpeg"
-        let imageURL = cardImagesURL.appending(path: imageFileName)
+        let imageURL = try getCardImagesURL().appending(path: imageFileName)
         
-        FileManager.default.createFile(atPath: imageURL.path(), contents: image.jpegData(compressionQuality: 1.0))
+        let data = image.jpegData(compressionQuality: 1.0)
+        
+        guard let data = data else {
+            throw RepositoryError.creationError
+        }
+        
+        guard FileManager.default.createFile(atPath: imageURL.path(), contents: data) else {
+            throw RepositoryError.creationError
+        }
         
         let cloudFileRef = storage
             .reference()
@@ -73,18 +89,16 @@ class CardImageRepository: ObservableObject {
             .child(cardImagesPath)
             .child(imageFileName)
         
-        let fileTask = cloudFileRef.putFile(from: imageURL)
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            fileTask.observe(.success) { snapshot in
-                continuation.resume()
-            }
-            
-            fileTask.observe(.failure) { snapshot in
-                guard let error = snapshot.error else {
+            _ = cloudFileRef.putFile(from: imageURL) { metadata, error in
+                guard metadata != nil else {
+                    continuation.resume(throwing: error!)
                     return
                 }
-                continuation.resume(throwing: error)
+                
+                continuation.resume()
+                
             }
         }
         images[imageID] = image
@@ -95,9 +109,10 @@ class CardImageRepository: ObservableObject {
             throw RepositoryError.notAuthenticated
         }
         let imageFileName = "\(imageID.uuidString).jpeg"
-        let imageURL = cardImagesURL.appending(path: imageFileName)
-
-        let imageData = FileManager.default.contents(atPath: imageURL.path())
+        let imageFolder = try getCardImagesURL()
+        let imageURL = imageFolder.appending(path: imageFileName)
+        
+        var imageData = FileManager.default.contents(atPath: imageURL.path())
         
         if imageData == nil {
             let cloudFileRef = storage
@@ -106,9 +121,21 @@ class CardImageRepository: ObservableObject {
                 .child(cardImagesPath)
                 .child(imageFileName)
             
-            let snapshot = try await cloudFileRef.writeAsync(toFile: imageURL)
+            let data = try await withCheckedThrowingContinuation { ( continuation: CheckedContinuation<Data, Error> ) in
+                _ = cloudFileRef.getData(maxSize: 20 * 1024 * 1024) { data, error in
+                    guard let data = data else {
+                        continuation.resume(throwing: error!)
+                        return
+                    }
+                    continuation.resume(returning: data)
+                }
+            }
             
-            let imageData = FileManager.default.contents(atPath: imageURL.path())
+            guard FileManager.default.createFile(atPath: imageURL.path(), contents: data) else {
+                throw RepositoryError.creationError
+            }
+            
+            imageData = data
         }
         
         guard let imageData = imageData else {
@@ -128,7 +155,7 @@ class CardImageRepository: ObservableObject {
         }
         
         let imageFileName = "\(imageID.uuidString).jpeg"
-        let imageURL = cardImagesURL.appending(path: imageFileName)
+        let imageURL = try getCardImagesURL().appending(path: imageFileName)
         let cloudFileRef = storage
             .reference()
             .child(user.uid)

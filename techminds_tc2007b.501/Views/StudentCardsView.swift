@@ -8,33 +8,14 @@
 import SwiftUI
 
 struct StudentCardsView: View {
+    @StateObject private var viewModel = CardListViewModel()
+    
     var body: some View {
-        Grid {
-            GridRow {
-                CardButton(action: "", cardColor: "primary lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "primary darker")
-                
-                CardButton(action: "", cardColor: "accent1 lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "accent1 darker")
-                
-                CardButton(action: "", cardColor: "accent2 lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "accent2 darker")
-            }
-            GridRow {
-                CardButton(action: "", cardColor: "secondary lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "secondary darker")
-                
-                CardButton(action: "", cardColor: "accent2 lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "accent2 darker")
-                
-                CardButton(action: "", cardColor: "secondary lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "secondary darker")
-            }
-            GridRow {
-                CardButton(action: "", cardColor: "accent1 lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "accent1 darker")
-                
-                CardButton(action: "", cardColor: "primary lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "primary darker")
-                
-                CardButton(action: "", cardColor: "primary lighter", cardImage: "perro", cardTitle: "Perro", titleColor: "primary darker")
-            }
-        }
+        UserGrid<CardViewModel, CardView>(viewModels: $viewModel.cardViewModels)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
+                NavigationLink {
+                    InstructorCardsView()
                 } label: {
                     Image(systemName: "pencil")
                         .resizable()

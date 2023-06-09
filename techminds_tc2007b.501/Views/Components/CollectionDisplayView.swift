@@ -7,8 +7,13 @@
 
 import SwiftUI
 
-struct CollectionDisplayView: View {
-    @StateObject var viewModel: CollectionViewModel
+struct CollectionDisplayView: ViewModelView {
+    typealias ViewModel = CollectionViewModel
+    @ObservedObject var viewModel: ViewModel
+    
+    init(viewModel: ViewModel) {
+        _viewModel = ObservedObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         Text(viewModel.collection.name)
@@ -23,7 +28,8 @@ struct CollectionDisplayView: View {
 }
 
 struct CollectionDisplay_Previews: PreviewProvider {
+    @StateObject static var viewModel = CollectionViewModel()
     static var previews: some View {
-        Text("Test")
+        CollectionDisplayView(viewModel: viewModel)
     }
 }

@@ -11,19 +11,86 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class CardRepository : ObservableObject {
-    let appURL = URL(string: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])!.appending(path: "cardImages")
     private let usersPath = "users"
     private let cardsPath = "cards"
     private let store = Firestore.firestore()
     private let auth = Auth.auth()
-    private let cardImageRepository = CardImageRepository()
     
-    @Published private(set) var cards: [Card] = []
+    @Published private(set) var cards = Set<Card>()
+    @Published private(set) var collections = Set<Collection>()
     
-    private var snapshotListenerHandle: ListenerRegistration? = nil
+    private var cardsListener: ListenerRegistration?
+    private var collectionsListener: ListenerRegistration?
+    
+    func getCollectionsForCard(card: Card) throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.notAuthenticated
+        }
+        
+        guard let cardID = card.id else {
+            throw RepositoryError.invalidModel
+        }
+        
+        if let listener = collectionsListener {
+            listener.remove()
+        }
+        
+        let cardRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(cardsPath)
+            .document(cardID)
+        
+        let collectionsRef = store.collection(usersPath)
+            .document(user.uid)
+            .collection("collections")
+            .whereField("cards", arrayContains: cardRef)
+        
+        collectionsListener = collectionsRef.addSnapshotListener(self.onCollectionsChange)
+    }
+    
+    func onCollectionsChange(snapshot: QuerySnapshot?, error: Error?) {
+        guard let snapshot = snapshot else {
+            print("error with cards change listener: \(error!)")
+            return
+        }
+        
+        do {
+            self.collections = Set(try snapshot.documents.map { snapshot in
+                try snapshot.data(as: Collection.self)
+            })
+        } catch {
+            print("error while mapping card's collections documents to Collection structs")
+        }
+    }
+    
+    func getCardsForCollection(collection: Collection) throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.notAuthenticated
+        }
+        
+        guard let collectionId = collection.id else {
+            throw RepositoryError.invalidModel
+        }
+        
+        let collectionRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection("collections")
+            .document(collectionId)
+        
+        let cardsRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection("cards")
+            .whereField("collections", arrayContains: collectionRef)
+        
+        self.cardsListener = cardsRef.addSnapshotListener(self.onCardsChange)
+    }
+                                  
     
     func getCards() throws {
-        if let listener = self.snapshotListenerHandle {
+        if let listener = cardsListener {
             listener.remove()
         }
         
@@ -36,20 +103,18 @@ class CardRepository : ObservableObject {
             .collection(cardsPath)
             .order(by: "name")
         
-        self.snapshotListenerHandle = cardsRef.addSnapshotListener(self.onCardsChange)
-
+        self.cardsListener = cardsRef.addSnapshotListener(self.onCardsChange)
     }
     
-    func createCard(card: Card) async throws {
-        guard let image = card.image else {
-            throw RepositoryError.invalidModel
-        }
-        guard card.id == nil && card.imageID == nil else {
+    func createCard(card: inout Card) async throws {
+        guard card.id == nil else {
             throw RepositoryError.alreadyExists
         }
         guard let user = auth.currentUser else {
             throw RepositoryError.notAuthenticated
         }
+        
+        print("creating")
         
         let cardID = UUID()
         
@@ -65,14 +130,11 @@ class CardRepository : ObservableObject {
             throw RepositoryError.alreadyExists
         }
         
-        var newCard = card
-        
-        newCard.imageID = try await cardImageRepository.addImage(image: image)
-        
         try await withCheckedThrowingContinuation{ (continuation: CheckedContinuation<Void, Error>) in
             do {
-                try cardRef.setData(from: newCard) { error in
+                try cardRef.setData(from: card) { error in
                     guard let error = error else {
+                        print("saved")
                         continuation.resume()
                         return
                     }
@@ -82,6 +144,7 @@ class CardRepository : ObservableObject {
                 continuation.resume(throwing: error)
             }
         }
+        card.id = cardRef.documentID
     }
     
     func updateCard(card: Card) async throws {
@@ -135,27 +198,14 @@ class CardRepository : ObservableObject {
     func onCardsChange(snapshot: QuerySnapshot?, error: Error?) {
         guard let snapshot = snapshot else {
             print("error with cards change listener: \(error!)")
-            
-            if let user = auth.currentUser {
-                let cardsRef = store.collection(usersPath)
-                    .document(user.uid)
-                    .collection(cardsPath)
-                    .order(by: "name")
-                
-                self.snapshotListenerHandle = cardsRef.addSnapshotListener(self.onCardsChange)
-            }
-            return
-        }
-        
-        guard let user = auth.currentUser else {
-            print("no user on cards update")
             return
         }
         
         do {
-            self.cards = try snapshot.documents.map { snapshot in
+            print("received \(snapshot.documents.count) cards")
+            self.cards = Set(try snapshot.documents.map { snapshot in
                 try snapshot.data(as: Card.self)
-            }
+            })
         } catch {
             print("error while mapping card documents to Card structs")
         }

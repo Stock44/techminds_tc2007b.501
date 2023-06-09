@@ -14,7 +14,7 @@ struct ExampleCard {
     var onLight: Bool
 }
 
-struct CardView: View {
+struct ToggleCard: View {
     @State private var cards: [ExampleCard] = [
         ExampleCard(name: "Tarjeta 1", numCards: 5, tOn: false, onLight: false),
         ExampleCard(name: "Tarjeta 2", numCards: 3, tOn: false, onLight: false),
@@ -57,8 +57,8 @@ struct CardView: View {
     }
 }
 
-struct CardView_Previews: PreviewProvider {
+struct ToggleCard_Previews: PreviewProvider {
     static var previews: some View {
-        CardView()
+        ToggleCard()
     }
 }

@@ -98,4 +98,5 @@ enum RepositoryError: Error {
     case alreadyExists
     case doesNotExist
     case invalidModel
+    case creationError
 }
