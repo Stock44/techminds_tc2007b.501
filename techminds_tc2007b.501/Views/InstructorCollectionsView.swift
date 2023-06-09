@@ -6,10 +6,8 @@
 //
 import SwiftUI
 
-struct InstructorCollectionView: View {
-    
-    @State var isEditing = false
-    @State var editViewModel: CollectionViewModel? = nil
+struct InstructorCollectionsView: View {
+    @State var editViewModel: CollectionViewModel?
     @StateObject private var viewModel = CollectionListViewModel()
     
     var body: some View {
@@ -51,7 +49,6 @@ struct InstructorCollectionView: View {
                     
                     Button {
                         editViewModel = collection
-                        isEditing = true
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
@@ -64,28 +61,21 @@ struct InstructorCollectionView: View {
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing) {
                 Button {
-                    isEditing = true
-                    editViewModel = nil
+                    editViewModel = CollectionViewModel()
                 } label: {
                     Image(systemName: "plus")
                 }
             }
-        }.sheet(isPresented: $isEditing) {
-            if let editViewModel = editViewModel {
-                CollectionEditView(viewModel: editViewModel)
-            } else {
-                CollectionCreationView()
+        }.sheet(isPresented: Binding(get: {editViewModel != nil}, set: {if !$0 {editViewModel = nil}})) {
+            NavigationView {
+                CollectionEditView(viewModel: editViewModel!)
             }
         }
-        
-        //Left Side
-        //Color("white")
-        //   .edgesIgnoringSafeArea(.all)
     }
 }
 struct CollectionInstructor_Previews: PreviewProvider {
     static var previews: some View {
-        InstructorCollectionView()
+        InstructorCollectionsView()
     }
 }
 

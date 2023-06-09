@@ -7,13 +7,24 @@
 
 import Foundation
 import Combine
+import UIKit
 
-class CardViewModel: ObservableObject, Identifiable {
+class CardViewModel: ObservableObject, Identifiable, Hashable {
+    static func == (lhs: CardViewModel, rhs: CardViewModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     private var cardRepository = CardRepository()
     private var cardImageRepository = CardImageRepository()
     private var cancellables: Set<AnyCancellable> = []
     
     @Published var card: Card
+    @Published var collections = Set<CollectionViewModel>()
+    @Published var cardImage: UIImage?
     @Published var error: Error?
     
     var id: String?
@@ -28,6 +39,12 @@ class CardViewModel: ObservableObject, Identifiable {
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
         
+        cardRepository
+            .$collections
+            .compactMap { Set($0.map(CollectionViewModel.init)) }
+            .assign(to: \.collections, on: self)
+            .store(in: &cancellables)
+        
         
         cardImageRepository
             .$images
@@ -38,7 +55,7 @@ class CardViewModel: ObservableObject, Identifiable {
                     return nil
                 }
             }
-            .assign(to: \.card.image,on: self)
+            .assign(to: \.cardImage,on: self)
             .store(in: &cancellables)
         
         
@@ -56,10 +73,36 @@ class CardViewModel: ObservableObject, Identifiable {
         
     }
     
-    func create() {
+    func loadImage() {
+        guard let imageID = card.imageID else {
+            return
+        }
+        
         Task {
             do {
-                try await cardRepository.createCard(card: card)
+                try await cardImageRepository.getImage(imageID: imageID)
+                self.error = nil
+            } catch {
+                self.error = error
+            }
+        }
+    }
+    
+    func create() {
+        guard let cardImage = cardImage else {
+            self.error = RepositoryError.invalidModel
+            return
+        }
+        
+        guard card.imageID == nil else {
+            self.error = RepositoryError.invalidModel
+            return
+        }
+        
+        Task {
+            do {
+                card.imageID = try await cardImageRepository.addImage(image: cardImage)
+                try await cardRepository.createCard(card: &card)
                 self.error = nil
             } catch {
                 self.error = error
@@ -68,9 +111,24 @@ class CardViewModel: ObservableObject, Identifiable {
     }
     
     func update() {
+        guard let cardImage = cardImage else {
+            self.error = RepositoryError.invalidModel
+            return
+        }
+        
+        guard let cardImageId = card.imageID else {
+            self.error = RepositoryError.invalidModel
+            return
+        }
+        
         Task {
             do {
+                try await cardImageRepository.deleteImage(imageID: cardImageId)
+                
+                card.imageID = try await cardImageRepository.addImage(image: cardImage)
+                
                 try await cardRepository.updateCard(card: card)
+                
                 self.error = nil
             } catch {
                 self.error = error
