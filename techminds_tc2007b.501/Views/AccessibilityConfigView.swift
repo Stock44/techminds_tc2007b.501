@@ -31,15 +31,15 @@ struct AccessibilityConfigView: View {
                         Text("Letra")
                             .font(.custom("Comfortaa", size: 32))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Slider(value: $letratam,in: 0.5...3)
+                        Slider(value: $letratam,in: 0.5...3, step: 0.5)
                         Text("Botones")
                             .font(.custom("Comfortaa", size: 32))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Slider(value: $botontam, in: 0.2...1)
+                        Slider(value: $botontam, in: 0.2...1, step: 0.1)
                         Text("Tarjetas")
                             .font(.custom("Comfortaa", size: 32))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Slider(value: $tarjetatam, in: 0.2...1)
+                        Slider(value: $tarjetatam, in: 0.2...1, step: 0.1)
                     }
                     
                     HStack {
