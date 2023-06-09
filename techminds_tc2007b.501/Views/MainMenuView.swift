@@ -53,7 +53,7 @@ struct MainMenuView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    Verificacion()
+                    Filter()
                 } label: {
                     Image(systemName: "gear")
                     

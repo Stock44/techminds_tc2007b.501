@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct Verificacion: View {
+struct Filter: View {
     
     @State private var resultado : String = ""
     @State private var num1 = 0
     @State private var num2 = 0
     
     func number1() -> Int {
-        return Int.random(in: 1...50)
+        return Int.random(in: 2...50)
     }
     
     func number2() -> Int {
-        return Int.random(in: 1...5)
+        return Int.random(in: 2...5)
     }
     
     func answer(num1: Int, num2: Int) -> Int {
@@ -64,6 +64,6 @@ struct Verificacion: View {
 
 struct Verificacion_Previews: PreviewProvider {
     static var previews: some View {
-        Verificacion()
+        Filter()
     }
 }
