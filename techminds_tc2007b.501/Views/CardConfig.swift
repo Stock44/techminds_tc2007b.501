@@ -23,7 +23,7 @@ struct CardConfig: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 32){
             HStack{
-                Text("      Todas Las Tarjetas   ")
+                Text("Todas Las Tarjetas   ")
                     .font(.custom("Raleway", size: 60))
                 
                 Button {
@@ -97,7 +97,7 @@ struct CardConfig: View {
                 .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))
                 .frame(maxWidth: .infinity)
                 
-                //IMAGEN - IMAGE PICKER (funciona) modificar tamaño 
+                //IMAGEN - IMAGE PICKER (funciona) modificar tamaño max height y max width
                 VStack(alignment: .leading, spacing: 8){
                     ZStack{
                         PhotosPicker(selection: $selectedItem,matching: .any (of:
