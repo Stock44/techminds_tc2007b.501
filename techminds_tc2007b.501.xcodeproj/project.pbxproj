@@ -16,6 +16,8 @@
 		FB266A222A2EA2CC0055F839 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB266A212A2EA2CC0055F839 /* UserRepository.swift */; };
 		FB38BBF62A17E1F1007A5C05 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38BBF52A17E1F1007A5C05 /* CollectionView.swift */; };
 		FB38BBF82A17E227007A5C05 /* StudentCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB38BBF72A17E227007A5C05 /* StudentCards.swift */; };
+		FB39F59A2A33B7740088B241 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB39F5992A33B7740088B241 /* Filter.swift */; };
+		FB39F59E2A33B9C40088B241 /* ConfigMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */; };
 		FB3FF52B2A21420900D291C4 /* CardsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF52A2A21420900D291C4 /* CardsConfig.swift */; };
 		FB3FF52F2A215F5200D291C4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF52E2A215F5200D291C4 /* User.swift */; };
 		FB3FF5352A21672E00D291C4 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3FF5342A21672E00D291C4 /* Card.swift */; };
@@ -59,7 +61,6 @@
 		FBBDF4C02A2FF10C00C4DAD8 /* CollectionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDF4BF2A2FF10C00C4DAD8 /* CollectionListViewModel.swift */; };
 		FBBDF4C22A3045FD00C4DAD8 /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDF4C12A3045FC00C4DAD8 /* CardRepository.swift */; };
 		FBC325032A2907E30032D1F9 /* LabelledPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC325022A2907E30032D1F9 /* LabelledPasswordBox.swift */; };
-		FBC7C3742A311A9700EAD844 /* ConfigMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC7C3732A311A9700EAD844 /* ConfigMenu.swift */; };
 		FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD340692A0968EF00977A4B /* MainMenuView.swift */; };
 		FBD340772A09902000977A4B /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD340722A09901F00977A4B /* Comfortaa-Regular.ttf */; };
 		FBD340782A09902000977A4B /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBD340732A09902000977A4B /* Comfortaa-SemiBold.ttf */; };
@@ -123,6 +124,8 @@
 		FB266A212A2EA2CC0055F839 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FB38BBF52A17E1F1007A5C05 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		FB38BBF72A17E227007A5C05 /* StudentCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCards.swift; sourceTree = "<group>"; };
+		FB39F5992A33B7740088B241 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigMenu.swift; sourceTree = "<group>"; };
 		FB3FF52A2A21420900D291C4 /* CardsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsConfig.swift; sourceTree = "<group>"; };
 		FB3FF52E2A215F5200D291C4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = techminds_tc2007b.501/Views/User.swift; sourceTree = SOURCE_ROOT; };
 		FB3FF5342A21672E00D291C4 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Card.swift; path = techminds_tc2007b.501/Views/Card.swift; sourceTree = SOURCE_ROOT; };
@@ -157,7 +160,6 @@
 		FBBDF4BF2A2FF10C00C4DAD8 /* CollectionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListViewModel.swift; sourceTree = "<group>"; };
 		FBBDF4C12A3045FC00C4DAD8 /* CardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
 		FBC325022A2907E30032D1F9 /* LabelledPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledPasswordBox.swift; sourceTree = "<group>"; };
-		FBC7C3732A311A9700EAD844 /* ConfigMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigMenu.swift; sourceTree = "<group>"; };
 		FBD340692A0968EF00977A4B /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		FBD340722A09901F00977A4B /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
 		FBD340732A09902000977A4B /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -236,6 +238,15 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		FB39F5982A33B72C0088B241 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				FB9408942A31250600E1BA66 /* Filter.swift */,
+				FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		FB4EEFAE2A0AC3B20022EBC5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +269,7 @@
 		FB72D52C2A180F8F00D9F898 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				FB39F5992A33B7740088B241 /* Filter.swift */,
 				FBB443522A09A3DA000E48F2 /* FilledButton.swift */,
 				FB38BBF72A17E227007A5C05 /* StudentCards.swift */,
 				FB8DF3512A17D88C00E61AA6 /* CardButton.swift */,
@@ -308,6 +320,7 @@
 				FBDD5E3C2A05AE8500642744 /* techminds_tc2007b.501Tests */,
 				FBDD5E462A05AE8500642744 /* techminds_tc2007b.501UITests */,
 				FBDD5E2A2A05AE7D00642744 /* Products */,
+				FB39F5982A33B72C0088B241 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -571,6 +584,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB8DF3502A17D69A00E61AA6 /* StudentCardsView.swift in Sources */,
+				FB39F59A2A33B7740088B241 /* Filter.swift in Sources */,
 				FBA0604E2A18339700BA3D67 /* AccessibilityConfigView.swift in Sources */,
 				FBDA98032A2E714900E528D1 /* CodableColor.swift in Sources */,
 				FBA060502A1833DA00BA3D67 /* AccountInfoView.swift in Sources */,
@@ -583,6 +597,7 @@
 				FB38BBF62A17E1F1007A5C05 /* CollectionView.swift in Sources */,
 				FB5FBB612A27DB9800BE0095 /* VerifyPopUp.swift in Sources */,
 				FB76D0602A311CA800BE28A6 /* CollectionDisplayView.swift in Sources */,
+				FB39F59E2A33B9C40088B241 /* ConfigMenu.swift in Sources */,
 				FBBDF4C02A2FF10C00C4DAD8 /* CollectionListViewModel.swift in Sources */,
 				FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */,
 				FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */,
@@ -595,9 +610,8 @@
 				FBD3406A2A0968EF00977A4B /* MainMenuView.swift in Sources */,
 				FBDD5E2F2A05AE7D00642744 /* ContentView.swift in Sources */,
 				FBB443532A09A3DA000E48F2 /* FilledButton.swift in Sources */,
-				FBC7C3742A311A9700EAD844 /* ConfigMenu.swift in Sources */,
 				FB38BBF82A17E227007A5C05 /* StudentCards.swift in Sources */,
-				FB9408952A31250600E1BA66 /* Verificacion.swift in Sources */,
+				FB9408952A31250600E1BA66 /* Filter.swift in Sources */,
 				FB75C6E42A32394F00171E6F /* CardImageRepository.swift in Sources */,
 				FB3FF52F2A215F5200D291C4 /* User.swift in Sources */,
 				FB1088B52A09ACE700B914C2 /* RegisterView.swift in Sources */,
