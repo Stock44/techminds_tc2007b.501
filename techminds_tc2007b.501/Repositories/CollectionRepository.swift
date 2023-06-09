@@ -110,6 +110,78 @@ class CollectionRepository : ObservableObject {
         }
     }
     
+    func removeCardsFromCollection(collection: Collection, cards: Set<Card>) async throws {
+        guard let collectionId = collection.id else {
+            throw RepositoryError.invalidModel
+        }
+        
+        guard let user = auth.currentUser else {
+            throw RepositoryError.notAuthenticated
+        }
+        
+        
+        let collectionRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .document(collectionId)
+        
+        
+        
+        for card in cards {
+            guard let cardId = card.id else {
+                continue
+            }
+            let cardRef = store
+                .collection(usersPath)
+                .document(user.uid)
+                .collection("cards")
+                .document(cardId)
+            
+            
+            var newCard = card
+            newCard.collections.remove(collectionRef)
+            
+            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+                do {
+                    try cardRef.setData(from: newCard) { error in
+                        if let error = error {
+                            continuation.resume(throwing: error)
+                        }
+                        continuation.resume()
+                    }
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+        
+        let cardRefs = Set(cards
+            .filter {$0.id != nil}
+            .map{
+                store
+                    .collection(usersPath)
+                    .document(user.uid)
+                    .collection("cards")
+                    .document($0.id!)
+            })
+        
+        var newCollection = collection
+        newCollection.cards = newCollection.cards.subtracting(cardRefs)
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            do {
+                try collectionRef.setData(from: newCollection) { error in
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                    }
+                    continuation.resume()
+                }
+            } catch {
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+    
     func createCollection(collection: Collection) async throws {
         guard collection.id == nil else {
             throw RepositoryError.alreadyExists

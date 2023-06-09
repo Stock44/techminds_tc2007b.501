@@ -12,7 +12,7 @@ struct StudentCollectionsView: View {
     @StateObject var userViewModel = UserViewModel()
     
     var body: some View {
-        UserGrid<CollectionViewModel, CollectionDisplayView>(viewModels: $viewModel.collectionViewModels)
+        UserGrid<CollectionViewModel, CollectionDisplayView>(viewModels: [CollectionViewModel](viewModel.collectionViewModels))
         .tabViewStyle(.page)
         .navigationTitle("Colecciones")
         .toolbar {

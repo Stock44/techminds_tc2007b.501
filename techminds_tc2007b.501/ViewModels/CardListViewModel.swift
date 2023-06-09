@@ -12,22 +12,36 @@ class CardListViewModel: ObservableObject {
     private let cardRepository = CardRepository()
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var cardViewModels: [CardViewModel] = []
+    @Published var cardViewModels = Set<CardViewModel>()
     @Published var error: Error?
+    
+    func getCollectionCards(collection: CollectionViewModel) {
+        do {
+            try cardRepository.getCardsForCollection(collection: collection.collection)
+            self.error = nil
+        } catch {
+            self.error = error
+        }
+    }
+    
+    func getAllCards() {
+        do {
+            try cardRepository.getCards()
+            self.error = nil
+        } catch {
+            self.error = error
+        }
+    }
     
     init() {
         cardRepository
             .$cards
             .map { cards in
-                cards.map(CardViewModel.init)
+                Set(cards.map(CardViewModel.init))
             }
             .assign(to: \.cardViewModels, on: self)
             .store(in: &cancellables)
         
-        do {
-            try cardRepository.getCards()
-        } catch {
-            self.error = error
-        }
+        
     }
 }
