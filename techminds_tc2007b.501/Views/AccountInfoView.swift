@@ -12,8 +12,9 @@ struct AccountInfoView: View {
     @State var apellidos = "Erick"
     @State var correo = "A00@tec.mx"
     @State var contraseña = "hola"
-    @State private var popup = false
-    @State private var buttontext = "Editar"
+    @State var popup = false
+    @State var buttontext = "Editar"
+    @State var opacityEdit = 0.6
     
     
     var body: some View {
@@ -28,13 +29,16 @@ struct AccountInfoView: View {
                 LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
                         .disabled(true)
                         .opacity(0.6)
-                LabelledTextBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
+                LabelledPasswordBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
                         .disabled(true)
                         .opacity(0.6)
                     
                 FilledButton(labelText: buttontext){
                     if buttontext == "Editar"{
                         popup = true
+                    }
+                    else{
+                        
                     }
                 }
                 .popover(isPresented: $popup, content: {
