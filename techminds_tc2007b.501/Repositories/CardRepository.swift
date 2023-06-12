@@ -147,6 +147,56 @@ class CardRepository : ObservableObject {
         }
     }
     
+    func setCollectionsForCard(card: Card, collections: Set<Collection>) async throws {
+        guard let cardId = card.id else {
+            throw RepositoryError.missingModelID
+        }
+        
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
+        
+        let cardRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(cardsPath)
+            .document(cardId)
+        
+        var oldCard = try await cardRef.getDocument(as: Card.self)
+        let newCollections = Set(try collections.map {
+            guard let collectionId = $0.id else {
+                throw RepositoryError.invalidModel
+            }
+            return store
+                .collection(usersPath)
+                .document(user.uid)
+                .collection(collectionsPath)
+                .document(collectionId)
+        })
+        
+        let removedCollections = oldCard.collections.subtracting(newCollections)
+        let addedCollections = newCollections.subtracting(oldCard.collections)
+        
+        print("added \(addedCollections.count)")
+        print("removed \(removedCollections.count)")
+        
+        for collectionDoc in removedCollections {
+            var collection = try await collectionDoc.getDocument(as: Collection.self)
+            collection.cards.remove(cardRef)
+            try collectionDoc.setData(from: collection)
+        }
+        
+        for collectionDoc in addedCollections {
+            var collection = try await collectionDoc.getDocument(as: Collection.self)
+            collection.cards.insert(cardRef)
+            try collectionDoc.setData(from: collection)
+        }
+        
+        
+        oldCard.collections = newCollections
+        try cardRef.setData(from: oldCard)
+    }
+    
     func updateCard(card: Card) async throws {
         guard let cardId = card.id else {
             throw RepositoryError.missingModelID

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import UIKit
 
-class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
+class CardEditingViewModel: EditableCardMembers, ViewableCardViewModel {
     private var cardRepository = CardRepository()
     private var collectionRepository = CollectionRepository()
     private var cardImageRepository = CardImageRepository()
@@ -32,7 +32,6 @@ class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
             }
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
-        
     }
     
     @MainActor
@@ -44,8 +43,11 @@ class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
                     card.imageID = try await cardImageRepository.addImage(image: image)
                     try await cardImageRepository.deleteImage(imageID: oldImageID)
                 }
+                
+                let collections = Set(collections?.map { $0.collection } ?? [])
                     
                 try await cardRepository.updateCard(card: card)
+                try await cardRepository.setCollectionsForCard(card: card, collections: collections)
             } catch {
                 self.error = error
             }

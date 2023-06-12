@@ -25,34 +25,40 @@ struct CardEditView: ViewModelView {
         VStack(alignment: .leading, spacing: 32){
             CardView(viewModel: viewModel)
             
-                Text("Editar tarjeta")
-                    .typography(.title)
-                
-            LabelledTextBox(label: "Nombre", placeholder: "Ingresa el nombre de la tarjeta", content: $viewModel.card.name)
+            Text("Editar tarjeta")
+                .typography(.title)
             
-            PhotosPicker(selection: $imageSelection) {
-                Label("Seleccionar imagen", systemImage: "pencil")
-            }
-            .onChange(of: imageSelection) { _ in
-                if let imageSelection {
-                    imageSelection.loadTransferable(type: Data.self) { result in
-                        switch result {
-                        case .success(let data):
-                            if let data = data {
-                                print("success")
-                                viewModel.cardImage = UIImage(data: data)
-                            } else {
-                                print("unsupported format")
+            LabelledTextBox(label: "Nombre", placeholder: "Ingresa el nombre de la tarjeta", content: $viewModel.card.name)
+            HStack(spacing: 32){
+                PhotosPicker(selection: $imageSelection) {
+                    Label("Seleccionar imagen", systemImage: "pencil")
+                }
+                .onChange(of: imageSelection) { _ in
+                    if let imageSelection {
+                        imageSelection.loadTransferable(type: Data.self) { result in
+                            switch result {
+                            case .success(let data):
+                                if let data = data {
+                                    print("success")
+                                    viewModel.cardImage = UIImage(data: data)
+                                } else {
+                                    print("unsupported format")
+                                }
+                            case .failure(_):
+                                print("failure retrieving image")
                             }
-                        case .failure(_):
-                            print("failure retrieving image")
                         }
+                    } else {
+                        print("empty")
                     }
-                } else {
-                    print("empty")
+                }
+                
+                NavigationLink {
+                    CardMemberEditView(viewModel: viewModel)
+                } label: {
+                    Label("Colecciones", systemImage: "system-group")
                 }
             }
-            
             HStack {
                 if viewModel.id != nil {
                     Button (role: .destructive) {
@@ -77,6 +83,9 @@ struct CardEditView: ViewModelView {
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
         .onAppear {
+            if viewModel.collections == nil {
+                viewModel.loadCurrentCollections()
+            }
             if viewModel.cardImage == nil {
                 viewModel.loadCurrentImage()
             }

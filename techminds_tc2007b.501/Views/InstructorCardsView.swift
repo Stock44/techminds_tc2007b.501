@@ -23,7 +23,6 @@ struct InstructorCardsView: View {
                 Text("")
                     .font(.custom("Raleway-bold", size: 18))
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                
             }
             
             ForEach([CardViewModel](viewModel.cardViewModels)) { card in
@@ -53,10 +52,14 @@ struct InstructorCardsView: View {
                 }
             }
         }.sheet(isPresented: Binding(get: {editViewModel != nil}, set: {value in if !value {editViewModel = nil}})) {
-            CardEditView(viewModel: editViewModel!)
+            NavigationView {
+                CardEditView(viewModel: editViewModel!)
+            }
         }
         .sheet(isPresented: $isCreating) {
-            CardCreationView()
+            NavigationView {
+                CardCreationView()
+            }
         }
     }
 }
