@@ -27,7 +27,7 @@ class UserRepository: ObservableObject {
     private func onAuthStateChange(auth: Auth, newUser: User?) {
         self.user = newUser
         
-        guard let user = self.user else {
+        guard self.user != nil else {
             return
         }
     }

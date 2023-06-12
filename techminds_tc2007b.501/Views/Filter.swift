@@ -10,6 +10,7 @@ import SwiftUI
 struct Filter<TargetView: View>: View {
     
     let target: () -> TargetView
+
     @State private var resultado : String = ""
     @State private var num1 = 0
     @State private var num2 = 0
@@ -42,6 +43,7 @@ struct Filter<TargetView: View>: View {
                     .keyboardType(.phonePad)
             }
             
+
             Button {
                 cleared = resultado == String(answer(num1: num1, num2: num2))
             }label: {

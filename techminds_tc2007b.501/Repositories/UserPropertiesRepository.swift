@@ -61,7 +61,7 @@ class UserPropertiesRepository: ObservableObject {
     }
     
     func setUserProperties(userProperties: UserProperties) async throws{
-        guard let user = auth.currentUser else {
+        guard auth.currentUser != nil else {
             throw RepositoryError.unauthenticated
         }
         
