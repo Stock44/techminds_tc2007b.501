@@ -8,18 +8,18 @@
 import Foundation
 import Combine
 
-@MainActor
 class CollectionEditingViewModel: ViewableCollectionViewModel, EditableCollectionMembers {
     private var collectionRepository = CollectionRepository()
     private var cardRepository = CardRepository()
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var collection: Collection
-    @Published var cards: Set<CardViewModel>?
-    @Published private(set) var error: Error?
+    @Published @MainActor var collection: Collection
+    @Published @MainActor var cards: Set<CardViewModel>?
+    @Published @MainActor private(set) var error: Error?
     
     var id: String?
     
+    @MainActor
     init(collection: Collection) {
         self.collection = collection
         
@@ -31,6 +31,7 @@ class CollectionEditingViewModel: ViewableCollectionViewModel, EditableCollectio
             .store(in: &cancellables)
     }
     
+    @MainActor
     func update() {
         Task {
             do {
@@ -45,6 +46,7 @@ class CollectionEditingViewModel: ViewableCollectionViewModel, EditableCollectio
         }
     }
     
+    @MainActor
     func loadCurrentCards() {
         Task {
             do {
@@ -56,6 +58,7 @@ class CollectionEditingViewModel: ViewableCollectionViewModel, EditableCollectio
         }
     }
     
+    @MainActor
     func delete() {
         Task {
             do {

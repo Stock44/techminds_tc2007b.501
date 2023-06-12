@@ -7,14 +7,14 @@
 
 import Foundation
 
-@MainActor
 class CollectionCreationViewModel: ViewableCollectionViewModel, EditableCollectionMembers {
     private let collectionRepository = CollectionRepository()
     
-    @Published var collection = Collection()
-    @Published var cards: Set<CardViewModel>? = Set<CardViewModel>()
-    @Published private(set) var error: Error?
+    @Published @MainActor var collection = Collection()
+    @Published @MainActor var cards: Set<CardViewModel>? = Set<CardViewModel>()
+    @Published @MainActor private(set) var error: Error?
     
+    @MainActor
     func create() {
         Task {
             do {

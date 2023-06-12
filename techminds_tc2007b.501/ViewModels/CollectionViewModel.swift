@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-@MainActor
 class CollectionViewModel: ViewableCollectionViewModel, Identifiable, Hashable {
     static func == (lhs: CollectionViewModel, rhs: CollectionViewModel) -> Bool {
         lhs.id == rhs.id
@@ -18,17 +17,18 @@ class CollectionViewModel: ViewableCollectionViewModel, Identifiable, Hashable {
     private var cardRepository = CardRepository()
     private var cancellables = Set<AnyCancellable>()
     
-    @Published private(set) var collection: Collection
-    @Published private(set) var cards = Set<CardViewModel>()
-    @Published private(set) var error: Error?
+    @Published @MainActor private(set) var collection: Collection
+    @Published @MainActor private(set) var cards = Set<CardViewModel>()
+    @Published @MainActor private(set) var error: Error?
     
     var id: String?
     
+    @MainActor
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
-    
+    @MainActor
     init(collection: Collection) {
         self.collection = collection
         
@@ -46,6 +46,7 @@ class CollectionViewModel: ViewableCollectionViewModel, Identifiable, Hashable {
             .store(in: &cancellables)
     }
     
+    @MainActor
     func getCards() {
         do {
             print("getting cards")
@@ -57,6 +58,7 @@ class CollectionViewModel: ViewableCollectionViewModel, Identifiable, Hashable {
         }
     }
     
+    @MainActor
     func getCardsWithImages() {
         $cards
             .sink {

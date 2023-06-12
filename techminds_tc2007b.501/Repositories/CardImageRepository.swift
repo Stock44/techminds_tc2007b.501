@@ -146,7 +146,10 @@ class CardImageRepository: ObservableObject {
         guard let image = image else {
             throw RepositoryError.retrievalFailure
         }
-        images[imageID] = image
+        
+        DispatchQueue.main.async {
+            self.images[imageID] = image
+        }
         return image
     }
     
