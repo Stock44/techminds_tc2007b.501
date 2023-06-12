@@ -9,20 +9,20 @@ import Foundation
 import Combine
 import UIKit
 
-@MainActor
 class CardViewModel: ViewableCardViewModel, Identifiable, Hashable {
     private var cardRepository = CardRepository()
     private var collectionRepository = CollectionRepository()
     private var cardImageRepository = CardImageRepository()
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published private(set) var card: Card
-    @Published private(set) var collections = Set<CollectionViewModel>()
-    @Published private(set) var cardImage: UIImage?
-    @Published private(set) var error: Error?
+    @Published @MainActor private(set) var card: Card
+    @Published @MainActor private(set) var collections = Set<CollectionViewModel>()
+    @Published @MainActor private(set) var cardImage: UIImage?
+    @Published @MainActor private(set) var error: Error?
     
     var id: String?
     
+    @MainActor
     init(card: Card) {
         self.card = card
         
@@ -48,6 +48,7 @@ class CardViewModel: ViewableCardViewModel, Identifiable, Hashable {
         
     }
     
+    @MainActor
     func loadImage() {
         Task {
             do {
@@ -59,10 +60,12 @@ class CardViewModel: ViewableCardViewModel, Identifiable, Hashable {
         }
     }
     
+    @MainActor
     static func == (lhs: CardViewModel, rhs: CardViewModel) -> Bool {
         return lhs.id == rhs.id
     }
     
+    @MainActor
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

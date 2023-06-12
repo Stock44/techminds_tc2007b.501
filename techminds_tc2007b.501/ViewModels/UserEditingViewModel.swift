@@ -9,18 +9,18 @@ import Foundation
 import Combine
 import FirebaseAuth
 
-@MainActor
 class UserEditingViewModel: ObservableObject {
     private var userRepository = UserRepository()
     private var userPropertiesRepository = UserPropertiesRepository()
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var email: String = ""
-    @Published var password: String = ""
-    @Published private(set) var user: User?
-    @Published var userProperties = UserProperties()
-    @Published private(set) var error: Error?
+    @Published @MainActor var email: String = ""
+    @Published @MainActor var password: String = ""
+    @Published @MainActor private(set) var user: User?
+    @Published @MainActor var userProperties = UserProperties()
+    @Published @MainActor private(set) var error: Error?
     
+    @MainActor
     init() {
         userRepository
             .$user
@@ -36,6 +36,7 @@ class UserEditingViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    @MainActor
     func loadCurrent() {
         do {
             try userPropertiesRepository.getUserProperties()
@@ -45,6 +46,7 @@ class UserEditingViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func updateEmail(password: String) {
         guard let email = user?.email else {
             self.error = RepositoryError.unauthenticated
@@ -62,6 +64,7 @@ class UserEditingViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func updatePassword(password: String) {
         guard let email = user?.email else {
             self.error = RepositoryError.unauthenticated
@@ -80,6 +83,7 @@ class UserEditingViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func update() {
         Task {
             do {

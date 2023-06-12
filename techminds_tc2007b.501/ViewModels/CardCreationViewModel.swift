@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-@MainActor
 class CardCreationViewModel: ViewableCardViewModel {
     private let cardRepository = CardRepository()
     private let cardImageRepository = CardImageRepository()
     
-    @Published var card = Card()
-    @Published var cardImage: UIImage?
-    @Published private(set) var error: Error?
+    @Published @MainActor var card = Card()
+    @Published @MainActor var cardImage: UIImage?
+    @Published @MainActor private(set) var error: Error?
     
+    @MainActor
     func create() {
         guard let cardImage = cardImage else {
             self.error = RepositoryError.invalidModel

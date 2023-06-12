@@ -8,14 +8,14 @@
 import Foundation
 import Combine
 
-@MainActor
 class CollectionListViewModel : ObservableObject {
     private let collectionRepository = CollectionRepository()
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var collectionViewModels: Set<CollectionViewModel> = []
-    @Published var error: Error?
+    @Published @MainActor var collectionViewModels: Set<CollectionViewModel> = []
+    @Published @MainActor var error: Error?
     
+    @MainActor
     init() {
         collectionRepository
             .$collections
@@ -26,6 +26,7 @@ class CollectionListViewModel : ObservableObject {
             .store(in: &cancellables)
     }
     
+    @MainActor
     func getAll() {
         do {
             try collectionRepository.getCollections()
@@ -35,6 +36,7 @@ class CollectionListViewModel : ObservableObject {
         }
     }
     
+    @MainActor
     func getForCard(card: CardViewModel) {
         do {
             try collectionRepository.getCollectionsForCard(card: card.card)

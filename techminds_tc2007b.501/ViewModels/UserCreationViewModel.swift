@@ -7,16 +7,16 @@
 
 import Foundation
 
-@MainActor
 class UserCreationViewModel: ObservableObject{
     private var userRepository = UserRepository()
     private var userPropertiesRepository = UserPropertiesRepository()
     
-    @Published var email = ""
-    @Published var password = ""
-    @Published var userProperties = UserProperties()
-    @Published private(set) var error: Error?
+    @Published @MainActor var email = ""
+    @Published @MainActor var password = ""
+    @Published @MainActor var userProperties = UserProperties()
+    @Published @MainActor private(set) var error: Error?
     
+    @MainActor
     func create() {
         guard userProperties.id == nil else {
             self.error = RepositoryError.alreadyExists

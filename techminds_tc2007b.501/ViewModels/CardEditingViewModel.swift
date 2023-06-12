@@ -9,20 +9,20 @@ import Foundation
 import Combine
 import UIKit
 
-@MainActor
 class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
     private var cardRepository = CardRepository()
     private var collectionRepository = CollectionRepository()
     private var cardImageRepository = CardImageRepository()
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var card: Card
-    @Published var collections: Set<CollectionViewModel>?
-    @Published var cardImage: UIImage?
-    @Published private(set) var error: Error?
+    @Published @MainActor var card: Card
+    @Published @MainActor var collections: Set<CollectionViewModel>?
+    @Published @MainActor var cardImage: UIImage?
+    @Published @MainActor private(set) var error: Error?
     
     var id: String?
     
+    @MainActor
     init(card: Card) {
         self.card = card
         
@@ -35,6 +35,7 @@ class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
         
     }
     
+    @MainActor
     func update() {
         Task {
             do {
@@ -51,6 +52,7 @@ class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
         }
     }
     
+    @MainActor
     func loadCurrentCollections() {
         Task {
             do {
@@ -62,6 +64,7 @@ class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
         }
     }
     
+    @MainActor
     func loadCurrentImage() {
         Task {
             do {
@@ -73,6 +76,7 @@ class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
         }
     }
     
+    @MainActor
     func delete() {
         Task {
             do {
