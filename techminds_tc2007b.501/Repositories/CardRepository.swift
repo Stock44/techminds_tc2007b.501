@@ -242,6 +242,27 @@ class CardRepository : ObservableObject {
             .collection(cardsPath)
             .document(cardId)
         
+        let collectionsRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .whereField("cards", arrayContains: cardRef)
+        
+        let snapshot = try await collectionsRef.getDocuments()
+        
+        for collectionDoc in snapshot.documents {
+            var collection = try collectionDoc.data(as: Collection.self)
+            collection.cards.remove(cardRef)
+            
+            let collectionRef = store
+                .collection(usersPath)
+                .document(user.uid)
+                .collection(collectionsPath)
+                .document(collectionDoc.documentID)
+            
+            try collectionRef.setData(from: collection)
+        }
+        
         try await cardRef.delete()
     }
     
