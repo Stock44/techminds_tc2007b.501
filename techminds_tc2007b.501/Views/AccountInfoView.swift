@@ -21,13 +21,24 @@ struct AccountInfoView: View {
     var body: some View {
         ZStack {
             VStack (spacing: 32){
-                LabelledTextBox(label: "Nombre", placeholder: "Campo requerido",content: $viewModel.userProperties.name)
-                LabelledTextBox(label: "Apellidos", placeholder: "Campo requerido",content: $viewModel.userProperties.surname)
-                LabelledTextBox(label: "Correo", placeholder: "Nuevo correo electronico",content: $viewModel.email)
-                LabelledPasswordBox(label: "Contraseña", placeholder: "Nueva contraseña",content: $viewModel.password)
-                LabelledPasswordBox(label: "Confirmar contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordConfirmation)
-                    
-                FilledButton(labelText: buttontext){
+                Group{
+                    LabelledTextBox(label: "Nombre", placeholder: "Campo requerido",content: $viewModel.userProperties.name)
+                        .frame(maxWidth: 700)
+
+                    LabelledTextBox(label: "Apellidos", placeholder: "Campo requerido",content: $viewModel.userProperties.surname)
+                        .frame(maxWidth: 700)
+
+                    LabelledTextBox(label: "Correo", placeholder: "Nuevo correo electronico",content: $viewModel.email)
+                        .frame(maxWidth: 700)
+
+                    LabelledPasswordBox(label: "Contraseña", placeholder: "Nueva contraseña",content: $viewModel.password)
+                        .frame(maxWidth: 700)
+
+                    LabelledPasswordBox(label: "Confirmar contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordConfirmation)
+                        .frame(maxWidth: 700)
+                }
+                FilledButton(labelText: buttontext)
+                    {
                     if viewModel.password != "" || viewModel.email != ""{
                         if viewModel.password == passwordConfirmation {
                             popup = true
@@ -38,6 +49,7 @@ struct AccountInfoView: View {
                     }
                     viewModel.update()
                 }
+                .frame(maxWidth: 700)
                 .sheet(isPresented: $popup, content: {
                     VerifyPopUp(viewModel: viewModel)
                 })

@@ -68,7 +68,7 @@ struct Filter<TargetView: View>: View {
     }
 }
 
-struct Verificacion_Previews: PreviewProvider {
+struct Filter_Previews: PreviewProvider {
     static var previews: some View {
         Filter {
             Text("hello")
