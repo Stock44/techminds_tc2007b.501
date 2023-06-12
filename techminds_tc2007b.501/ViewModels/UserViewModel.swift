@@ -7,18 +7,39 @@
 
 import Foundation
 import Combine
+import FirebaseAuth
 
+@MainActor
 class UserViewModel: ObservableObject {
     private var userRepository = UserRepository()
+    private var userPropertiesRepository = UserPropertiesRepository()
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var user: User?
-    @Published var error: Error?
+    @Published private(set) var user: User?
+    @Published private(set) var userProperties: UserProperties?
+    @Published private(set) var error: Error?
     
     init () {
-        userRepository.$user
+        // get properties when received
+        userPropertiesRepository
+            .$userProperties
+            .assign(to: \.userProperties, on: self)
+            .store(in: &cancellables)
+        
+        // get user when logged in
+        userRepository
+            .$user
             .assign(to: \.user, on: self)
             .store(in: &cancellables)
+    }
+    
+    func getCurrent() {
+        do {
+            try userPropertiesRepository.getUserProperties()
+            self.error = nil
+        } catch {
+            self.error = error
+        }
     }
     
     func signIn(email: String, password: String) {
@@ -27,17 +48,6 @@ class UserViewModel: ObservableObject {
                 try await userRepository.signIn(email: email, password: password)
                 self.error = nil
             } catch {
-                self.error = error
-            }
-        }
-    }
-    
-    func register(name: String, surname: String, email: String, password: String) {
-        Task {
-            do {
-                try await userRepository.register(name: name, surname: surname, email: email, password: password)
-                self.error = nil
-            } catch  {
                 self.error = error
             }
         }

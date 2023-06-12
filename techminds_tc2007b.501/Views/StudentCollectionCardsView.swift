@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct StudentCollectionCardsView: View {
-    @ObservedObject var viewModel = CollectionViewModel()
+    @ObservedObject var viewModel: CollectionViewModel
     
     var body: some View {
         UserGrid<CardViewModel, CardView>(viewModels: [CardViewModel](viewModel.cards))
             .navigationTitle(viewModel.collection.name)
             .onAppear {
-                viewModel.getCards()
+                viewModel.getCardsWithImages()
             }
     }
 }
 
 struct StudentCollectionCardsView_Previews: PreviewProvider {
+    @StateObject static var viewModel = CollectionViewModel(collection: Collection())
+    
     static var previews: some View {
-        StudentCollectionCardsView()
+        StudentCollectionCardsView(viewModel: viewModel)
     }
 }

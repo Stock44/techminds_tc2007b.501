@@ -9,27 +9,21 @@ import Foundation
 import Combine
 import UIKit
 
-class CardViewModel: ObservableObject, Identifiable, Hashable {
-    static func == (lhs: CardViewModel, rhs: CardViewModel) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
+@MainActor
+class CardViewModel: ViewableCardViewModel, Identifiable, Hashable {
     private var cardRepository = CardRepository()
+    private var collectionRepository = CollectionRepository()
     private var cardImageRepository = CardImageRepository()
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var card: Card
-    @Published var collections = Set<CollectionViewModel>()
-    @Published var cardImage: UIImage?
-    @Published var error: Error?
+    @Published private(set) var card: Card
+    @Published private(set) var collections = Set<CollectionViewModel>()
+    @Published private(set) var cardImage: UIImage?
+    @Published private(set) var error: Error?
     
     var id: String?
     
-    init(card: Card = Card()) {
+    init(card: Card) {
         self.card = card
         
         $card
@@ -39,7 +33,7 @@ class CardViewModel: ObservableObject, Identifiable, Hashable {
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
         
-        cardRepository
+        collectionRepository
             .$collections
             .compactMap { Set($0.map(CollectionViewModel.init)) }
             .assign(to: \.collections, on: self)
@@ -48,39 +42,16 @@ class CardViewModel: ObservableObject, Identifiable, Hashable {
         
         cardImageRepository
             .$images
-            .map { images in
-                if let imageID = card.imageID {
-                    return images[imageID]
-                } else {
-                    return nil
-                }
-            }
+            .map { $0[card.imageID] }
             .assign(to: \.cardImage,on: self)
             .store(in: &cancellables)
-        
-        
-        
-        if let imageID = card.imageID {
-            Task {
-                do {
-                    try await cardImageRepository.getImage(imageID: imageID)
-                    self.error = nil
-                } catch {
-                    self.error = error
-                }
-            }
-        }
         
     }
     
     func loadImage() {
-        guard let imageID = card.imageID else {
-            return
-        }
-        
         Task {
             do {
-                try await cardImageRepository.getImage(imageID: imageID)
+                _ = try await cardImageRepository.getImage(imageID: card.imageID)
                 self.error = nil
             } catch {
                 self.error = error
@@ -88,62 +59,11 @@ class CardViewModel: ObservableObject, Identifiable, Hashable {
         }
     }
     
-    func create() {
-        guard let cardImage = cardImage else {
-            self.error = RepositoryError.invalidModel
-            return
-        }
-        
-        guard card.imageID == nil else {
-            self.error = RepositoryError.invalidModel
-            return
-        }
-        
-        Task {
-            do {
-                card.imageID = try await cardImageRepository.addImage(image: cardImage)
-                try await cardRepository.createCard(card: &card)
-                self.error = nil
-            } catch {
-                self.error = error
-            }
-        }
+    static func == (lhs: CardViewModel, rhs: CardViewModel) -> Bool {
+        return lhs.id == rhs.id
     }
     
-    func update() {
-        guard let cardImage = cardImage else {
-            self.error = RepositoryError.invalidModel
-            return
-        }
-        
-        guard let cardImageId = card.imageID else {
-            self.error = RepositoryError.invalidModel
-            return
-        }
-        
-        Task {
-            do {
-                try await cardImageRepository.deleteImage(imageID: cardImageId)
-                
-                card.imageID = try await cardImageRepository.addImage(image: cardImage)
-                
-                try await cardRepository.updateCard(card: card)
-                
-                self.error = nil
-            } catch {
-                self.error = error
-            }
-        }
-    }
-    
-    func delete() {
-        Task {
-            do {
-                try await cardRepository.deleteCard(card: card)
-                self.error = nil
-            } catch {
-                self.error = error
-            }
-        }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

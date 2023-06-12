@@ -1,102 +1,72 @@
 //
-//  FirebaseUser.swift
+//  AuthRepository.swift
 //  techminds_tc2007b.501
 //
-//  Created by Alumno on 05/06/23.
+//  Created by Alumno on 11/06/23.
 //
 
 import Foundation
 import FirebaseAuth
-import FirebaseFirestore
-import FirebaseFirestoreSwift
+
 
 class UserRepository: ObservableObject {
-    private let path = "users"
-    private let store = Firestore.firestore()
     private let auth = Auth.auth()
     
-    @Published private(set) var authUser: FirebaseAuth.User? = nil
-    @Published private(set) var user: User? = nil
+    private var listener: AuthStateDidChangeListenerHandle?
     
-    private var authStateListenerHandle: AuthStateDidChangeListenerHandle? = nil
-    private var snapshotListenerHandle: ListenerRegistration? = nil
+    @Published private(set) var user: User?
     
     init() {
-        auth.addStateDidChangeListener(self.onAuthStateChange)
+        listener = auth.addStateDidChangeListener(self.onAuthStateChange)
     }
     
-    private func onAuthStateChange(auth: Auth, authUser: FirebaseAuth.User?) {
-        self.authUser = authUser
+    deinit{
+        auth.removeStateDidChangeListener(listener!)
+    }
+    
+    private func onAuthStateChange(auth: Auth, newUser: User?) {
+        self.user = newUser
         
-        guard let authUser = authUser else {
-            if let listener = snapshotListenerHandle {
-                listener.remove()
-            }
-            user = nil
+        guard let user = self.user else {
             return
         }
-        
-        let userRef = store.collection(self.path).document(authUser.uid)
-        
-        if let snapshotListenerHandle = snapshotListenerHandle {
-            snapshotListenerHandle.remove()
-        }
-        
-        
-        snapshotListenerHandle = userRef.addSnapshotListener(self.onDocumentSnapshotChange)
     }
     
     func signIn(email: String, password: String) async throws{
         try await self.auth.signIn(withEmail: email, password: password)
     }
     
-    func register(name: String, surname: String, email: String, password: String) async throws{
-        let result = try await self.auth.createUser(withEmail: email, password: password)
+    func reauthenticate(email: String, password: String) async throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
         
-        let userRef = store.collection(self.path).document(result.user.uid)
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
         
-        let newUser = User(name: name, surname: surname)
-        try userRef.setData(from: newUser)
+        try await user.reauthenticate(with: credential)
+    }
+    
+    func register(email: String, password: String) async throws{
+        try await self.auth.createUser(withEmail: email, password: password)
     }
     
     func signOut() throws {
         try self.auth.signOut()
-        self.user = nil
-        self.authUser = nil
     }
     
-    private func onDocumentSnapshotChange(snapshot: DocumentSnapshot?, snapshotError: Error?) {
-        guard let snapshot = snapshot else {
-            print("error acquiring user document: \(snapshotError!)")
-            
-            if let authUser = auth.currentUser {
-                let userRef = store.collection(self.path).document(authUser.uid)
-                snapshotListenerHandle = userRef.addSnapshotListener(self.onDocumentSnapshotChange)
-            }
-            return
-        }
-        // in theory, all users have their respective document created at startup, but
-        // in case that isn't true, this check gives them a default document
-        do {
-            if snapshot.exists {
-                self.user = try snapshot.data(as: User.self)
-            } else {
-                let newUser = User(name: "", surname: "")
-                try snapshot.reference.setData(from: newUser)
-            }
-        } catch {
-            print("error unpacking snapshot data into User object")
+    func updateUserEmail(email: String) async throws{
+        guard let user = user else {
+            throw RepositoryError.unauthenticated
         }
         
+        try await user.updateEmail(to: email)
     }
     
-}
-
-enum RepositoryError: Error {
-    case retrievalFailure
-    case notAuthenticated
-    case alreadyExists
-    case doesNotExist
-    case invalidModel
-    case creationError
+    func updateUserPassword(password: String) async throws {
+        guard let user = user else {
+            throw RepositoryError.unauthenticated
+        }
+        
+        try await user.updatePassword(to: password)
+    }
 }

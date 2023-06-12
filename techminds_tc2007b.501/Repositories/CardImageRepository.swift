@@ -15,7 +15,7 @@ class CardImageRepository: ObservableObject {
     private let auth = Auth.auth()
     private let storage = Storage.storage()
     
-    @Published var images: [UUID: UIImage] = [:]
+    @Published private(set) var images: [UUID: UIImage] = [:]
     
     func getCardImagesURL() throws -> URL {
         let imagesURL = try FileManager.default.url(for: .picturesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appending(path: "cardImages")
@@ -25,7 +25,7 @@ class CardImageRepository: ObservableObject {
     
     func addImage(image: UIImage) async throws -> UUID {
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
         let imageID = UUID()
@@ -67,7 +67,7 @@ class CardImageRepository: ObservableObject {
     
     func updateImage(imageID: UUID, image: UIImage) async throws {
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
         let imageFileName = "\(imageID.uuidString).jpeg"
@@ -104,9 +104,9 @@ class CardImageRepository: ObservableObject {
         images[imageID] = image
     }
     
-    func getImage(imageID: UUID) async throws {
+    func getImage(imageID: UUID) async throws -> UIImage{
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         let imageFileName = "\(imageID.uuidString).jpeg"
         let imageFolder = try getCardImagesURL()
@@ -147,11 +147,12 @@ class CardImageRepository: ObservableObject {
             throw RepositoryError.retrievalFailure
         }
         images[imageID] = image
+        return image
     }
     
     func deleteImage(imageID: UUID) async throws {
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
         let imageFileName = "\(imageID.uuidString).jpeg"

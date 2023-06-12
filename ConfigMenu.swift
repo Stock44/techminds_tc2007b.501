@@ -13,7 +13,7 @@ struct ConfigMenu: View {
         case accesibility
         case accountInfo
     }
-    @State var selection : ConfigMenu
+    @State private var selection = ConfigMenu.accesibility
 
     var body: some View {
         HStack(alignment: .top) {
@@ -57,7 +57,7 @@ struct ConfigMenu: View {
                      print("could not sign out")
                     }
                 } label: {
-                    Image(systemName:  "rectangle.portrait.and.arrow.right")
+                    Label("Cerrar sesión", systemImage:  "rectangle.portrait.and.arrow.right")
 
                 }
             }
@@ -67,6 +67,6 @@ struct ConfigMenu: View {
 
 struct ConfigMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigMenu(selection: .accesibility)
+        ConfigMenu()
     }
 }

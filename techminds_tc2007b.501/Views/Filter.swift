@@ -7,18 +7,24 @@
 
 import SwiftUI
 
-struct Filter: View {
+struct Filter<TargetView: View>: View {
     
+    let target: () -> TargetView
     @State private var resultado : String = ""
     @State private var num1 = 0
     @State private var num2 = 0
+    @State private var cleared = false
+    
+    init(@ViewBuilder target: @escaping () -> TargetView) {
+        self.target = target
+    }
     
     func number1() -> Int {
-        return Int.random(in: 2...50)
+        return Int.random(in: 3...12)
     }
     
     func number2() -> Int {
-        return Int.random(in: 2...5)
+        return Int.random(in: 3...12)
     }
     
     func answer(num1: Int, num2: Int) -> Int {
@@ -28,7 +34,7 @@ struct Filter: View {
     var body: some View {
         VStack {
             HStack{
-                Text("\(num1) * \(num2)")
+                Text("\(num1) × \(num2) = ")
                     .font(.custom("Comfortaa", size: 46))
                 TextField("Resultado", text: $resultado)
                     .textFieldStyle(.roundedBorder)
@@ -36,12 +42,8 @@ struct Filter: View {
                     .keyboardType(.phonePad)
             }
             
-            NavigationLink {
-                if resultado == String(answer(num1: num1, num2: num2)) {
-                    ConfigMenu(selection: .accesibility)
-                } else {
-                    MainMenuView()
-                }
+            Button {
+                cleared = resultado == String(answer(num1: num1, num2: num2))
             }label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
@@ -52,6 +54,8 @@ struct Filter: View {
                         .foregroundColor(.white)
                 }
             }
+            
+            NavigationLink("", destination: target(), isActive: $cleared)
 
         }
         .onAppear{
@@ -64,6 +68,8 @@ struct Filter: View {
 
 struct Filter_Previews: PreviewProvider {
     static var previews: some View {
-        Filter()
+        Filter {
+            Text("hello")
+        }
     }
 }

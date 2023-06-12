@@ -8,13 +8,10 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct User : Hashable, Codable {
+struct UserProperties : Hashable, Codable {
     @DocumentID var id: String?
-    var name: String
-    var surname: String
-    var useButtons : Bool = false
-    var usePoseEstimation : Bool = false
-    var useVoiceOver : Bool = false
+    var name: String = ""
+    var surname: String = ""
     var rows : Int = 3
     var columns : Int = 3
 }

@@ -18,8 +18,8 @@ struct UserGrid<T: Identifiable, V: ViewModelView>: View where V.ViewModel == T{
     @StateObject var userViewModel = UserViewModel()
     
     var body: some View {
-        let columns = userViewModel.user?.columns ?? 3
-        let rows = userViewModel.user?.rows ?? 3
+        let columns = userViewModel.userProperties?.columns ?? 3
+        let rows = userViewModel.userProperties?.rows ?? 3
         TabView {
             ForEach(Array(stride(from: 0, to: viewModels.count, by: columns * rows)), id: \.self) { offset in
                 Grid (horizontalSpacing: 16, verticalSpacing: 16){
@@ -40,6 +40,9 @@ struct UserGrid<T: Identifiable, V: ViewModelView>: View where V.ViewModel == T{
                 }
                 .padding(EdgeInsets(top: 32, leading: 48, bottom: 32, trailing: 48))
             }
+        }
+        .onAppear {
+            userViewModel.getCurrent()
         }
         .tabViewStyle(.page)
     }

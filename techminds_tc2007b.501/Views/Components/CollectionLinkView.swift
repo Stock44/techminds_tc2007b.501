@@ -1,17 +1,14 @@
 //
-//  CollectionDisplay.swift
+//  CollectionLinkView.swift
 //  techminds_tc2007b.501
 //
-//  Created by Alumno on 07/06/23.
+//  Created by Alumno on 12/06/23.
 //
 
 import SwiftUI
 
-protocol ViewableCollectionViewModel: ObservableObject {
-    var collection: Collection {get}
-}
-
-struct CollectionDisplayView<ViewModel: ViewableCollectionViewModel>: ViewModelView {
+struct CollectionLinkView: ViewModelView {
+    typealias ViewModel = CollectionViewModel
     @ObservedObject var viewModel: ViewModel
     
     init(viewModel: ViewModel) {
@@ -19,7 +16,10 @@ struct CollectionDisplayView<ViewModel: ViewableCollectionViewModel>: ViewModelV
     }
     
     var body: some View {
-        Text(viewModel.collection.name)
+        NavigationLink {
+            StudentCollectionCardsView(viewModel: viewModel)
+        } label: {
+         Text(viewModel.collection.name)
             .typography(.title)
             .foregroundColor(Color(cgColor: viewModel.collection.color.cgColor))
             .colorInvert()
@@ -27,12 +27,15 @@ struct CollectionDisplayView<ViewModel: ViewableCollectionViewModel>: ViewModelV
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(cgColor: viewModel.collection.color.cgColor))
             .cornerRadius(16)
+        }
+        
     }
 }
 
-struct CollectionDisplay_Previews: PreviewProvider {
+struct CollectionLink_Previews: PreviewProvider {
     @StateObject static var viewModel = CollectionViewModel(collection: Collection())
     static var previews: some View {
         CollectionDisplayView(viewModel: viewModel)
     }
 }
+

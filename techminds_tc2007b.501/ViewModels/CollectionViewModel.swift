@@ -8,18 +8,19 @@
 import Foundation
 import Combine
 
-class CollectionViewModel: ObservableObject, Identifiable, Hashable {
+@MainActor
+class CollectionViewModel: ViewableCollectionViewModel, Identifiable, Hashable {
     static func == (lhs: CollectionViewModel, rhs: CollectionViewModel) -> Bool {
         lhs.id == rhs.id
     }
     
     private var collectionRepository = CollectionRepository()
     private var cardRepository = CardRepository()
-    private var cancellables: Set<AnyCancellable> = []
+    private var cancellables = Set<AnyCancellable>()
     
-    @Published var collection: Collection
-    @Published private(set)var cards = Set<CardViewModel>()
-    @Published var error: Error?
+    @Published private(set) var collection: Collection
+    @Published private(set) var cards = Set<CardViewModel>()
+    @Published private(set) var error: Error?
     
     var id: String?
     
@@ -28,8 +29,7 @@ class CollectionViewModel: ObservableObject, Identifiable, Hashable {
     }
     
     
-    
-    init(collection: Collection = Collection()) {
+    init(collection: Collection) {
         self.collection = collection
         
         $collection
@@ -46,32 +46,6 @@ class CollectionViewModel: ObservableObject, Identifiable, Hashable {
             .store(in: &cancellables)
     }
     
-    func addCards (cards: Set<CardViewModel>) {
-        Task {
-            do {
-                let cards = Set(cards.map {$0.card})
-                try await collectionRepository.addCardsToCollection(collection: collection, cards: cards)
-                self.error = nil
-            } catch {
-                print("failed adding card: \(error)")
-                self.error = error
-            }
-        }
-    }
-    
-    func removeCards (cards: Set<CardViewModel>) {
-        Task {
-            do {
-                let cards = Set(cards.map{$0.card})
-                try await collectionRepository.removeCardsFromCollection(collection: collection, cards: cards)
-                self.error = nil
-            } catch {
-                print("failed removing cards: \(error)")
-                self.error = error
-            }
-        }
-    }
-    
     func getCards() {
         do {
             print("getting cards")
@@ -83,33 +57,23 @@ class CollectionViewModel: ObservableObject, Identifiable, Hashable {
         }
     }
     
-    func create() {
-        Task {
-            do {
-                try await collectionRepository.createCollection(collection: collection)
-            } catch {
-                self.error = error
+    func getCardsWithImages() {
+        $cards
+            .sink {
+                for card in $0 {
+                    card.loadImage()
+                }
             }
+            .store(in: &cancellables)
+        
+        do {
+            print("getting cards")
+            try cardRepository.getCardsForCollection(collection: collection)
+            self.error = nil
+        } catch {
+            print("error \(error)")
+            self.error = error
         }
     }
     
-    func update() {
-        Task {
-            do {
-                try await collectionRepository.updateCollection(collection: collection)
-            } catch {
-                self.error = error
-            }
-        }
-    }
-    
-    func delete() {
-        Task {
-            do {
-                try await collectionRepository.deleteCollection(collection: collection)
-            } catch {
-                self.error = error
-            }
-        }
-    }
 }

@@ -9,20 +9,25 @@ import SwiftUI
 
 struct StudentCollectionsView: View {
     @StateObject var viewModel = CollectionListViewModel()
-    @StateObject var userViewModel = UserViewModel()
     
     var body: some View {
-        UserGrid<CollectionViewModel, CollectionDisplayView>(viewModels: [CollectionViewModel](viewModel.collectionViewModels))
+        UserGrid<CollectionViewModel, CollectionLinkView>(viewModels: viewModel.collectionViewModels.filter {
+            $0.collection.enabled
+        })
         .tabViewStyle(.page)
         .navigationTitle("Colecciones")
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing){
                 NavigationLink {
-                    InstructorCollectionsView()
+                    Filter{
+                        InstructorCollectionsView(viewModel: viewModel)
+                    }
                 } label: {
                     Image(systemName: "pencil")
                 }
             }
+        }.onAppear {
+            viewModel.getAll()
         }
     }
 }

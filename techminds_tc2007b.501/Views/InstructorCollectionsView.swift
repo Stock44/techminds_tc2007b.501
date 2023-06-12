@@ -7,8 +7,9 @@
 import SwiftUI
 
 struct InstructorCollectionsView: View {
-    @State var editViewModel: CollectionViewModel?
-    @StateObject private var viewModel = CollectionListViewModel()
+    @State private var isCreating = false
+    @State private var editViewModel: CollectionEditingViewModel?
+    @ObservedObject var viewModel: CollectionListViewModel
     
     var body: some View {
         
@@ -18,9 +19,6 @@ struct InstructorCollectionsView: View {
                 Text("Nombre")
                     .font(.custom("Raleway-bold", size: 18))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("# de tarjetas")
-                    .font(.custom("Raleway-bold", size: 18))
-                    .frame(maxWidth: .infinity, alignment: .center)
                 Text("Habilitar")
                     .font(.custom("Raleway-bold", size: 18))
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -30,25 +28,32 @@ struct InstructorCollectionsView: View {
                 
             }
             
-            ForEach(viewModel.collectionViewModels, id: \.id) { collection in
+            ForEach([CollectionViewModel](viewModel.collectionViewModels), id: \.id) { collection in
+                let editCollection = CollectionEditingViewModel(collection: collection.collection)
                 HStack(alignment: .center, spacing: 32) {
                     Circle()
                         .fill(Color(cgColor: collection.collection.color.cgColor))
                         .frame(maxHeight: 32)
                     
+                    Spacer()
+                    
                     Text(collection.collection.name)
                     
-                    Text("test")
+                    Spacer()
                     
-                    Toggle("Enabled", isOn: Binding(get: {
+                    Toggle(isOn: Binding(get: {
                         collection.collection.enabled
                     }, set: { value in
-                        collection.collection.enabled = value
-                        collection.update()
-                    }))
+                        editCollection.collection.enabled = value
+                        editCollection.update()
+                    })) {
+                        
+                    }
+                    
+                    Spacer()
                     
                     Button {
-                        editViewModel = collection
+                        editViewModel = editCollection
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
@@ -61,7 +66,7 @@ struct InstructorCollectionsView: View {
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing) {
                 Button {
-                    editViewModel = CollectionViewModel()
+                    isCreating = true
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -70,12 +75,17 @@ struct InstructorCollectionsView: View {
             NavigationView {
                 CollectionEditView(viewModel: editViewModel!)
             }
+        }.sheet(isPresented: $isCreating) {
+            NavigationView {
+                CollectionCreationView()
+            }
         }
     }
 }
 struct CollectionInstructor_Previews: PreviewProvider {
+    @StateObject static var viewModel = CollectionListViewModel()
     static var previews: some View {
-        InstructorCollectionsView()
+        InstructorCollectionsView(viewModel: viewModel)
     }
 }
 

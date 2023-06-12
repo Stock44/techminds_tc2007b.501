@@ -53,7 +53,9 @@ struct MainMenuView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    Filter()
+                    Filter {
+                        ConfigMenu()
+                    }
                 } label: {
                     Image(systemName: "gear")
                     
