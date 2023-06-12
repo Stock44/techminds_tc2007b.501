@@ -420,6 +420,7 @@
 				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
 				FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */,
 				FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */,
+				FB308CD22A33CCE80068AE11 /* StudentCollectionCardsView.swift */,
 				FB38BBF52A17E1F1007A5C05 /* CollectionView.swift */,
 				B682D3022A2147D1002AFFC3 /* CardConfig.swift */,
 				FB237E252A313B3B006BD790 /* ImagePicker.swift */,
@@ -434,7 +435,6 @@
 				FBB97EDA2A36E1B4006C59ED /* CardCreationView.swift */,
 				FB38DA1D2A37BF6800A3D455 /* CardMemberEditView.swift */,
 				FB9D75732A33646100D50CBC /* CollectionMemberEditView.swift */,
-				FB308CD22A33CCE80068AE11 /* StudentCollectionCardsView.swift */,
 				FB703F022A36FA7A00933EF0 /* CollectionCreationView.swift */,
 			);
 			path = Views;
