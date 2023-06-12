@@ -22,6 +22,16 @@ struct AccountInfoView: View {
         ZStack {
             VStack (spacing: 32){
                 Group{
+                    if let authError = viewModel.error {
+                        Text(authError.localizedDescription)
+                            .typography(.callout)
+                            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.white)
+                            .background(Color("primary"))
+                            .cornerRadius(16)
+                            .frame(maxWidth: 700)
+                    }
                     LabelledTextBox(label: "Nombre", placeholder: "Campo requerido",content: $viewModel.userProperties.name)
                         .frame(maxWidth: 700)
 
@@ -50,9 +60,9 @@ struct AccountInfoView: View {
                     viewModel.update()
                 }
                 .frame(maxWidth: 700)
-                .sheet(isPresented: $popup, content: {
+                .sheet(isPresented: $popup) {
                     VerifyPopUp(viewModel: viewModel)
-                })
+                }
                 .alert(isPresented: $exito){
                     Alert(
                         title: Text("Operación exitosa"),
@@ -60,7 +70,7 @@ struct AccountInfoView: View {
                     )
                 }
                 .alert(isPresented: $nonMatchingPasswords) {
-                    Alert(title: Text("Contraseñas no coinciden!"),
+                    Alert(title: Text("Contraseñas no coinciden"),
                           message: Text("Intentalo de nuevo"))
                 }
                 .padding(.bottom, 100)
