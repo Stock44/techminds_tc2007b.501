@@ -27,7 +27,16 @@ struct CardEditView: ViewModelView {
             
             Text("Editar tarjeta")
                 .typography(.title)
-            
+            if let authError = viewModel.error {
+                Text(authError.localizedDescription)
+                    .typography(.callout)
+                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.white)
+                    .background(Color("primary"))
+                    .cornerRadius(16)
+                    .frame(maxWidth: 700)
+            }
             LabelledTextBox(label: "Nombre", placeholder: "Ingresa el nombre de la tarjeta", content: $viewModel.card.name)
             HStack(spacing: 32){
                 PhotosPicker(selection: $imageSelection) {

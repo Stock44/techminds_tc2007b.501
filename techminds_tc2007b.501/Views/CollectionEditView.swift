@@ -25,7 +25,16 @@ struct CollectionEditView: ViewModelView {
             
             Text("Editar colección")
                 .typography(.title)
-            
+            if let authError = viewModel.error {
+                Text(authError.localizedDescription)
+                    .typography(.callout)
+                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.white)
+                    .background(Color("primary"))
+                    .cornerRadius(16)
+                    .frame(maxWidth: 700)
+            }
             LabelledTextBox(label: "Nombre", placeholder: "Ingresa el nombre de la Coleccion", content: $viewModel.collection.name)
             
             ColorPicker(selection: $viewModel.collection.color.cgColor, supportsOpacity: false, label: {
