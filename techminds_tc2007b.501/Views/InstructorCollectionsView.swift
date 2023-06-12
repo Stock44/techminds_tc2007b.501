@@ -19,9 +19,6 @@ struct InstructorCollectionsView: View {
                 Text("Nombre")
                     .font(.custom("Raleway-bold", size: 18))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("# de tarjetas")
-                    .font(.custom("Raleway-bold", size: 18))
-                    .frame(maxWidth: .infinity, alignment: .center)
                 Text("Habilitar")
                     .font(.custom("Raleway-bold", size: 18))
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -38,16 +35,22 @@ struct InstructorCollectionsView: View {
                         .fill(Color(cgColor: collection.collection.color.cgColor))
                         .frame(maxHeight: 32)
                     
+                    Spacer()
+                    
                     Text(collection.collection.name)
                     
-                    Text("test")
+                    Spacer()
                     
-                    Toggle("Enabled", isOn: Binding(get: {
+                    Toggle(isOn: Binding(get: {
                         collection.collection.enabled
                     }, set: { value in
                         editCollection.collection.enabled = value
                         editCollection.update()
-                    }))
+                    })) {
+                        
+                    }
+                    
+                    Spacer()
                     
                     Button {
                         editViewModel = editCollection

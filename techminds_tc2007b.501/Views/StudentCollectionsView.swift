@@ -11,7 +11,9 @@ struct StudentCollectionsView: View {
     @StateObject var viewModel = CollectionListViewModel()
     
     var body: some View {
-        UserGrid<CollectionViewModel, CollectionLinkView>(viewModels: [CollectionViewModel](viewModel.collectionViewModels))
+        UserGrid<CollectionViewModel, CollectionLinkView>(viewModels: viewModel.collectionViewModels.filter {
+            $0.collection.enabled
+        })
         .tabViewStyle(.page)
         .navigationTitle("Colecciones")
         .toolbar {

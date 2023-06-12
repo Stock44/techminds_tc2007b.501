@@ -30,7 +30,7 @@ struct CollectionMemberEditView<ViewModel: EditableCollectionMembers>: View {
             ProgressView()
         } else {
             List([CardViewModel](cardListViewModel.cardViewModels), selection: $selection) {
-                Text($0.card.id ?? "")
+                Text($0.card.name)
             }
             .onChange(of: selection) { newSelection in
                 viewModel.cards = Set(cardListViewModel.cardViewModels.filter {
