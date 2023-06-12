@@ -49,6 +49,7 @@ class CollectionEditingViewModel: ViewableCollectionViewModel, EditableCollectio
     @MainActor
     func loadCurrentCards() {
         Task {
+            @MainActor () -> Void in
             do {
                 self.cards = Set(try await cardRepository.getCardsForCollectionOnce(collection: collection).map(CardViewModel.init))
                 self.error = nil

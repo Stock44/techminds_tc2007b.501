@@ -14,7 +14,6 @@ struct StudentCollectionsView: View {
         UserGrid<CollectionViewModel, CollectionLinkView>(viewModels: viewModel.collectionViewModels.filter {
             $0.collection.enabled
         })
-        .tabViewStyle(.page)
         .navigationTitle("Colecciones")
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing){

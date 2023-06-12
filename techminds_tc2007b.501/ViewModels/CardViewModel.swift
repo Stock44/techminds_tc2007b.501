@@ -55,6 +55,7 @@ class CardViewModel: ViewableCardViewModel, Identifiable, Hashable {
                 _ = try await cardImageRepository.getImage(imageID: card.imageID)
                 self.error = nil
             } catch {
+                print("image \(error)")
                 self.error = error
             }
         }

@@ -18,7 +18,7 @@ class CardImageRepository: ObservableObject {
     @Published private(set) var images: [UUID: UIImage] = [:]
     
     func getCardImagesURL() throws -> URL {
-        let imagesURL = try FileManager.default.url(for: .picturesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appending(path: "cardImages")
+        let imagesURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appending(path: "cardImages")
         try FileManager.default.createDirectory(atPath: imagesURL.path(), withIntermediateDirectories: true)
         return imagesURL
     }
@@ -105,6 +105,7 @@ class CardImageRepository: ObservableObject {
     }
     
     func getImage(imageID: UUID) async throws -> UIImage{
+        
         guard let user = auth.currentUser else {
             throw RepositoryError.unauthenticated
         }

@@ -55,6 +55,7 @@ class CardEditingViewModel: ObservableObject, ViewableCardViewModel {
     @MainActor
     func loadCurrentCollections() {
         Task {
+            @MainActor () -> Void in
             do {
                 self.collections = Set(try await collectionRepository.getCollectionsForCardOnce(card: card).map(CollectionViewModel.init))
                 self.error = nil
