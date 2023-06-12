@@ -8,48 +8,38 @@
 import SwiftUI
 
 struct AccountInfoView: View {
-    @State var nombre = "Erick"
-    @State var apellidos = "Erick"
-    @State var correo = "A00@tec.mx"
-    @State var contraseña = "hola"
+    @State private var passwordConfirmation = ""
+    
     @State var popup = false
     @State var buttontext = "Editar"
-    @State var opacityEdit = 0.6
-    @State var textedit = true
+    @State private var nonMatchingPasswords = false
     @State var exito = false
-    let ViewModel = UserViewModel()
+    
+    @StateObject private var viewModel = UserEditingViewModel()
     
     
     var body: some View {
         ZStack {
             VStack (spacing: 32){
-                LabelledTextBox(label: "Nombre", placeholder: "\(nombre)",content: $nombre)
-                        .disabled(textedit)
-                        .opacity(opacityEdit)
-                LabelledTextBox(label: "Apellidos", placeholder: "\(apellidos)",content: $apellidos)
-                        .disabled(textedit)
-                        .opacity(opacityEdit)
-                LabelledTextBox(label: "Correo", placeholder: "\(correo)",content: $correo)
-                        .disabled(textedit)
-                        .opacity(opacityEdit)
-                LabelledPasswordBox(label: "Contraseña", placeholder: "\(contraseña)",content: $contraseña)
-                        .disabled(textedit)
-                        .opacity(opacityEdit)
+                LabelledTextBox(label: "Nombre", placeholder: "Campo requerido",content: $viewModel.userProperties.name)
+                LabelledTextBox(label: "Apellidos", placeholder: "Campo requerido",content: $viewModel.userProperties.surname)
+                LabelledTextBox(label: "Correo", placeholder: "Nuevo correo electronico",content: $viewModel.email)
+                LabelledPasswordBox(label: "Contraseña", placeholder: "Nueva contraseña",content: $viewModel.password)
+                LabelledPasswordBox(label: "Confirmar contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordConfirmation)
                     
                 FilledButton(labelText: buttontext){
-                    if buttontext == "Editar"{
-                        popup = true
+                    if viewModel.password != "" || viewModel.email != ""{
+                        if viewModel.password == passwordConfirmation {
+                            popup = true
+                        } else {
+                            nonMatchingPasswords = true
+                        }
+                        
                     }
-                    else{
-                        //Guarda información
-                        buttontext = "Editar"
-                        opacityEdit = 0.6
-                        textedit = true
-                        exito = true
-                    }
+                    viewModel.update()
                 }
-                .popover(isPresented: $popup, content: {
-                    VerifyPopUp(contraseña2: $contraseña, popup: $popup, buttontext: $buttontext, opacityEdit: $opacityEdit, textedit: $textedit)
+                .sheet(isPresented: $popup, content: {
+                    VerifyPopUp(viewModel: viewModel)
                 })
                 .alert(isPresented: $exito){
                     Alert(
@@ -57,12 +47,19 @@ struct AccountInfoView: View {
                         message: Text( "Datos guardados correctamente")
                     )
                 }
+                .alert(isPresented: $nonMatchingPasswords) {
+                    Alert(title: Text("Contraseñas no coinciden!"),
+                          message: Text("Intentalo de nuevo"))
+                }
                 .padding(.bottom, 100)
             }
             .padding(.leading, 40)
             .navigationTitle("Información de la cuenta")
         }
         .frame(maxWidth: .infinity)
+        .onAppear {
+            viewModel.loadCurrent()
+        }
     }
 }
 

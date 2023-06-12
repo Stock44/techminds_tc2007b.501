@@ -7,8 +7,9 @@
 import SwiftUI
 
 struct InstructorCollectionsView: View {
-    @State var editViewModel: CollectionViewModel?
-    @StateObject private var viewModel = CollectionListViewModel()
+    @State private var isCreating = false
+    @State private var editViewModel: CollectionEditingViewModel?
+    @ObservedObject var viewModel: CollectionListViewModel
     
     var body: some View {
         
@@ -30,7 +31,8 @@ struct InstructorCollectionsView: View {
                 
             }
             
-            ForEach(viewModel.collectionViewModels, id: \.id) { collection in
+            ForEach([CollectionViewModel](viewModel.collectionViewModels), id: \.id) { collection in
+                let editCollection = CollectionEditingViewModel(collection: collection.collection)
                 HStack(alignment: .center, spacing: 32) {
                     Circle()
                         .fill(Color(cgColor: collection.collection.color.cgColor))
@@ -43,12 +45,12 @@ struct InstructorCollectionsView: View {
                     Toggle("Enabled", isOn: Binding(get: {
                         collection.collection.enabled
                     }, set: { value in
-                        collection.collection.enabled = value
-                        collection.update()
+                        editCollection.collection.enabled = value
+                        editCollection.update()
                     }))
                     
                     Button {
-                        editViewModel = collection
+                        editViewModel = editCollection
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
@@ -61,7 +63,7 @@ struct InstructorCollectionsView: View {
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing) {
                 Button {
-                    editViewModel = CollectionViewModel()
+                    isCreating = true
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -70,12 +72,17 @@ struct InstructorCollectionsView: View {
             NavigationView {
                 CollectionEditView(viewModel: editViewModel!)
             }
+        }.sheet(isPresented: $isCreating) {
+            NavigationView {
+                CollectionCreationView()
+            }
         }
     }
 }
 struct CollectionInstructor_Previews: PreviewProvider {
+    @StateObject static var viewModel = CollectionListViewModel()
     static var previews: some View {
-        InstructorCollectionsView()
+        InstructorCollectionsView(viewModel: viewModel)
     }
 }
 

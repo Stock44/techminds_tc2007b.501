@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct CardEditView: ViewModelView {
-    typealias ViewModel = CardViewModel
+    typealias ViewModel = CardEditingViewModel
     
     @State private var showDelete: Bool = false
     @State var imageSelection: PhotosPickerItem?
@@ -18,22 +18,16 @@ struct CardEditView: ViewModelView {
     
     init(viewModel: ViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
+        
     }
-    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 32){
             CardView(viewModel: viewModel)
             
-            if viewModel.id == nil {
-                Text("Nueva tarjeta")
-                    .typography(.title)
-            } else {
                 Text("Editar tarjeta")
                     .typography(.title)
                 
-            }
-            
             LabelledTextBox(label: "Nombre", placeholder: "Ingresa el nombre de la tarjeta", content: $viewModel.card.name)
             
             PhotosPicker(selection: $imageSelection) {
@@ -46,7 +40,6 @@ struct CardEditView: ViewModelView {
                         case .success(let data):
                             if let data = data {
                                 print("success")
-                                viewModel.card.imageID = nil
                                 viewModel.cardImage = UIImage(data: data)
                             } else {
                                 print("unsupported format")
@@ -77,21 +70,22 @@ struct CardEditView: ViewModelView {
                 }
                 
                 FilledButton(labelText: "Guardar cambios") {
-                    if viewModel.id == nil {
-                        viewModel.create()
-                    } else {
-                        viewModel.update()
-                    }
+                    viewModel.update()
                     dismiss()
                 }
             }
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+        .onAppear {
+            if viewModel.cardImage == nil {
+                viewModel.loadCurrentImage()
+            }
+        }
     }
 }
 
 struct CardEditView_Previews: PreviewProvider {
-    @StateObject static var viewModel = CardViewModel()
+    @StateObject static var viewModel = CardEditingViewModel(card: Card())
     static var previews: some View {
         CardEditView(viewModel: viewModel)
     }

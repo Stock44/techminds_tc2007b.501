@@ -12,41 +12,104 @@ import FirebaseFirestore
 
 class CollectionRepository : ObservableObject {
     private let usersPath = "users"
+    private let cardsPath = "cards"
     private let collectionsPath = "collections"
     private let store = Firestore.firestore()
     private let auth = Auth.auth()
     
     @Published private(set) var collections = Set<Collection>()
-    @Published private(set) var cards = Set<Card>()
     
-    private var snapshotListenerHandle: ListenerRegistration? = nil
+    private var listener: ListenerRegistration?
     
-    func getCollections() throws {
-        if let listener = self.snapshotListenerHandle {
+    deinit {
+        if let listener = listener {
             listener.remove()
+        }
+    }
+    
+    func reset() {
+        if let listener = listener {
+            listener.remove()
+            self.listener = nil
+        }
+        
+        collections = Set()
+    }
+    
+    func getCollectionsForCard(card: Card) throws {
+        guard let cardID = card.id else {
+            throw RepositoryError.missingModelID
         }
         
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
+        
+        reset()
+        
+        let cardRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(cardsPath)
+            .document(cardID)
+        
+        let collectionsRef = store.collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .whereField(cardsPath, arrayContains: cardRef)
+        
+        listener = collectionsRef.addSnapshotListener(self.onCollectionsChange)
+    }
+    
+    func getCollections() throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
+        
+        reset()
         
         let collectionsRef = store.collection(usersPath)
             .document(user.uid)
             .collection(collectionsPath)
             .order(by: "name")
         
-        self.snapshotListenerHandle = collectionsRef.addSnapshotListener(self.onCollectionsChange)
+        listener = collectionsRef.addSnapshotListener(self.onCollectionsChange)
     }
     
-    func addCardsToCollection(collection: Collection, cards: Set<Card>) async throws {
-        guard let collectionId = collection.id else {
-            throw RepositoryError.invalidModel
+    func getCollectionsForCardOnce(card: Card) async throws -> Set<Collection> {
+        guard let cardID = card.id else {
+            throw RepositoryError.missingModelID
         }
         
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
+        let cardRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(cardsPath)
+            .document(cardID)
+        
+        let collectionsRef = store.collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .whereField(cardsPath, arrayContains: cardRef)
+        
+        let snapshot = try await collectionsRef.getDocuments()
+        return Set(try snapshot.documents.map {
+            try $0.data(as: Collection.self)
+        })
+    }
+    
+    func setCardsForCollection(collection: Collection, cards: Set<Card>) async throws {
+        guard let collectionId = collection.id else {
+            throw RepositoryError.missingModelID
+        }
+        
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
         
         let collectionRef = store
             .collection(usersPath)
@@ -54,132 +117,39 @@ class CollectionRepository : ObservableObject {
             .collection(collectionsPath)
             .document(collectionId)
         
-        
-        
-        for card in cards {
-            guard let cardId = card.id else {
-                continue
+        var oldCollection = try await collectionRef.getDocument(as: Collection.self)
+        let newCards = Set(try cards.map {
+            guard let cardId = $0.id else {
+                throw RepositoryError.invalidModel
             }
-            let cardRef = store
+            return store
                 .collection(usersPath)
                 .document(user.uid)
-                .collection("cards")
+                .collection(cardsPath)
                 .document(cardId)
-            
-            
-            var newCard = card
-            newCard.collections.insert(collectionRef)
-            
-            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                do {
-                    try cardRef.setData(from: newCard) { error in
-                        if let error = error {
-                            continuation.resume(throwing: error)
-                        }
-                        continuation.resume()
-                    }
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            }
+        })
+        
+        let removedCards = oldCollection.cards.subtracting(newCards)
+        let addedCards = newCards.subtracting(oldCollection.cards)
+        
+        print("added \(addedCards.count)")
+        print("removed \(removedCards.count)")
+        
+        for cardDoc in removedCards {
+            var card = try await cardDoc.getDocument(as: Card.self)
+            card.collections.remove(collectionRef)
+            try cardDoc.setData(from: card)
         }
         
-        let cardRefs = Set(cards
-            .filter {$0.id != nil}
-            .map{
-                store
-                    .collection(usersPath)
-                    .document(user.uid)
-                    .collection("cards")
-                    .document($0.id!)
-            })
-        
-        var newCollection = collection
-        newCollection.cards.formUnion(cardRefs)
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            do {
-                try collectionRef.setData(from: newCollection) { error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                    }
-                    continuation.resume()
-                }
-            } catch {
-                continuation.resume(throwing: error)
-            }
-        }
-    }
-    
-    func removeCardsFromCollection(collection: Collection, cards: Set<Card>) async throws {
-        guard let collectionId = collection.id else {
-            throw RepositoryError.invalidModel
-        }
-        
-        guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+        for cardDoc in addedCards {
+            var card = try await cardDoc.getDocument(as: Card.self)
+            card.collections.insert(collectionRef)
+            try cardDoc.setData(from: card)
         }
         
         
-        let collectionRef = store
-            .collection(usersPath)
-            .document(user.uid)
-            .collection(collectionsPath)
-            .document(collectionId)
-        
-        
-        
-        for card in cards {
-            guard let cardId = card.id else {
-                continue
-            }
-            let cardRef = store
-                .collection(usersPath)
-                .document(user.uid)
-                .collection("cards")
-                .document(cardId)
-            
-            
-            var newCard = card
-            newCard.collections.remove(collectionRef)
-            
-            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                do {
-                    try cardRef.setData(from: newCard) { error in
-                        if let error = error {
-                            continuation.resume(throwing: error)
-                        }
-                        continuation.resume()
-                    }
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
-        
-        let cardRefs = Set(cards
-            .filter {$0.id != nil}
-            .map{
-                store
-                    .collection(usersPath)
-                    .document(user.uid)
-                    .collection("cards")
-                    .document($0.id!)
-            })
-        
-        var newCollection = collection
-        newCollection.cards = newCollection.cards.subtracting(cardRefs)
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            do {
-                try collectionRef.setData(from: newCollection) { error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                    }
-                    continuation.resume()
-                }
-            } catch {
-                continuation.resume(throwing: error)
-            }
-        }
+        oldCollection.cards = newCards
+        try collectionRef.setData(from: oldCollection)
     }
     
     func createCollection(collection: Collection) async throws {
@@ -188,7 +158,7 @@ class CollectionRepository : ObservableObject {
         }
         
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
         let collectionRef = store
@@ -203,68 +173,42 @@ class CollectionRepository : ObservableObject {
             throw RepositoryError.alreadyExists
         }
         
-        var newCollection = collection
-        
-        newCollection.cards = Set(try cards.map { card in
-            guard let cardId = card.id else {
-                throw RepositoryError.invalidModel
-            }
-            
-            return store
-                .collection(usersPath)
-                .document(user.uid)
-                .collection("cards")
-                .document(cardId)
-        })
-        
-        
-        try collectionRef.setData(from: newCollection)
+        try collectionRef.setData(from: collection)
     }
     
     
     func updateCollection(collection: Collection) async throws{
         guard let collectionId = collection.id else {
-            print("no collection id")
-            throw RepositoryError.invalidModel
+            throw RepositoryError.missingModelID
         }
         
         guard let user = auth.currentUser else {
-            print("no user")
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
-        var newCollection = collection
-        
-        newCollection.cards = Set(try cards.map { card in
-            guard let cardId = card.id else {
-                print("no id for this card")
-                throw RepositoryError.invalidModel
-            }
-            
-            return store
-                .collection(usersPath)
-                .document(user.uid)
-                .collection("cards")
-                .document(cardId)
-        })
-        
-        
-        print("updating")
-        let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(collectionId)
-        try collectionRef.setData(from: newCollection)
-        print("updated")
+        let collectionRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .document(collectionId)
+        try collectionRef.setData(from: collection)
     }
     
     func deleteCollection(collection: Collection) async throws{
         guard let collectionId = collection.id else {
-            throw RepositoryError.invalidModel
+            throw RepositoryError.missingModelID
         }
         
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
-        let collectionRef = store.collection(usersPath).document(user.uid).collection(collectionsPath).document(collectionId)
+        let collectionRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .document(collectionId)
+        
         try await collectionRef.delete()
     }
     

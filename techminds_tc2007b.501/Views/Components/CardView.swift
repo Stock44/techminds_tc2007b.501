@@ -8,8 +8,12 @@
 import SwiftUI
 import AVFoundation
 
-struct CardView: ViewModelView {
-    typealias ViewModel = CardViewModel
+protocol ViewableCardViewModel: ObservableObject {
+    var card: Card {get}
+    var cardImage: UIImage? {get}
+}
+
+struct CardView<ViewModel: ViewableCardViewModel>: ViewModelView {
     @ObservedObject var viewModel: ViewModel
     private let synthesizer = AVSpeechSynthesizer()
     
@@ -23,23 +27,22 @@ struct CardView: ViewModelView {
             utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
             synthesizer.speak(utterance)
         } label: {
-            VStack(spacing: 32) {
+            DynamicStack(spacing: 16) {
                 if let image = viewModel.cardImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .frame(maxWidth: .infinity)
+                    Color.clear
+                        .overlay {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                            
+                        }
                         .cornerRadius(16)
-                    
                 } else {
                     ZStack {
                         RoundedRectangle(cornerRadius: 16)
                             .foregroundColor(Color("primary lighter"))
                             .frame(maxWidth: .infinity)
-                        Image(systemName: "photo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color("primary"))
-                            .frame(maxWidth: 128, maxHeight: 128)
+                        ProgressView()
                     }
                 }
                 Text(viewModel.card.name)

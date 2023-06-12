@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct InstructorCardsView: View {
-    @State var isEditing = false
-    @State var editViewModel: CardViewModel?
+    @State private var isEditing = false
+    @State private var isCreating = false
+    @State private var editViewModel: CardEditingViewModel?
     @StateObject private var viewModel = CardListViewModel()
+    
     var body: some View {
         List {
             HStack(alignment: .center, spacing: 32) {
@@ -35,7 +37,7 @@ struct InstructorCardsView: View {
                     Text(card.card.name)
                     
                     Button {
-                        editViewModel = card
+                        editViewModel = CardEditingViewModel(card: card.card)
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
@@ -46,18 +48,21 @@ struct InstructorCardsView: View {
         .scrollContentBackground(.hidden)
         .navigationTitle("Editar tarjetas")
         .onAppear {
-            viewModel.getAllCards()
+            viewModel.getAll()
         }
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing) {
                 Button {
-                    editViewModel =  CardViewModel()
+                    isCreating = true
                 } label: {
                     Image(systemName: "plus")
                 }
             }
         }.sheet(isPresented: Binding(get: {editViewModel != nil}, set: {value in if !value {editViewModel = nil}})) {
             CardEditView(viewModel: editViewModel!)
+        }
+        .sheet(isPresented: $isCreating) {
+            CardCreationView()
         }
     }
 }

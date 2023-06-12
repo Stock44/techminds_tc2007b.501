@@ -11,45 +11,10 @@ import FirebaseAuth
 struct RegisterView: View {
     @State private var isRotating = 0.0
     
-    @State private var nombre: String = ""
-    @State private var apellido: String = ""
-    @State private var email: String = ""
-    @State private var password: String = ""
+    @StateObject private var viewModel = UserCreationViewModel()
     @State private var passwordValidation: String = ""
     
     @State var errorMsg: String? = nil
-    
-    func onRegister() async {
-        if password != passwordValidation {
-            withAnimation {
-                errorMsg = "Las contraseñas no coinciden."
-            }
-            return
-        }
-        do {
-            try await Auth.auth().createUser(withEmail: email, password: password)
-        } catch AuthErrorCode.operationNotAllowed {
-            withAnimation {
-                errorMsg = "El inicio de sesión esta desactivado."
-            }
-        } catch AuthErrorCode.emailAlreadyInUse {
-            withAnimation {
-                errorMsg = "Este correo electronico ya esta en uso."
-            }
-        } catch AuthErrorCode.weakPassword {
-            withAnimation {
-                errorMsg = "Contraseña debil."
-            }
-        } catch AuthErrorCode.invalidEmail {
-            withAnimation {
-                errorMsg = "Correo electronico invalido."
-            }
-        } catch {
-            withAnimation {
-                errorMsg = "Ha ocurrido un error desconocido."
-            }
-        }
-    }
     
     var body: some View {
         GeometryReader { geo in
@@ -62,16 +27,14 @@ struct RegisterView: View {
                         
                         Group {
                             HStack {
-                                LabelledTextBox(label: "Nombres(s) del alumno", placeholder: "Ingresa el nombre(s)", content: $nombre)
-                                LabelledTextBox(label: "Apellido(s) del alumno", placeholder: "Ingresa el apellido(s)", content: $apellido)
+                                LabelledTextBox(label: "Nombres(s) del alumno", placeholder: "Ingresa el nombre(s)", content: $viewModel.userProperties.name)
+                                LabelledTextBox(label: "Apellido(s) del alumno", placeholder: "Ingresa el apellido(s)", content: $viewModel.userProperties.surname)
                             }
-                            LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $email)
-                            LabelledPasswordBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $password)
+                            LabelledTextBox(label: "Correo electrónico", placeholder: "Ingresa tu correo electrónico", content: $viewModel.email)
+                            LabelledPasswordBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $viewModel.password)
                             LabelledPasswordBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordValidation)
                             FilledButton(labelText: "Registrarse") {
-                                Task {
-                                    await onRegister()
-                                }
+                                viewModel.create()
                             }
                         }.frame(maxWidth: 512)
                         
@@ -97,19 +60,6 @@ struct RegisterView: View {
                         }*/
                 }
                 .frame(width: geo.size.width/2)
-            }
-            .overlay(alignment: .bottomLeading){
-                if let errorMsg = errorMsg {
-                    ErrorPopup(label: errorMsg)
-                        .offset(x: 32, y: -8)
-                        .transition(.move(edge: .leading))
-                        .task {
-                            try? await Task.sleep(nanoseconds: 8000000000)
-                            withAnimation {
-                                self.errorMsg = nil
-                            }
-                        }
-                }
             }
         }
     }

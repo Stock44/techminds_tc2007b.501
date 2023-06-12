@@ -13,108 +13,109 @@ import FirebaseStorage
 class CardRepository : ObservableObject {
     private let usersPath = "users"
     private let cardsPath = "cards"
+    private let collectionsPath = "collections"
     private let store = Firestore.firestore()
     private let auth = Auth.auth()
     
     @Published private(set) var cards = Set<Card>()
-    @Published private(set) var collections = Set<Collection>()
     
-    private var cardsListener: ListenerRegistration?
-    private var collectionsListener: ListenerRegistration?
-    
-    func getCollectionsForCard(card: Card) throws {
-        guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
-        }
+    private var listener: ListenerRegistration?
         
-        guard let cardID = card.id else {
-            throw RepositoryError.invalidModel
-        }
-        
-        if let listener = collectionsListener {
+    deinit {
+        if let listener = listener {
             listener.remove()
         }
-        
-        let cardRef = store
-            .collection(usersPath)
-            .document(user.uid)
-            .collection(cardsPath)
-            .document(cardID)
-        
-        let collectionsRef = store.collection(usersPath)
-            .document(user.uid)
-            .collection("collections")
-            .whereField("cards", arrayContains: cardRef)
-        
-        collectionsListener = collectionsRef.addSnapshotListener(self.onCollectionsChange)
     }
     
-    func onCollectionsChange(snapshot: QuerySnapshot?, error: Error?) {
-        guard let snapshot = snapshot else {
-            print("error with cards change listener: \(error!)")
-            return
+    func reset() {
+        if let listener = listener {
+            listener.remove()
+            self.listener = nil
         }
         
-        do {
-            self.collections = Set(try snapshot.documents.map { snapshot in
-                try snapshot.data(as: Collection.self)
-            })
-        } catch {
-            print("error while mapping card's collections documents to Collection structs")
-        }
+        cards = Set()
     }
     
-    func getCardsForCollection(collection: Collection) throws {
+    func getCardsForCollectionOnce(collection: Collection) async throws -> Set<Card> {
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
         guard let collectionId = collection.id else {
-            throw RepositoryError.invalidModel
+            throw RepositoryError.missingModelID
         }
         
         let collectionRef = store
             .collection(usersPath)
             .document(user.uid)
-            .collection("collections")
+            .collection(collectionsPath)
             .document(collectionId)
         
         let cardsRef = store
             .collection(usersPath)
             .document(user.uid)
-            .collection("cards")
-            .whereField("collections", arrayContains: collectionRef)
+            .collection(cardsPath)
+            .whereField(collectionsPath, arrayContains: collectionRef)
         
-        self.cardsListener = cardsRef.addSnapshotListener(self.onCardsChange)
+        
+        let snapshot = try await cardsRef.getDocuments()
+        
+        print("loaded \(snapshot.documents.count) cards for collection")
+        return Set(try snapshot.documents.map {
+            try $0.data(as: Card.self)
+        })
+    }
+    
+    func getCardsForCollection(collection: Collection) throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
+        
+        guard let collectionId = collection.id else {
+            throw RepositoryError.missingModelID
+        }
+        
+        reset()
+        
+        let collectionRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+            .document(collectionId)
+        
+        let cardsRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(cardsPath)
+            .whereField(collectionsPath, arrayContains: collectionRef)
+        
+        self.listener = cardsRef.addSnapshotListener(self.onCardsChange)
     }
                                   
     
     func getCards() throws {
-        if let listener = cardsListener {
-            listener.remove()
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
         }
         
-        guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
-        }
+        reset()
         
         let cardsRef = store.collection(usersPath)
             .document(user.uid)
             .collection(cardsPath)
             .order(by: "name")
         
-        self.cardsListener = cardsRef.addSnapshotListener(self.onCardsChange)
+        self.listener = cardsRef.addSnapshotListener(self.onCardsChange)
     }
     
-    func createCard(card: inout Card) async throws {
+    func createCard(card: Card) async throws {
         guard card.id == nil else {
             throw RepositoryError.alreadyExists
         }
-        guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
-        }
         
-        print("creating")
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
         
         let cardID = UUID()
         
@@ -144,16 +145,15 @@ class CardRepository : ObservableObject {
                 continuation.resume(throwing: error)
             }
         }
-        card.id = cardRef.documentID
     }
     
     func updateCard(card: Card) async throws {
         guard let cardId = card.id else {
-            throw RepositoryError.invalidModel
+            throw RepositoryError.missingModelID
         }
         
         guard let user = auth.currentUser else {
-            throw RepositoryError.notAuthenticated
+            throw RepositoryError.unauthenticated
         }
         
         let cardRef = store
@@ -179,11 +179,11 @@ class CardRepository : ObservableObject {
     
     func deleteCard(card: Card) async throws{
         guard let cardId = card.id else {
-            throw RepositoryError.invalidModel
+            throw RepositoryError.missingModelID
         }
         
         guard let user = auth.currentUser else {
-            throw  RepositoryError.notAuthenticated
+            throw  RepositoryError.unauthenticated
         }
         
         let cardRef = store

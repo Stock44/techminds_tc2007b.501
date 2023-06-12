@@ -12,10 +12,15 @@ struct StudentCardsView : View {
     
     var body: some View {
         UserGrid<CardViewModel, CardView>(viewModels: [CardViewModel](viewModel.cardViewModels))
+        .onAppear {
+            viewModel.getAllWithImages()
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    InstructorCardsView()
+                    Filter {
+                        InstructorCardsView()
+                    }
                 } label: {
                     Image(systemName: "pencil")
                         .resizable()
@@ -24,9 +29,8 @@ struct StudentCardsView : View {
             }
         }
         .navigationTitle("Tarjetas")
-        .onAppear {
-            viewModel.getAllCards()
-        }
+        
+        
     }
 }
 
