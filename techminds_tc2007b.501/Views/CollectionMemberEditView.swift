@@ -12,7 +12,6 @@ protocol EditableCollectionMembers: ObservableObject {
     var cards: Set<CardViewModel>? { get set }
 }
 
-
 struct CollectionMemberEditView<ViewModel: EditableCollectionMembers>: View {
     @ObservedObject var viewModel: ViewModel
     @StateObject var cardListViewModel = CardListViewModel()
@@ -20,10 +19,7 @@ struct CollectionMemberEditView<ViewModel: EditableCollectionMembers>: View {
     
     init(viewModel: ViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
-        
-        
     }
-    
     
     var body: some View {
         if viewModel.cards == nil {

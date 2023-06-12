@@ -16,16 +16,20 @@ protocol ViewableCardViewModel: ObservableObject {
 struct CardView<ViewModel: ViewableCardViewModel>: ViewModelView {
     @ObservedObject var viewModel: ViewModel
     private let synthesizer = AVSpeechSynthesizer()
+    private var utterance = AVSpeechUtterance(string: "")
     
     init(viewModel: ViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
+        utterance = AVSpeechUtterance(string: viewModel.card.name)
+        utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
+        utterance.rate = 0.55
     }
     
     var body: some View {
         Button {
-            let utterance = AVSpeechUtterance(string: viewModel.card.name)
-            utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
-            synthesizer.speak(utterance)
+            if !synthesizer.isSpeaking {
+                synthesizer.speak(utterance)
+            }
         } label: {
             DynamicStack(spacing: 16) {
                 if let image = viewModel.cardImage {
@@ -46,7 +50,7 @@ struct CardView<ViewModel: ViewableCardViewModel>: ViewModelView {
                     }
                 }
                 Text(viewModel.card.name)
-                    .typography(.title)
+                    .typography(.headline)
                     .foregroundColor(Color("primary lighter"))
             }
             .padding(EdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 16))
