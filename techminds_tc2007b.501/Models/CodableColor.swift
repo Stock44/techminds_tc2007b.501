@@ -8,8 +8,11 @@
 import Foundation
 import SwiftUI
 
-struct CodableColor : Codable {
+struct CodableColor : Codable, Hashable {
     var cgColor: CGColor
+    var color: Color {
+        Color(cgColor: cgColor)
+    }
     
     enum CodingKeys: String, CodingKey {
         case colorSpace

@@ -11,7 +11,7 @@ protocol ViewableCollectionViewModel: ObservableObject {
     var collection: Collection {get}
 }
 
-struct CollectionDisplayView<ViewModel: ViewableCollectionViewModel>: ViewModelView {
+struct CollectionDisplayView<ViewModel: ViewableCollectionViewModel>: View {
     @ObservedObject var viewModel: ViewModel
     
     init(viewModel: ViewModel) {

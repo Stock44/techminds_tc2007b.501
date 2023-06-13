@@ -27,6 +27,20 @@ class CardListViewModel: ObservableObject {
     }
     
     @MainActor
+    func getAllOnce(){
+        Task {
+            @MainActor () -> Void in
+            do {
+                try await cardRepository.getCardsOnce()
+                self.error = nil
+            } catch {
+                self.error = error
+            }
+        }
+        
+    }
+    
+    @MainActor
     func getAll() {
         do {
             try cardRepository.getCards()

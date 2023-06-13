@@ -27,6 +27,20 @@ class CollectionListViewModel : ObservableObject {
     }
     
     @MainActor
+    func getAllOnce() {
+        Task {
+            @MainActor () -> Void in
+            
+            do {
+                try await collectionRepository.getCollectionsOnce()
+                self.error = nil
+            } catch {
+                self.error = error
+            }
+        }
+    }
+    
+    @MainActor
     func getAll() {
         do {
             try collectionRepository.getCollections()

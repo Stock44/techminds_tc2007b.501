@@ -33,10 +33,10 @@ class CardRepository : ObservableObject {
             self.listener = nil
         }
         
-        cards = Set()
+        cards = []
     }
     
-    func getCardsForCollectionOnce(collection: Collection) async throws -> Set<Card> {
+    func getCardsForCollectionOnce(collection: Collection) async throws -> [Card] {
         guard let user = auth.currentUser else {
             throw RepositoryError.unauthenticated
         }
@@ -61,9 +61,9 @@ class CardRepository : ObservableObject {
         let snapshot = try await cardsRef.getDocuments()
         
         print("loaded \(snapshot.documents.count) cards for collection")
-        return Set(try snapshot.documents.map {
+        return try snapshot.documents.map {
             try $0.data(as: Card.self)
-        })
+        }
     }
     
     func getCardsForCollection(collection: Collection) throws {
@@ -103,9 +103,25 @@ class CardRepository : ObservableObject {
         let cardsRef = store.collection(usersPath)
             .document(user.uid)
             .collection(cardsPath)
-            .order(by: "name")
         
         self.listener = cardsRef.addSnapshotListener(self.onCardsChange)
+    }
+    
+    func getCardsOnce() async throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
+        
+        reset()
+        
+        let cardsRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(cardsPath)
+        
+        cards = Set(try await cardsRef.getDocuments().documents.map {
+            try $0.data(as: Card.self)
+        })
     }
     
     func createCard(card: Card) async throws {
@@ -246,7 +262,7 @@ class CardRepository : ObservableObject {
             .collection(usersPath)
             .document(user.uid)
             .collection(collectionsPath)
-            .whereField("cards", arrayContains: cardRef)
+            .whereField(cardsPath, arrayContains: cardRef)
         
         let snapshot = try await collectionsRef.getDocuments()
         
@@ -273,7 +289,6 @@ class CardRepository : ObservableObject {
         }
         
         do {
-            print("received \(snapshot.documents.count) cards")
             self.cards = Set(try snapshot.documents.map { snapshot in
                 try snapshot.data(as: Card.self)
             })

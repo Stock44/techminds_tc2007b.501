@@ -8,18 +8,13 @@
 import SwiftUI
 import PhotosUI
 
-struct CardEditView: ViewModelView {
-    typealias ViewModel = CardEditingViewModel
+struct CardEditView: View {
+    @ObservedObject var viewModel: CardEditingViewModel
     
     @State private var showDelete: Bool = false
-    @State var imageSelection: PhotosPickerItem?
-    @ObservedObject var viewModel: ViewModel
-    @Environment(\.dismiss) var dismiss
+    @State private var imageSelection: PhotosPickerItem?
     
-    init(viewModel: ViewModel) {
-        _viewModel = ObservedObject(wrappedValue: viewModel)
-        
-    }
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(alignment: .leading, spacing: 32){

@@ -11,7 +11,9 @@ struct StudentCardsView : View {
     @StateObject private var viewModel = CardListViewModel()
     
     var body: some View {
-        UserGrid<CardViewModel, CardView>(viewModels: [CardViewModel](viewModel.cardViewModels))
+        UserDataGrid([CardViewModel](viewModel.cardViewModels), emptyLabel: "No has creado ninguna tarjeta.") {
+            CardView(viewModel: $0)
+        }
         .onAppear {
             viewModel.getAllWithImages()
         }

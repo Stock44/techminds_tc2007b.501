@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-struct CollectionEditView: ViewModelView {
-    typealias ViewModel = CollectionEditingViewModel
+struct CollectionEditView: View {
     
     @State private var showDelete: Bool = false
-    @ObservedObject private var viewModel: ViewModel
+    @ObservedObject private var viewModel: CollectionEditingViewModel
     @Environment(\.dismiss) var dismiss
     
-    init(viewModel: ViewModel) {
+    init(viewModel: CollectionEditingViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
     }
     
@@ -65,6 +64,7 @@ struct CollectionEditView: ViewModelView {
                     .padding(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
                     .confirmationDialog("¿Seguro que quieres borrar esta colección?", isPresented: $showDelete) {
                         Button("Borrar colección", role: .destructive) {
+                            viewModel.delete()
                             dismiss()
                         }
                     }

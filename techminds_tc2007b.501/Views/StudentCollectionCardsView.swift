@@ -12,27 +12,29 @@ struct StudentCollectionCardsView: View {
     @State private var isEditing = false
     
     var body: some View {
-        UserGrid<CardViewModel, CardView>(viewModels: [CardViewModel](viewModel.cards))
-            .onAppear {
-                viewModel.getCardsWithImages()
-            }
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        isEditing = true
-                    } label: {
-                        Image(systemName: "pencil")
-                    }
+        UserDataGrid([CardViewModel](viewModel.cards), emptyLabel: "No hay tarjetas en esta colección.") {
+            CardView(viewModel: $0, customColor: Color(cgColor: viewModel.collection.color.cgColor))
+        }
+        .onAppear {
+            viewModel.getCardsWithImages()
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button {
+                    isEditing = true
+                } label: {
+                    Image(systemName: "pencil")
                 }
             }
-            .navigationTitle(viewModel.collection.name)
-            .sheet(isPresented: $isEditing) {
-                NavigationView {
-                    Filter {
-                        CollectionEditView(viewModel: CollectionEditingViewModel(collection: viewModel.collection))
-                    }
+        }
+        .navigationTitle(viewModel.collection.name)
+        .sheet(isPresented: $isEditing) {
+            NavigationView {
+                Filter {
+                    CollectionEditView(viewModel: CollectionEditingViewModel(collection: viewModel.collection))
                 }
             }
+        }
     }
 }
 

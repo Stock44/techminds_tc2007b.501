@@ -28,6 +28,14 @@ struct CardMemberEditView<ViewModel: EditableCardMembers>: View {
             List([CollectionViewModel](collectionListViewModel.collectionViewModels), selection: $selection) {
                 Text($0.collection.name)
             }
+            .onChange(of: collectionListViewModel.collectionViewModels) { newValue in
+                if let collections = viewModel.collections {
+                    selection = Set(collections.map {
+                        print($0.id ?? "")
+                        return $0.id
+                    })
+                }
+            }
             .onChange(of: selection) { newSelection in
                 viewModel.collections = Set(collectionListViewModel.collectionViewModels.filter {
                     return newSelection.contains($0.id)
@@ -36,13 +44,7 @@ struct CardMemberEditView<ViewModel: EditableCardMembers>: View {
             }
             .environment(\.editMode, Binding.constant(EditMode.active))
             .onAppear {
-                collectionListViewModel.getAll()
-                if let collections = viewModel.collections {
-                    selection = Set(collections.map {
-                        print($0.id ?? "")
-                        return $0.id
-                    })
-                }
+                collectionListViewModel.getAllOnce()
             }
             
         }

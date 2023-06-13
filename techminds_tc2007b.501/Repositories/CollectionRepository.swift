@@ -33,7 +33,7 @@ class CollectionRepository : ObservableObject {
             self.listener = nil
         }
         
-        collections = Set()
+        collections = []
     }
     
     func getCollectionsForCard(card: Card) throws {
@@ -68,12 +68,31 @@ class CollectionRepository : ObservableObject {
         
         reset()
         
-        let collectionsRef = store.collection(usersPath)
+        let collectionsRef = store
+            .collection(usersPath)
             .document(user.uid)
             .collection(collectionsPath)
-            .order(by: "name")
         
         listener = collectionsRef.addSnapshotListener(self.onCollectionsChange)
+    }
+    
+    func getCollectionsOnce() async throws {
+        guard let user = auth.currentUser else {
+            throw RepositoryError.unauthenticated
+        }
+        
+        reset()
+        
+        let collectionsRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(collectionsPath)
+        
+        collections = Set(try await collectionsRef
+            .getDocuments()
+            .documents.map {
+                try $0.data(as: Collection.self)
+            })
     }
     
     func getCollectionsForCardOnce(card: Card) async throws -> Set<Collection> {
@@ -208,6 +227,27 @@ class CollectionRepository : ObservableObject {
             .document(user.uid)
             .collection(collectionsPath)
             .document(collectionId)
+        
+        let cardsRef = store
+            .collection(usersPath)
+            .document(user.uid)
+            .collection(cardsPath)
+            .whereField(collectionsPath, arrayContains: collectionRef)
+        
+        let snapshot = try await cardsRef.getDocuments()
+        
+        for cardDoc in snapshot.documents {
+            var card = try cardDoc.data(as: Card.self)
+            card.collections.remove(collectionRef)
+            
+            let cardRef = store
+                .collection(usersPath)
+                .document(user.uid)
+                .collection(cardsPath)
+                .document(cardDoc.documentID)
+            
+            try cardRef.setData(from: card)
+        }
         
         try await collectionRef.delete()
     }

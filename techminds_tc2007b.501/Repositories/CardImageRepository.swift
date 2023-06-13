@@ -36,7 +36,7 @@ class CardImageRepository: ObservableObject {
             throw RepositoryError.alreadyExists
         }
         
-        let data = image.jpegData(compressionQuality: 1.0)
+        let data = image.jpegData(compressionQuality: 0.5)
         guard let data = data else {
             throw RepositoryError.creationError
         }
@@ -73,7 +73,7 @@ class CardImageRepository: ObservableObject {
         let imageFileName = "\(imageID.uuidString).jpeg"
         let imageURL = try getCardImagesURL().appending(path: imageFileName)
         
-        let data = image.jpegData(compressionQuality: 1.0)
+        let data = image.jpegData(compressionQuality: 0.5)
         
         guard let data = data else {
             throw RepositoryError.creationError

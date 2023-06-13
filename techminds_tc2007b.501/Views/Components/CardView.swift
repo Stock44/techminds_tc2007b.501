@@ -13,13 +13,17 @@ protocol ViewableCardViewModel: ObservableObject {
     var cardImage: UIImage? {get}
 }
 
-struct CardView<ViewModel: ViewableCardViewModel>: ViewModelView {
+struct CardView<ViewModel: ViewableCardViewModel>: View {
     @ObservedObject var viewModel: ViewModel
+    var customColor: Color?
     private let synthesizer = AVSpeechSynthesizer()
     private var utterance = AVSpeechUtterance(string: "")
     
-    init(viewModel: ViewModel) {
+    init(viewModel: ViewModel, customColor: Color? = nil) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
+        
+        self.customColor = customColor
+        
         utterance = AVSpeechUtterance(string: viewModel.card.name)
         utterance.voice = AVSpeechSynthesisVoice(language: "es-MX")
         utterance.rate = 0.55
@@ -42,19 +46,17 @@ struct CardView<ViewModel: ViewableCardViewModel>: ViewModelView {
                         }
                         .cornerRadius(16)
                 } else {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 16)
-                            .foregroundColor(Color("primary lighter"))
-                            .frame(maxWidth: .infinity)
-                        ProgressView()
-                    }
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 Text(viewModel.card.name)
                     .typography(.headline)
-                    .foregroundColor(Color("primary lighter"))
+                    .foregroundColor(customColor ?? Color("primary"))
+                    .colorInvert()
+                    .contrast(3.5)
             }
             .padding(EdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 16))
-            .background(Color("primary"))
+            .background(customColor ?? Color("primary"))
             .cornerRadius(16)
         }
         .buttonStyle(.plain)

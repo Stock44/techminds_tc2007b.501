@@ -11,9 +11,15 @@ struct StudentCollectionsView: View {
     @StateObject var viewModel = CollectionListViewModel()
     
     var body: some View {
-        UserGrid<CollectionViewModel, CollectionLinkView>(viewModels: viewModel.collectionViewModels.filter {
+        UserDataGrid(viewModel.collectionViewModels.filter {
             $0.collection.enabled
-        })
+        }, emptyLabel: "No has creado ninguna colección.") { collection in
+            NavigationLink {
+                StudentCollectionCardsView(viewModel: collection)
+            } label: {
+                CollectionDisplayView(viewModel: collection)
+            }
+        }
         .navigationTitle("Colecciones")
         .toolbar {
             ToolbarItemGroup (placement: .navigationBarTrailing){
