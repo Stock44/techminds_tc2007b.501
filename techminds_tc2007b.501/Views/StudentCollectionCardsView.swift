@@ -9,12 +9,29 @@ import SwiftUI
 
 struct StudentCollectionCardsView: View {
     @ObservedObject var viewModel: CollectionViewModel
+    @State private var isEditing = false
     
     var body: some View {
         UserGrid<CardViewModel, CardView>(viewModels: [CardViewModel](viewModel.cards))
-            .navigationTitle(viewModel.collection.name)
             .onAppear {
                 viewModel.getCardsWithImages()
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        isEditing = true
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
+                }
+            }
+            .navigationTitle(viewModel.collection.name)
+            .sheet(isPresented: $isEditing) {
+                NavigationView {
+                    Filter {
+                        CollectionEditView(viewModel: CollectionEditingViewModel(collection: viewModel.collection))
+                    }
+                }
             }
     }
 }
