@@ -104,6 +104,10 @@ class CardImageRepository: ObservableObject {
         images[imageID] = image
     }
     
+    func unloadImage(imageID: UUID) {
+        images.removeValue(forKey: imageID)
+    }
+    
     func getImage(imageID: UUID) async throws -> UIImage{
         
         guard let user = auth.currentUser else {

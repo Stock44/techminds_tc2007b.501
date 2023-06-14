@@ -11,6 +11,10 @@ import AVFoundation
 protocol ViewableCardViewModel: ObservableObject {
     var card: Card {get}
     var cardImage: UIImage? {get}
+    
+    func loadImage()
+    
+    func unloadImage()
 }
 
 struct CardView<ViewModel: ViewableCardViewModel>: View {
@@ -60,6 +64,12 @@ struct CardView<ViewModel: ViewableCardViewModel>: View {
             .cornerRadius(16)
         }
         .buttonStyle(.plain)
+        .onAppear {
+            viewModel.loadImage()
+        }
+        .onDisappear {
+            viewModel.unloadImage()
+        }
     }
 }
 

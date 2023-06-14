@@ -15,7 +15,7 @@ struct StudentCardsView : View {
             CardView(viewModel: $0)
         }
         .onAppear {
-            viewModel.getAllWithImages()
+            viewModel.getAll()
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {

@@ -34,4 +34,10 @@ class CardCreationViewModel: ViewableCardViewModel {
             }
         }
     }
+    
+    func loadImage() {
+    }
+    
+    func unloadImage() {
+    }
 }

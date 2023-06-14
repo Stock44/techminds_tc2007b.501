@@ -13,6 +13,7 @@ struct UserDataGrid<T: Identifiable, V: View> : View{
     var emptyLabel: String
     
     @StateObject var userViewModel = UserViewModel()
+    @State private var tab = 0
     
     init(_ data: [T], emptyLabel: String, @ViewBuilder content: @escaping (T) -> V) {
         self.data = data
@@ -27,7 +28,7 @@ struct UserDataGrid<T: Identifiable, V: View> : View{
         } else {
             let columns = userViewModel.userProperties?.columns ?? 3
             let rows = userViewModel.userProperties?.rows ?? 3
-            TabView {
+            TabView (selection: $tab){
                 ForEach(Array(stride(from: 0, to: data.count, by: columns * rows)), id: \.self) { offset in
                     Grid (horizontalSpacing: 16, verticalSpacing: 16){
                         ForEach(0..<rows, id: \.self) { row in
@@ -37,7 +38,11 @@ struct UserDataGrid<T: Identifiable, V: View> : View{
                             
                             GridRow {
                                 ForEach(data[start..<end]) { data in
-                                    content(data)
+                                    if tab == offset {
+                                        content(data)
+                                    } else {
+                                        ProgressView()
+                                    }
                                 }
                                 ForEach(0..<missing, id: \.self) { _ in
                                     Color.clear
@@ -46,6 +51,7 @@ struct UserDataGrid<T: Identifiable, V: View> : View{
                             
                         }
                     }
+                    .tag(offset)
                     .padding(EdgeInsets(top: 32, leading: 48, bottom: 32, trailing: 48))
                 }
             }

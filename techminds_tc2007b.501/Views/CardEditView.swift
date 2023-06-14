@@ -91,7 +91,7 @@ struct CardEditView: View {
                 viewModel.loadCurrentCollections()
             }
             if viewModel.cardImage == nil {
-                viewModel.loadCurrentImage()
+                viewModel.loadImage()
             }
         }
     }

@@ -68,7 +68,7 @@ class CardEditingViewModel: EditableCardMembers, ViewableCardViewModel {
     }
     
     @MainActor
-    func loadCurrentImage() {
+    func loadImage() {
         Task {
             do {
                 self.cardImage = try await cardImageRepository.getImage(imageID: card.imageID)
@@ -77,6 +77,11 @@ class CardEditingViewModel: EditableCardMembers, ViewableCardViewModel {
                 self.error = error
             }
         }
+    }
+    
+    @MainActor
+    func unloadImage() {
+        cardImageRepository.unloadImage(imageID: card.imageID)
     }
     
     @MainActor
