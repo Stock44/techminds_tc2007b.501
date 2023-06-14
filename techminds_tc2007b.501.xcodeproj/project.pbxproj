@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B682D3032A2147D1002AFFC3 /* CardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B682D3022A2147D1002AFFC3 /* CardConfig.swift */; };
 		FB075F8F2A1C1F3200DC0218 /* InstructorCollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB075F8E2A1C1F3200DC0218 /* InstructorCollectionsView.swift */; };
 		FB1088B52A09ACE700B914C2 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1088B42A09ACE700B914C2 /* RegisterView.swift */; };
 		FB12A16D2A36B00C00B22930 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB12A16C2A36B00C00B22930 /* UserRepository.swift */; };
 		FB12A16F2A36CDAD00B22930 /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB12A16E2A36CDAD00B22930 /* RepositoryError.swift */; };
 		FB15BFCC2A31945C00ABD58B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB15BFCB2A31945C00ABD58B /* UserViewModel.swift */; };
-		FB237E262A313B3B006BD790 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB237E252A313B3B006BD790 /* ImagePicker.swift */; };
 		FB266A222A2EA2CC0055F839 /* UserPropertiesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB266A212A2EA2CC0055F839 /* UserPropertiesRepository.swift */; };
 		FB308CD12A33C7F10068AE11 /* ConfigMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */; };
 		FB308CD32A33CCE80068AE11 /* StudentCollectionCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB308CD22A33CCE80068AE11 /* StudentCollectionCardsView.swift */; };
@@ -29,7 +27,6 @@
 		FB5A57712A378140003A88DC /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A57702A378140003A88DC /* Convert.swift */; };
 		FB5A57732A3820DE003A88DC /* UserDataGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75C6E72A32708D00171E6F /* UserDataGrid.swift */; };
 		FB5FBB612A27DB9800BE0095 /* VerifyPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FBB602A27DB9800BE0095 /* VerifyPopUp.swift */; };
-		FB5FBB632A27DC1100BE0095 /* AccountEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FBB622A27DC1100BE0095 /* AccountEditView.swift */; };
 		FB61CE322A33BA5B00801DE0 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB61CE312A33BA5B00801DE0 /* Filter.swift */; };
 		FB62BB972A16C35F00076ECD /* StudentCollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */; };
 		FB69AE7F2A314E6F001315A6 /* CollectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB69AE7E2A314E6F001315A6 /* CollectionEditView.swift */; };
@@ -52,15 +49,10 @@
 		FB7815692A1BFEFC00B312E5 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7815682A1BFEFC00B312E5 /* InitialView.swift */; };
 		FB78156A2A1BFEFC00B312E5 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7815682A1BFEFC00B312E5 /* InitialView.swift */; };
 		FB78156B2A1BFEFC00B312E5 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7815682A1BFEFC00B312E5 /* InitialView.swift */; };
-		FB78156D2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */; };
-		FB78156E2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */; };
-		FB78156F2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */; };
 		FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */; };
 		FB8DF3502A17D69A00E61AA6 /* StudentCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */; };
 		FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF3512A17D88C00E61AA6 /* CardButton.swift */; };
-		FB964C5C2A250E9000FBBB84 /* PorfileCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */; };
 		FB9D75742A33646100D50CBC /* CollectionMemberEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D75732A33646100D50CBC /* CollectionMemberEditView.swift */; };
-		FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA029782A213A85005E1FD1 /* Togglecard.swift */; };
 		FBA0604E2A18339700BA3D67 /* AccessibilityConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */; };
 		FBA060502A1833DA00BA3D67 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */; };
 		FBB443512A097634000E48F2 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB443502A097634000E48F2 /* SignInView.swift */; };
@@ -127,13 +119,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B682D3022A2147D1002AFFC3 /* CardConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardConfig.swift; sourceTree = "<group>"; };
 		FB075F8E2A1C1F3200DC0218 /* InstructorCollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorCollectionsView.swift; sourceTree = "<group>"; };
 		FB1088B42A09ACE700B914C2 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		FB12A16C2A36B00C00B22930 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FB12A16E2A36CDAD00B22930 /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
 		FB15BFCB2A31945C00ABD58B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
-		FB237E252A313B3B006BD790 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FB266A212A2EA2CC0055F839 /* UserPropertiesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPropertiesRepository.swift; sourceTree = "<group>"; };
 		FB308CD22A33CCE80068AE11 /* StudentCollectionCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCollectionCardsView.swift; sourceTree = "<group>"; };
 		FB38BBF52A17E1F1007A5C05 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
@@ -148,7 +138,6 @@
 		FB5A576E2A377F58003A88DC /* UserEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditingViewModel.swift; sourceTree = "<group>"; };
 		FB5A57702A378140003A88DC /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		FB5FBB602A27DB9800BE0095 /* VerifyPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPopUp.swift; sourceTree = "<group>"; };
-		FB5FBB622A27DC1100BE0095 /* AccountEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEditView.swift; sourceTree = "<group>"; };
 		FB61CE312A33BA5B00801DE0 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCollectionsView.swift; sourceTree = "<group>"; };
 		FB69AE7E2A314E6F001315A6 /* CollectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEditView.swift; sourceTree = "<group>"; };
@@ -165,13 +154,10 @@
 		FB76D0632A31381500BE28A6 /* CollectionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRepository.swift; sourceTree = "<group>"; };
 		FB78155D2A1BFA1A00B312E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB7815682A1BFEFC00B312E5 /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
-		FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopup.swift; sourceTree = "<group>"; };
 		FB8DF34D2A17D1F300E61AA6 /* CollectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionButton.swift; sourceTree = "<group>"; };
 		FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCardsView.swift; sourceTree = "<group>"; };
 		FB8DF3512A17D88C00E61AA6 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
-		FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorfileCards.swift; sourceTree = "<group>"; };
 		FB9D75732A33646100D50CBC /* CollectionMemberEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMemberEditView.swift; sourceTree = "<group>"; };
-		FBA029782A213A85005E1FD1 /* Togglecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Togglecard.swift; sourceTree = "<group>"; };
 		FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityConfigView.swift; sourceTree = "<group>"; };
 		FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
 		FBB443502A097634000E48F2 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; tabWidth = 3; };
@@ -412,21 +398,15 @@
 				FBB443502A097634000E48F2 /* SignInView.swift */,
 				FB1088B42A09ACE700B914C2 /* RegisterView.swift */,
 				FB075F8E2A1C1F3200DC0218 /* InstructorCollectionsView.swift */,
-				FB964C5B2A250E9000FBBB84 /* PorfileCards.swift */,
-				FBA029782A213A85005E1FD1 /* Togglecard.swift */,
 				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
 				FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */,
 				FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */,
 				FB308CD22A33CCE80068AE11 /* StudentCollectionCardsView.swift */,
 				FB38BBF52A17E1F1007A5C05 /* CollectionView.swift */,
-				B682D3022A2147D1002AFFC3 /* CardConfig.swift */,
-				FB237E252A313B3B006BD790 /* ImagePicker.swift */,
 				FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */,
 				FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */,
 				FB7815682A1BFEFC00B312E5 /* InitialView.swift */,
-				FB78156C2A1C1F1700B312E5 /* ErrorPopup.swift */,
 				FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */,
-				FB5FBB622A27DC1100BE0095 /* AccountEditView.swift */,
 				FB69AE7E2A314E6F001315A6 /* CollectionEditView.swift */,
 				FB75C6EB2A3292AF00171E6F /* CardEditView.swift */,
 				FBB97EDA2A36E1B4006C59ED /* CardCreationView.swift */,
@@ -637,12 +617,10 @@
 				FB61CE322A33BA5B00801DE0 /* Filter.swift in Sources */,
 				FB308CD12A33C7F10068AE11 /* ConfigMenu.swift in Sources */,
 				FB75C6EA2A327D1E00171E6F /* CardView.swift in Sources */,
-				FBA029792A213A85005E1FD1 /* Togglecard.swift in Sources */,
 				FB9D75742A33646100D50CBC /* CollectionMemberEditView.swift in Sources */,
 				FB4EEFB12A0AC43B0022EBC5 /* Typography.swift in Sources */,
 				FBBDF4C22A3045FD00C4DAD8 /* CardRepository.swift in Sources */,
 				FB075F8F2A1C1F3200DC0218 /* InstructorCollectionsView.swift in Sources */,
-				FB237E262A313B3B006BD790 /* ImagePicker.swift in Sources */,
 				FB12A16D2A36B00C00B22930 /* UserRepository.swift in Sources */,
 				FB266A222A2EA2CC0055F839 /* UserPropertiesRepository.swift in Sources */,
 				FB62BB972A16C35F00076ECD /* StudentCollectionsView.swift in Sources */,
@@ -660,10 +638,8 @@
 				FBB97ED72A36DD5F006C59ED /* UserCreationViewModel.swift in Sources */,
 				FB8DF34E2A17D1F300E61AA6 /* CollectionButton.swift in Sources */,
 				FB703F032A36FA7A00933EF0 /* CollectionCreationView.swift in Sources */,
-				FB78156D2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */,
 				FB69AE7F2A314E6F001315A6 /* CollectionEditView.swift in Sources */,
 				FBFFA8DE2A27F138004B1C69 /* Collection.swift in Sources */,
-				FB964C5C2A250E9000FBBB84 /* PorfileCards.swift in Sources */,
 				FBC325032A2907E30032D1F9 /* LabelledPasswordBox.swift in Sources */,
 				FB5A57732A3820DE003A88DC /* UserDataGrid.swift in Sources */,
 				FB75C6E22A32382C00171E6F /* CardViewModel.swift in Sources */,
@@ -673,14 +649,12 @@
 				FBB443512A097634000E48F2 /* SignInView.swift in Sources */,
 				FB3FF52B2A21420900D291C4 /* InstructorCardsView.swift in Sources */,
 				FB72D52E2A18127C00D9F898 /* LabelledTextBox.swift in Sources */,
-				FB5FBB632A27DC1100BE0095 /* AccountEditView.swift in Sources */,
 				FB5A576F2A377F58003A88DC /* UserEditingViewModel.swift in Sources */,
 				FBB97ED52A36DBA2006C59ED /* CardCreationViewModel.swift in Sources */,
 				FB5A57712A378140003A88DC /* Convert.swift in Sources */,
 				FB15BFCC2A31945C00ABD58B /* UserViewModel.swift in Sources */,
 				FBB97ED92A36DEE5006C59ED /* CollectionCreationViewModel.swift in Sources */,
 				FBB97EDF2A36F0DB006C59ED /* CollectionEditingViewModel.swift in Sources */,
-				B682D3032A2147D1002AFFC3 /* CardConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +662,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB78156E2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */,
 				FBDD5E3E2A05AE8500642744 /* techminds_tc2007b_501Tests.swift in Sources */,
 				FB78156A2A1BFEFC00B312E5 /* InitialView.swift in Sources */,
 			);
@@ -699,7 +672,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB78156B2A1BFEFC00B312E5 /* InitialView.swift in Sources */,
-				FB78156F2A1C1F1700B312E5 /* ErrorPopup.swift in Sources */,
 				FBDD5E4A2A05AE8500642744 /* techminds_tc2007b_501UITestsLaunchTests.swift in Sources */,
 				FBDD5E482A05AE8500642744 /* techminds_tc2007b_501UITests.swift in Sources */,
 			);
