@@ -35,6 +35,11 @@ class CardEditingViewModel: EditableCardMembers, ViewableCardViewModel {
     }
     
     @MainActor
+    func save() {
+        update()
+    }
+    
+    @MainActor
     func update() {
         Task {
             do {

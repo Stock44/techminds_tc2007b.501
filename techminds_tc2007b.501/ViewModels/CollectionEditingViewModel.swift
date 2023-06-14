@@ -32,6 +32,11 @@ class CollectionEditingViewModel: ViewableCollectionViewModel, EditableCollectio
     }
     
     @MainActor
+    func save() {
+        update()
+    }
+    
+    @MainActor
     func update() {
         Task {
             do {

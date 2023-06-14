@@ -30,4 +30,6 @@ class CollectionCreationViewModel: ViewableCollectionViewModel, EditableCollecti
             }
         }
     }
+    
+    func save() {}
 }
