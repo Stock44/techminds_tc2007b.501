@@ -52,10 +52,6 @@ struct VerifyPopUp: View {
                         }
                     }
                     
-                    if errorUpdate == nil {
-                        exito = true
-                    }
-                    
                     dismiss()
                 }
                 .background(RoundedRectangle(cornerRadius: 16).stroke(Color.white, lineWidth: 1))
