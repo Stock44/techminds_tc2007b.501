@@ -70,6 +70,7 @@ struct AccountInfoView: View {
                     Task {
                         do {
                             try await viewModel.update()
+                            exito = true
                         } catch {
                             errorUpdate = error
                         }
