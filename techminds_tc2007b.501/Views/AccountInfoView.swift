@@ -80,8 +80,8 @@ struct AccountInfoView: View {
                             .foregroundColor(Color("primary"))
                     }
                 }
-                .sheet(isPresented: $popup) {
-                    VerifyPopUp(viewModel: viewModel)
+                .popover(isPresented: $popup) {
+                   VerifyPopUp(viewModel: viewModel)
                 }
                 .padding(.bottom, 100)
             }
