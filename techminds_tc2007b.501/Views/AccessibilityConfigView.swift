@@ -10,6 +10,7 @@ import SwiftUI
 struct AccessibilityConfigView: View {
     
     @StateObject private var viewModel = UserEditingViewModel()
+    @State private var saving = false
     
     var body: some View {
         DynamicStack{
@@ -47,6 +48,18 @@ struct AccessibilityConfigView: View {
                 
                 FilledButton(labelText: "Guardar") {
                     viewModel.update()
+                    saving = true
+                }
+                .popover(isPresented: $saving) {
+                    ZStack {
+                        Color("primary lighter")
+                            .scaleEffect(1.5)
+                        Text("Cambios guardados con éxito")
+                            .typography(.callout)
+                            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color("primary"))
+                    }
                 }
             }
             .padding()

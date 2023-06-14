@@ -58,23 +58,16 @@ struct Filter<TargetView: View>: View {
                         .foregroundColor(.white)
                 }
             }
-            
-            ZStack {
-                Rectangle()
-                .fill(.background)
-                .frame(maxWidth: .infinity, maxHeight: 300)
-                if error == true {
+            .popover(isPresented: $error, arrowEdge: .bottom) {
+                ZStack {
+                    Color("primary lighter")
+                        .scaleEffect(1.5)
                     Text("Resultado incorrecto")
                         .typography(.callout)
                         .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
-                        .frame(maxWidth: 300)
-                        .foregroundColor(.white)
-                        .background(Color("primary"))
-                        .cornerRadius(16)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color("primary"))
                 }
-            }
-            .onTapGesture {
-                error = false
             }
             NavigationLink("", destination: target(), isActive: $cleared)
 
