@@ -75,9 +75,6 @@ struct AccountInfoView: View {
                         }
                     }
                     
-                    if errorUpdate == nil {
-                        exito = true
-                    }
                 }
                 .frame(maxWidth: 700)
                 .popover(isPresented: $exito) {
