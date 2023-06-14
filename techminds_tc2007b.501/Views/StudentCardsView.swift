@@ -15,7 +15,10 @@ struct StudentCardsView : View {
             CardView(viewModel: $0)
         }
         .onAppear {
-            viewModel.getAll()
+            if viewModel.cardViewModels.isEmpty {
+                print("cards loading")
+                viewModel.getAll()
+            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {

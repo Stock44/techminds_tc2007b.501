@@ -10,12 +10,14 @@ import FirebaseFirestore
 
 protocol EditableCardMembers: ObservableObject {
     var collections: Set<CollectionViewModel>? { get set }
+    func save()
 }
 
 struct CardMemberEditView<ViewModel: EditableCardMembers>: View {
     @ObservedObject var viewModel: ViewModel
     @StateObject var collectionListViewModel = CollectionListViewModel()
     @State var selection = Set<String?>()
+    @State private var guardado = false
     
     init(viewModel: ViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
@@ -46,8 +48,25 @@ struct CardMemberEditView<ViewModel: EditableCardMembers>: View {
             .onAppear {
                 collectionListViewModel.getAllOnce()
             }
-            FilledButton(labelText: "Guardar") {
-                print("guardado")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        viewModel.save()
+                        guardado = true
+                    } label: {
+                        Text("Guardar")
+                    }.popover(isPresented: $guardado){
+                        ZStack {
+                            Color("secondary lighter")
+                                .scaleEffect(1.5)
+                            Text("Guardado con éxito")
+                                .typography(.callout)
+                                .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(Color("secondary"))
+                        }
+                    }
+                }
             }
         }
     }

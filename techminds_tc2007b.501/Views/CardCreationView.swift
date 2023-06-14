@@ -31,7 +31,12 @@ struct CardCreationView: View {
                         switch result {
                         case .success(let data):
                             if let data = data {
-                                viewModel.cardImage = UIImage(data: data)
+                                Task {
+                                    await MainActor.run {
+                                        viewModel.cardImage = UIImage(data: data)
+                                    }
+                                }
+                                
                             } else {
                                 print("unsupported format")
                             }

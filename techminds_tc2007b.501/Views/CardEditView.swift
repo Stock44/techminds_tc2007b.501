@@ -60,7 +60,7 @@ struct CardEditView: View {
                 NavigationLink {
                     CardMemberEditView(viewModel: viewModel)
                 } label: {
-                    Label("Colecciones", systemImage: "system-group")
+                    Label("Colecciones", systemImage: "rectangle.3.group")
                 }
             }
             HStack {

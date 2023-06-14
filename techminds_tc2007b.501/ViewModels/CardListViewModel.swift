@@ -29,15 +29,17 @@ class CardListViewModel: ObservableObject {
     @MainActor
     func getAllOnce(){
         Task {
-            @MainActor () -> Void in
-            do {
-                try await cardRepository.getCardsOnce()
-                self.error = nil
-            } catch {
-                self.error = error
+            await MainActor.run {
+                Task {
+                    do {
+                        try await cardRepository.getCardsOnce()
+                        self.error = nil
+                    } catch {
+                        self.error = error
+                    }
+                }
             }
         }
-        
     }
     
     @MainActor
