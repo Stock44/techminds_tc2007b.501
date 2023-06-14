@@ -13,6 +13,8 @@ struct VerifyPopUp: View {
     @State var errorAlert = false
     @State var popup = false
     @Environment(\.dismiss) var dismiss
+    @Binding var exito : Bool
+    @Binding var errorUpdate : Error?
     
     var body: some View {
         VStack(spacing: 32){
@@ -28,14 +30,31 @@ struct VerifyPopUp: View {
                 FilledButton(labelText: "Aceptar"){
                     if viewModel.password != "" {
                         print("updating password")
-                        viewModel.updatePassword(password: password)
+                        Task {
+                            do {
+                                try await viewModel.updatePassword(password: password)
+                            } catch {
+                                errorUpdate = error
+                            }
+                            
+                        }
                     }
                     
                     if viewModel.email != "" {
                         print("updating email")
-                        viewModel.updateEmail(password: password)
+                        Task {
+                            do {
+                                try await viewModel.updateEmail(password: password)
+                            } catch {
+                                // error...
+                                errorUpdate = error
+                            }
+                        }
                     }
                     
+                    if errorUpdate == nil {
+                        exito = true
+                    }
                     
                     dismiss()
                 }
@@ -51,6 +70,6 @@ struct VerifyPopUp: View {
 struct VerifyPopUp_Previews: PreviewProvider {
     @State static var viewModel = UserEditingViewModel()
     static var previews: some View {
-        VerifyPopUp(viewModel: viewModel)
+        VerifyPopUp(viewModel: viewModel, exito: .constant(false), errorUpdate: .constant(nil))
     }
 }

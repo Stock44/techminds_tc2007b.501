@@ -14,6 +14,7 @@ struct AccountInfoView: View {
     @State var buttontext = "Editar"
     @State private var nonMatchingPasswords = false
     @State var exito = false
+    @State var errorUpdate : Error?
     
     @StateObject private var viewModel = UserEditingViewModel()
     
@@ -22,7 +23,7 @@ struct AccountInfoView: View {
         ZStack {
             VStack (spacing: 32){
                 Group{
-                    if let authError = viewModel.error {
+                    if let authError = errorUpdate {
                         Text(authError.localizedDescription)
                             .typography(.callout)
                             .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
@@ -65,14 +66,17 @@ struct AccountInfoView: View {
                             nonMatchingPasswords = true
                         }
                     }
-                        
+                    
                     Task {
                         do {
                             try await viewModel.update()
                         } catch {
-                            // error...
+                            errorUpdate = error
                         }
-                        
+                    }
+                    
+                    if errorUpdate == nil {
+                        exito = true
                     }
                 }
                 .frame(maxWidth: 700)
@@ -88,7 +92,7 @@ struct AccountInfoView: View {
                     }
                 }
                 .popover(isPresented: $popup) {
-                   VerifyPopUp(viewModel: viewModel)
+                    VerifyPopUp(viewModel: viewModel, exito: $exito, errorUpdate: $errorUpdate)
                 }
                 .padding(.bottom, 100)
             }

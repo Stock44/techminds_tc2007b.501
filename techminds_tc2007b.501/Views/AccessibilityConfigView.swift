@@ -47,7 +47,14 @@ struct AccessibilityConfigView: View {
                 }.listStyle(.plain)
                 
                 FilledButton(labelText: "Guardar") {
-                    viewModel.update()
+                    Task {
+                        do {
+                            try await    viewModel.update()
+                        } catch {
+                            // error...
+                        }
+                        
+                    }
                     saving = true
                 }
                 .popover(isPresented: $saving) {
