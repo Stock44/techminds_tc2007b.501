@@ -46,52 +46,24 @@ class UserEditingViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func updateEmail(password: String) {
-        guard let email = user?.email else {
-            self.error = RepositoryError.unauthenticated
-            return
+    func updateEmail(password: String) async throws {
+        guard let email = await user?.email else {
+            throw RepositoryError.unauthenticated
         }
-        
-        Task {
-            do {
-                try await userRepository.reauthenticate(email: email, password: password)
-                try await userRepository.updateUserEmail(email: self.email)
-                self.error = nil
-            } catch {
-                self.error = error
-            }
-        }
+        try await userRepository.reauthenticate(email: email, password: password)
+        try await userRepository.updateUserEmail(email: self.email)
     }
     
-    @MainActor
-    func updatePassword(password: String) {
-        guard let email = user?.email else {
-            self.error = RepositoryError.unauthenticated
-            return
+    func updatePassword(password: String) async throws {
+        guard let email = await user?.email else {
+            throw RepositoryError.unauthenticated
         }
         
-        Task {
-            do {
-                try await userRepository.reauthenticate(email: email, password: password)
-                try await userRepository.updateUserPassword(password: self.password)
-                self.error = nil
-            } catch {
-                print("\(error)")
-                self.error = error
-            }
-        }
+        try await userRepository.reauthenticate(email: email, password: password)
+        try await userRepository.updateUserPassword(password: self.password)
     }
     
-    @MainActor
-    func update() {
-        Task {
-            do {
-                try await userPropertiesRepository.setUserProperties(userProperties: userProperties)
-                self.error = nil
-            } catch {
-                self.error = error
-            }
-        }
+    func update() async throws{
+        try await userPropertiesRepository.setUserProperties(userProperties: userProperties)
     }
 }

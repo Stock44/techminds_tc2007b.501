@@ -56,8 +56,7 @@ struct AccountInfoView: View {
                     LabelledPasswordBox(label: "Confirmar contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordConfirmation)
                         .frame(maxWidth: 700)
                 }
-                FilledButton(labelText: buttontext)
-                    {
+                FilledButton(labelText: buttontext) {
                     if viewModel.password != "" || viewModel.email != ""{
                         if viewModel.password == passwordConfirmation {
                             popup = true
@@ -66,7 +65,15 @@ struct AccountInfoView: View {
                             nonMatchingPasswords = true
                         }
                     }
-                    viewModel.update()
+                        
+                    Task {
+                        do {
+                            try await viewModel.update()
+                        } catch {
+                            // error...
+                        }
+                        
+                    }
                 }
                 .frame(maxWidth: 700)
                 .popover(isPresented: $exito) {

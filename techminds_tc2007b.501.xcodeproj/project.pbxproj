@@ -45,9 +45,6 @@
 		FB7815632A1BFA9A00B312E5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FB7815622A1BFA9A00B312E5 /* FirebaseAuth */; };
 		FB7815652A1BFA9A00B312E5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB7815642A1BFA9A00B312E5 /* FirebaseFirestoreSwift */; };
 		FB7815672A1BFA9A00B312E5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB7815662A1BFA9A00B312E5 /* FirebaseStorage */; };
-		FB7815692A1BFEFC00B312E5 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7815682A1BFEFC00B312E5 /* InitialView.swift */; };
-		FB78156A2A1BFEFC00B312E5 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7815682A1BFEFC00B312E5 /* InitialView.swift */; };
-		FB78156B2A1BFEFC00B312E5 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7815682A1BFEFC00B312E5 /* InitialView.swift */; };
 		FB8DF3502A17D69A00E61AA6 /* StudentCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */; };
 		FB8DF3522A17D88C00E61AA6 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8DF3512A17D88C00E61AA6 /* CardButton.swift */; };
 		FB9D75742A33646100D50CBC /* CollectionMemberEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D75732A33646100D50CBC /* CollectionMemberEditView.swift */; };
@@ -150,7 +147,6 @@
 		FB76D0612A3133CF00BE28A6 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		FB76D0632A31381500BE28A6 /* CollectionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRepository.swift; sourceTree = "<group>"; };
 		FB78155D2A1BFA1A00B312E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FB7815682A1BFEFC00B312E5 /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
 		FB8DF34F2A17D69A00E61AA6 /* StudentCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCardsView.swift; sourceTree = "<group>"; };
 		FB8DF3512A17D88C00E61AA6 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		FB9D75732A33646100D50CBC /* CollectionMemberEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMemberEditView.swift; sourceTree = "<group>"; };
@@ -389,9 +385,9 @@
 				FB72D52C2A180F8F00D9F898 /* Components */,
 				FBD340692A0968EF00977A4B /* MainMenuView.swift */,
 				FB61CE312A33BA5B00801DE0 /* Filter.swift */,
-				FB3FF52A2A21420900D291C4 /* InstructorCardsView.swift */,
 				FBB443502A097634000E48F2 /* SignInView.swift */,
 				FB1088B42A09ACE700B914C2 /* RegisterView.swift */,
+				FB3FF52A2A21420900D291C4 /* InstructorCardsView.swift */,
 				FB075F8E2A1C1F3200DC0218 /* InstructorCollectionsView.swift */,
 				FB4EEFB22A0AC8A30022EBC5 /* DynamicStack.swift */,
 				FB62BB962A16C35F00076ECD /* StudentCollectionsView.swift */,
@@ -399,7 +395,6 @@
 				FB308CD22A33CCE80068AE11 /* StudentCollectionCardsView.swift */,
 				FBA0604D2A18339700BA3D67 /* AccessibilityConfigView.swift */,
 				FBA0604F2A1833DA00BA3D67 /* AccountInfoView.swift */,
-				FB7815682A1BFEFC00B312E5 /* InitialView.swift */,
 				FB39F59D2A33B9C40088B241 /* ConfigMenu.swift */,
 				FB69AE7E2A314E6F001315A6 /* CollectionEditView.swift */,
 				FB75C6EB2A3292AF00171E6F /* CardEditView.swift */,
@@ -637,7 +632,6 @@
 				FB75C6E22A32382C00171E6F /* CardViewModel.swift in Sources */,
 				FBDD5E2D2A05AE7D00642744 /* techminds_tc2007b_501App.swift in Sources */,
 				FB76D0642A31381500BE28A6 /* CollectionRepository.swift in Sources */,
-				FB7815692A1BFEFC00B312E5 /* InitialView.swift in Sources */,
 				FBB443512A097634000E48F2 /* SignInView.swift in Sources */,
 				FB3FF52B2A21420900D291C4 /* InstructorCardsView.swift in Sources */,
 				FB72D52E2A18127C00D9F898 /* LabelledTextBox.swift in Sources */,
@@ -655,7 +649,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBDD5E3E2A05AE8500642744 /* techminds_tc2007b_501Tests.swift in Sources */,
-				FB78156A2A1BFEFC00B312E5 /* InitialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,7 +656,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB78156B2A1BFEFC00B312E5 /* InitialView.swift in Sources */,
 				FBDD5E4A2A05AE8500642744 /* techminds_tc2007b_501UITestsLaunchTests.swift in Sources */,
 				FBDD5E482A05AE8500642744 /* techminds_tc2007b_501UITests.swift in Sources */,
 			);
