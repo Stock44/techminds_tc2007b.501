@@ -31,6 +31,15 @@ struct AccountInfoView: View {
                             .background(Color("primary"))
                             .cornerRadius(16)
                             .frame(maxWidth: 700)
+                    }else if nonMatchingPasswords == true{
+                        Text("Las contraseñas no coinciden")
+                            .typography(.callout)
+                            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.white)
+                            .background(Color("primary"))
+                            .cornerRadius(16)
+                            .frame(maxWidth: 700)
                     }
                     LabelledTextBox(label: "Nombre", placeholder: "Campo requerido",content: $viewModel.userProperties.name)
                         .frame(maxWidth: 700)
@@ -52,26 +61,27 @@ struct AccountInfoView: View {
                     if viewModel.password != "" || viewModel.email != ""{
                         if viewModel.password == passwordConfirmation {
                             popup = true
+                            nonMatchingPasswords = false
                         } else {
                             nonMatchingPasswords = true
                         }
-                        
                     }
                     viewModel.update()
                 }
                 .frame(maxWidth: 700)
-                .sheet(isPresented: $popup) {
-                    VerifyPopUp(viewModel: viewModel)
+                .popover(isPresented: $exito) {
+                    ZStack {
+                        Color("primary lighter")
+                            .scaleEffect(1.5)
+                        Text("Cambios guardados con éxito")
+                            .typography(.callout)
+                            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color("primary"))
+                    }
                 }
-                .alert(isPresented: $exito){
-                    Alert(
-                        title: Text("Operación exitosa"),
-                        message: Text( "Datos guardados correctamente")
-                    )
-                }
-                .alert(isPresented: $nonMatchingPasswords) {
-                    Alert(title: Text("Contraseñas no coinciden"),
-                          message: Text("Intentalo de nuevo"))
+                .popover(isPresented: $popup) {
+                   VerifyPopUp(viewModel: viewModel)
                 }
                 .padding(.bottom, 100)
             }
