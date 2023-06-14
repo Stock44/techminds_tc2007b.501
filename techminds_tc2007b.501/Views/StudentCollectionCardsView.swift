@@ -16,7 +16,7 @@ struct StudentCollectionCardsView: View {
             CardView(viewModel: $0, customColor: Color(cgColor: viewModel.collection.color.cgColor))
         }
         .onAppear {
-            viewModel.getCardsWithImages()
+            viewModel.getCards()
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {

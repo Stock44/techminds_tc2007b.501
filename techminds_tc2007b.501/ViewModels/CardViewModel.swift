@@ -62,6 +62,11 @@ class CardViewModel: ViewableCardViewModel, Identifiable, Hashable {
     }
     
     @MainActor
+    func unloadImage() {
+        cardImageRepository.unloadImage(imageID: card.imageID)
+    }
+    
+    @MainActor
     static func == (lhs: CardViewModel, rhs: CardViewModel) -> Bool {
         return lhs.id == rhs.id
     }
