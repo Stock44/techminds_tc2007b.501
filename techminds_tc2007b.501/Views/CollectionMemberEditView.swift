@@ -46,7 +46,9 @@ struct CollectionMemberEditView<ViewModel: EditableCollectionMembers>: View {
             .onAppear {
                 cardListViewModel.getAllOnce()
             }
-            
+            FilledButton(labelText: "Guardar") {
+                print("guardado")
+            }
         }
         
     }
