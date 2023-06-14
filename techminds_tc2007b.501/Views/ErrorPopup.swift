@@ -12,10 +12,10 @@ struct ErrorPopup: View {
     var body: some View {
         Text(label)
             .typography(.callout)
+            .frame(maxWidth: .infinity)
             .foregroundColor(.white)
-            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-            .background(.black)
-            .cornerRadius(8)
+            .background(Color("primary"))
+            .cornerRadius(16)
     }
 }
 

@@ -15,6 +15,7 @@ struct Filter<TargetView: View>: View {
     @State private var num1 = 0
     @State private var num2 = 0
     @State private var cleared = false
+    @State private var error = false
     
     init(@ViewBuilder target: @escaping () -> TargetView) {
         self.target = target
@@ -46,6 +47,7 @@ struct Filter<TargetView: View>: View {
 
             Button {
                 cleared = resultado == String(answer(num1: num1, num2: num2))
+                error = !cleared
             }label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
@@ -57,9 +59,27 @@ struct Filter<TargetView: View>: View {
                 }
             }
             
+            ZStack {
+                Rectangle()
+                .fill(.background)
+                .frame(maxWidth: .infinity, maxHeight: 300)
+                if error == true {
+                    Text("Resultado incorrecto")
+                        .typography(.callout)
+                        .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                        .frame(maxWidth: 300)
+                        .foregroundColor(.white)
+                        .background(Color("primary"))
+                        .cornerRadius(16)
+                }
+            }
+            .onTapGesture {
+                error = false
+            }
             NavigationLink("", destination: target(), isActive: $cleared)
 
         }
+        .padding()
         .onAppear{
             num1 = number1()
             num2 = number2()
