@@ -14,6 +14,7 @@ struct CardCreationView: View {
     @State private var imageSelection: PhotosPickerItem?
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) var dismiss
+    @State private var incomplete = false
     
     var body: some View {
         
@@ -50,8 +51,23 @@ struct CardCreationView: View {
             }
             
             FilledButton(labelText: "Guardar cambios") {
-                viewModel.create()
-                dismiss()
+                if viewModel.card.name == "" || imageSelection == nil{
+                    incomplete = true
+                } else {
+                    viewModel.create()
+                    dismiss()
+                }
+            }
+            .popover(isPresented: $incomplete) {
+                ZStack {
+                    Color("primary lighter")
+                        .scaleEffect(1.5)
+                    Text("Datos insuficientes")
+                        .typography(.callout)
+                        .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color("primary"))
+                }
             }
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
