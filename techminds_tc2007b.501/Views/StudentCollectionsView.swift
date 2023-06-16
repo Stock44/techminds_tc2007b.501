@@ -13,7 +13,9 @@ struct StudentCollectionsView: View {
     var body: some View {
         UserDataGrid(viewModel.collectionViewModels.filter {
             $0.collection.enabled
-        }, emptyLabel: "No has creado ninguna colección.") { collection in
+        }.sorted(by: { v1, v2 in
+            v1.collection.name < v2.collection.name
+        }), emptyLabel: "No has creado ninguna colección.") { collection in
             NavigationLink {
                 StudentCollectionCardsView(viewModel: collection)
             } label: {

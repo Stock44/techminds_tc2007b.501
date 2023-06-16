@@ -16,6 +16,8 @@ struct RegisterView: View {
     
     @State var errorMsg: String? = nil
     
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         GeometryReader { geo in
             HStack {
@@ -34,10 +36,16 @@ struct RegisterView: View {
                             LabelledPasswordBox(label: "Contraseña", placeholder: "Ingresa una contraseña", content: $viewModel.password)
                             LabelledPasswordBox(label: "Confirma tu contraseña", placeholder: "Ingresa la misma contraseña", content: $passwordValidation)
                             FilledButton(labelText: "Registrarse") {
-                                viewModel.create()
+                                Task {
+                                    do {
+                                        try await viewModel.create()
+                                        dismiss()
+                                    } catch {
+        
+                                    }
+                                }
                             }
                         }.frame(maxWidth: 512)
-                        
                     }
                         .offset(y: geo.size.height/30)
                         .padding(EdgeInsets(top: 0, leading: 64, bottom: 0, trailing: 64))

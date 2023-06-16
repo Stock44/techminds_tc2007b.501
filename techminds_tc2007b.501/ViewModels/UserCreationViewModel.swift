@@ -16,21 +16,12 @@ class UserCreationViewModel: ObservableObject{
     @Published @MainActor var userProperties = UserProperties()
     @Published @MainActor private(set) var error: Error?
     
-    @MainActor
-    func create() {
-        guard userProperties.id == nil else {
-            self.error = RepositoryError.alreadyExists
-            return
+    func create() async throws {
+        guard await userProperties.id == nil else {
+            throw RepositoryError.alreadyExists
         }
         
-        Task {
-            do {
-                try await userRepository.register(email: email, password: password)
-                try await userPropertiesRepository.setUserProperties(userProperties: userProperties)
-                self.error = nil
-            } catch  {
-                self.error = error
-            }
-        }
+        try await userRepository.register(email: email, password: password)
+        try await userPropertiesRepository.setUserProperties(userProperties: userProperties)
     }
 }

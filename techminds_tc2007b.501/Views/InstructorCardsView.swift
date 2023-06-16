@@ -25,7 +25,9 @@ struct InstructorCardsView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             
-            ForEach([CardViewModel](viewModel.cardViewModels)) { card in
+            ForEach(viewModel.cardViewModels.sorted(by: { v1, v2 in
+                v1.card.name < v2.card.name
+            })) { card in
                 HStack(alignment: .center, spacing: 32) {
                     Text(card.card.name)
                     

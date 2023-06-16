@@ -28,7 +28,9 @@ struct InstructorCollectionsView: View {
                 
             }
             
-            ForEach([CollectionViewModel](viewModel.collectionViewModels), id: \.id) { collection in
+            ForEach(viewModel.collectionViewModels.sorted(by: { v1, v2 in
+                v1.collection.name < v2.collection.name
+            }), id: \.id) { collection in
                 let editCollection = CollectionEditingViewModel(collection: collection.collection)
                 HStack(alignment: .center, spacing: 32) {
                     Circle()

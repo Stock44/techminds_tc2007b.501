@@ -12,7 +12,9 @@ struct StudentCollectionCardsView: View {
     @State private var isEditing = false
     
     var body: some View {
-        UserDataGrid([CardViewModel](viewModel.cards), emptyLabel: "No hay tarjetas en esta colección.") {
+        UserDataGrid(viewModel.cards.sorted(by: { v1, v2 in
+            v1.card.name < v2.card.name
+        }), emptyLabel: "No hay tarjetas en esta colección.") {
             CardView(viewModel: $0, customColor: Color(cgColor: viewModel.collection.color.cgColor))
         }
         .onAppear {

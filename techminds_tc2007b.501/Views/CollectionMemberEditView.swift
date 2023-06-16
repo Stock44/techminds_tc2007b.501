@@ -27,7 +27,9 @@ struct CollectionMemberEditView<ViewModel: EditableCollectionMembers>: View {
         if viewModel.cards == nil {
             ProgressView()
         } else {
-                List([CardViewModel](cardListViewModel.cardViewModels), selection: $selection) {
+            List(cardListViewModel.cardViewModels.sorted(by: { v1, v2 in
+                v1.card.name < v2.card.name
+            }), selection: $selection) {
                     Text($0.card.name)
                 }
                 .onChange(of: cardListViewModel.cardViewModels) { newValue in
