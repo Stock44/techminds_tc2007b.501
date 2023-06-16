@@ -53,7 +53,6 @@ struct AccessibilityConfigView: View {
                         } catch {
                             // error...
                         }
-                        
                     }
                     saving = true
                 }
